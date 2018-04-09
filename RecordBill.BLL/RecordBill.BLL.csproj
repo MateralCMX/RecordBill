@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="ApplicationLogBLL.cs" />
     <Compile Include="BaseBLL.cs" />
+    <Compile Include="BillBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TokenBLL.cs" />
     <Compile Include="UserBLL.cs" />

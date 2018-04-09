@@ -90,6 +90,9 @@
     <Compile Include="V_ApplicationLog_Exception.cs">
       <DependentUpon>RecordBillModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="V_Bill.cs">
+      <DependentUpon>RecordBillModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="V_Token.cs">
       <DependentUpon>RecordBillModel.tt</DependentUpon>
     </Compile>

@@ -85,6 +85,24 @@
           <Property Name="FK_Parent_ID" Type="uniqueidentifier" />
         </EntityType>
         <!--生成过程中发现错误:
+警告 6002: 表/视图“RecordBillDB.dbo.V_Bill”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="V_Bill">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="FK_User_ID" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="Contents" />
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="RecordTime" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FK_User_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Contents" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Amount" Type="money" Nullable="false" />
+          <Property Name="RecordTime" Type="date" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
 警告 6002: 表/视图“RecordBillDB.dbo.V_Token”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="V_Token">
           <Key>
@@ -177,6 +195,16 @@
     [V_ApplicationLog_Exception].[CreateTime] AS [CreateTime], 
     [V_ApplicationLog_Exception].[FK_Parent_ID] AS [FK_Parent_ID]
     FROM [dbo].[V_ApplicationLog_Exception] AS [V_ApplicationLog_Exception]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_Bill" EntityType="Self.V_Bill" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_Bill].[ID] AS [ID], 
+    [V_Bill].[FK_User_ID] AS [FK_User_ID], 
+    [V_Bill].[UserName] AS [UserName], 
+    [V_Bill].[Contents] AS [Contents], 
+    [V_Bill].[Amount] AS [Amount], 
+    [V_Bill].[RecordTime] AS [RecordTime]
+    FROM [dbo].[V_Bill] AS [V_Bill]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="V_Token" EntityType="Self.V_Token" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -286,6 +314,7 @@
             <End Role="T_User" EntitySet="T_User" />
             <End Role="T_Token" EntitySet="T_Token" />
           </AssociationSet>
+          <EntitySet Name="V_Bill" EntityType="RecordBillDBModel.V_Bill" />
         </EntityContainer>
         <EntityType Name="T_ApplicationLog">
           <Key>
@@ -399,6 +428,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="V_Bill">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="FK_User_ID" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="Contents" />
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="RecordTime" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="FK_User_ID" Type="Guid" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Contents" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="RecordTime" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -500,6 +545,18 @@
               <MappingFragment StoreEntitySet="V_User">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_Bill">
+            <EntityTypeMapping TypeName="RecordBillDBModel.V_Bill">
+              <MappingFragment StoreEntitySet="V_Bill">
+                <ScalarProperty Name="RecordTime" ColumnName="RecordTime" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Contents" ColumnName="Contents" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FK_User_ID" ColumnName="FK_User_ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

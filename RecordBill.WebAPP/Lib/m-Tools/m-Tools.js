@@ -1,7 +1,6 @@
-//启用严格模式
 'use strict';
-var Materal;
-(function (Materal) {
+var MateralTools;
+(function (MateralTools) {
     /**
      * 普通工具类
      */
@@ -34,19 +33,19 @@ var Materal;
         };
         /**
          * 判断字符串是否为空字符串
-         * @param Str 字符串
+         * @param str 字符串
          * @returns 是否为空字符串
          */
-        ToolManager.IsEmpty = function (Str) {
-            return Str === "";
+        ToolManager.IsEmpty = function (str) {
+            return str === "";
         };
         /**
          * 判断字符串是否为Null或Undefined或空字符串
-         * @param Str 字符串
+         * @param str 字符串
          * @returns 是否为Null或Undefined或空字符串
          */
-        ToolManager.IsNullOrUndefinedOrEmpty = function (Str) {
-            return this.IsNull(Str) || this.IsUndefined(Str) || this.IsEmpty(Str);
+        ToolManager.IsNullOrUndefinedOrEmpty = function (str) {
+            return this.IsNull(str) || this.IsUndefined(str) || this.IsEmpty(str);
         };
         /**
          * 鉴别类型
@@ -56,43 +55,38 @@ var Materal;
          */
         ToolManager.GetType = function (obj, IncludeCustom) {
             if (IncludeCustom === void 0) { IncludeCustom = true; }
-            var Lowercase = true;
             var resStr = typeof obj;
             if (resStr === "object") {
                 if (this.IsNull(obj)) {
                     resStr = "null";
                 }
                 else {
-                    Lowercase = false;
                     resStr = Object.prototype.toString.call(obj).slice(8, -1);
                     if (resStr === "Object" && !this.IsNullOrUndefined(obj.constructor) && obj.constructor.name != "Object" && IncludeCustom) {
                         resStr = obj.constructor.name;
                     }
                 }
             }
-            if (!this.IsNullOrUndefinedOrEmpty(resStr) && Lowercase) {
-                resStr = resStr.toLowerCase();
-            }
-            return resStr;
+            return resStr.toLowerCase();
         };
         /**
          * 删除字符串两端空格
-         * @param Str 要删除空格的字符串
+         * @param str 要删除空格的字符串
          * @returns 已删除空格的字符串
          */
-        ToolManager.Trim = function (Str) {
+        ToolManager.Trim = function (str) {
             if (this.IsNullOrUndefined(String.prototype.trim)) {
-                while (Str.substr(0, 1) === " ") {
-                    Str = Str.substr(1, Str.length - 1);
+                while (str.substr(0, 1) === " ") {
+                    str = str.substr(1, str.length - 1);
                 }
-                while (Str.substr(Str.length - 2, 1) === " ") {
-                    Str = Str.substr(0, Str.length - 2);
+                while (str.substr(str.length - 2, 1) === " ") {
+                    str = str.substr(0, str.length - 2);
                 }
             }
             else {
-                Str = Str.trim();
+                str = str.trim();
             }
-            return Str;
+            return str;
         };
         /**
          * 获得URL参数
@@ -118,45 +112,30 @@ var Materal;
             return params;
         };
         /**
-         * 补位
-         * @param Str 要补位的字符串
-         * @param Length 长度
-         * @param CoverStr 补位字符
-         * @param IsFront 前置补位
+         * 左侧填充字符
+         * @param str 原字符串
+         * @param length 位数
+         * @param character 填充字符
          */
-        ToolManager.StrCover = function (Str, Length, CoverStr, IsFront) {
-            if (IsFront === void 0) { IsFront = true; }
-            for (var i = Str.length; i < Length; i++) {
-                if (IsFront === true) {
-                    Str = CoverStr + Str;
-                }
-                else {
-                    Str = Str + CoverStr;
-                }
+        ToolManager.PadLeft = function (str, length, character) {
+            if (character === void 0) { character = " "; }
+            for (var i = str.length; i < length; i++) {
+                str = character + str;
             }
-            return Str;
+            return str;
         };
         /**
-         * 隐藏代码
-         * @param CodeStr 要隐藏的代码
-         * @returns 隐藏后的代码
+         * 右侧填充字符
+         * @param str 原字符串
+         * @param length 位数
+         * @param character 填充字符
          */
-        ToolManager.HideCode = function (CodeStr) {
-            var resStr = EncryptionManager.ConvertToBinary(CodeStr);
-            resStr = resStr.replace(/0/g, "\u200d");
-            resStr = resStr.replace(/1/g, "\u200c");
-            return resStr;
-        };
-        /**
-         * 显示代码
-         * @param CodeStr 被隐藏的代码
-         * @returns 显示的代码
-         */
-        ToolManager.ShowCode = function (CodeStr) {
-            var resStr = CodeStr.replace(/.{8}/g, function (u) {
-                return String.fromCharCode(parseInt(u.replace(/\u200c/g, "1").replace(/\u200d/g, "0"), 2));
-            });
-            return resStr;
+        ToolManager.PadRight = function (str, length, character) {
+            if (character === void 0) { character = " "; }
+            for (var i = str.length; i < length; i++) {
+                str = str + character;
+            }
+            return str;
         };
         /**
          * 获得时间差
@@ -164,23 +143,23 @@ var Materal;
          * @param date2 时间2
          * @param TimeType 返回类型[ms毫秒s秒m分钟H小时D天数]
          */
-        ToolManager.GetTimeDifference = function (date1, date2, TimeType) {
-            if (TimeType === void 0) { TimeType = "s"; }
+        ToolManager.GetTimeDifference = function (date1, date2, timeType) {
+            if (timeType === void 0) { timeType = TimeType.Seconds; }
             var timeDifference = date1.getTime() - date2.getTime();
-            switch (TimeType) {
-                case "D":
+            switch (timeType) {
+                case TimeType.Day:
                     timeDifference = Math.floor(timeDifference / (24 * 3600 * 1000));
                     break;
-                case "H":
+                case TimeType.Hours:
                     timeDifference = Math.floor(timeDifference / (3600 * 1000));
                     break;
-                case "m":
+                case TimeType.Minutes:
                     timeDifference = Math.floor(timeDifference / (60 * 1000));
                     break;
-                case "s":
+                case TimeType.Seconds:
                     timeDifference = Math.floor(timeDifference / 1000);
                     break;
-                case "ms":
+                case TimeType.Milliseconds:
                     timeDifference = timeDifference;
                     break;
                 default:
@@ -189,295 +168,143 @@ var Materal;
         };
         /**
          * 时间字符串格式化
-         * @param DateTime 时间对象
-         * @param FormatStr 格式化字符串
+         * @param dateTime 时间对象
+         * @param formatStr 格式化字符串
          */
-        ToolManager.DateTimeFormat = function (DateTime, FormatStr) {
+        ToolManager.DateTimeFormat = function (dateTime, formatStr) {
             var formatData = {
-                "M+": DateTime.getMonth() + 1,
-                "d+": DateTime.getDate(),
-                "H+": DateTime.getHours(),
-                "m+": DateTime.getMinutes(),
-                "s+": DateTime.getSeconds(),
-                "q+": Math.floor((DateTime.getMonth() + 3) / 3),
-                "S": DateTime.getMilliseconds() //毫秒 
+                "M+": dateTime.getMonth() + 1,
+                "d+": dateTime.getDate(),
+                "H+": dateTime.getHours(),
+                "m+": dateTime.getMinutes(),
+                "s+": dateTime.getSeconds(),
+                "q+": Math.floor((dateTime.getMonth() + 3) / 3),
+                "S": dateTime.getMilliseconds() //毫秒 
             };
-            if (/(y+)/.test(FormatStr)) {
-                FormatStr = FormatStr.replace(RegExp.$1, (DateTime.getFullYear() + "").substr(4 - RegExp.$1.length));
+            if (/(y+)/.test(formatStr)) {
+                formatStr = formatStr.replace(RegExp.$1, (dateTime.getFullYear() + "").substr(4 - RegExp.$1.length));
             }
             for (var data in formatData) {
-                if (new RegExp("(" + data + ")").test(FormatStr)) {
-                    FormatStr = FormatStr.replace(RegExp.$1, (RegExp.$1.length == 1) ? (formatData[data]) : (("00" + formatData[data]).substr(("" + formatData[data]).length)));
+                if (new RegExp("(" + data + ")").test(formatStr)) {
+                    formatStr = formatStr.replace(RegExp.$1, (RegExp.$1.length == 1) ? (formatData[data]) : (("00" + formatData[data]).substr(("" + formatData[data]).length)));
                 }
             }
-            return FormatStr;
+            return formatStr;
         };
         /**
-         * 获取Input DateTime设置值字符串
-         * @param DateTime 要设置的时间
+         * 获取Input dateTime设置值字符串
+         * @param dateTime 要设置的时间
          */
-        ToolManager.GetInputDateTimeValueStr = function (DateTime) {
-            return ToolManager.DateTimeFormat(DateTime, "yyyy-MM-ddTHH:mm:ss");
-        };
-        /**
-         * 设置Input DateTime的值
-         * @param ID 要设置值的ID
-         * @param DateTime 要设置的时间
-         */
-        ToolManager.SetInputDateTimeValue = function (ID, DateTime) {
-            var element = DOMManager.$(ID);
-            if (!ToolManager.IsNullOrUndefined(element)) {
-                element.value = ToolManager.GetInputDateTimeValueStr(DateTime);
-            }
+        ToolManager.GetInputDateTimeValueStr = function (dateTime) {
+            return ToolManager.DateTimeFormat(dateTime, "yyyy-MM-ddTHH:mm:ss");
         };
         return ToolManager;
     }());
-    Materal.ToolManager = ToolManager;
-    /**
-     * 对象帮助类
-     */
-    var ObjectManager = /** @class */ (function () {
-        function ObjectManager() {
-        }
-        /**
-         * 克隆对象
-         * @param obj 要克隆的对象
-         */
-        ObjectManager.Clone = function (obj) {
-            var ObjectType = ToolManager.GetType(obj, false);
-            var result;
-            if (ObjectType == "object") {
-                result = new Object();
-            }
-            else if (ObjectType == "array") {
-                result = new Array();
-            }
-            else {
-                result = obj;
-            }
-            for (var i in obj) {
-                var copy = obj[i];
-                var SubObjectType = ToolManager.GetType(copy, false);
-                if (SubObjectType == "object" || SubObjectType == "array") {
-                    result[i] = arguments.callee(copy);
-                }
-                else {
-                    result[i] = copy;
-                }
-            }
-            return result;
-        };
-        return ObjectManager;
-    }());
-    Materal.ObjectManager = ObjectManager;
-    /**
-     * 数组帮助类
-     */
-    var ArrayManager = /** @class */ (function () {
-        function ArrayManager() {
-        }
-        /**
-         * 查询所在数组的位序
-         * @param array 要查询的数组
-         * @param item 要查询的对象
-         * @returns 位序
-         */
-        ArrayManager.ArrayIndexOf = function (array, item, formIndex) {
-            if (formIndex === void 0) { formIndex = 0; }
-            var Index = -1;
-            if (ToolManager.IsNullOrUndefined(array.indexOf)) {
-                for (var i = formIndex; i < array.length; i++) {
-                    if (array[i] == item) {
-                        Index = i;
-                    }
-                }
-            }
-            else {
-                Index = array.indexOf(item, formIndex);
-            }
-            return Index;
-        };
-        /**
-         * 清空数组
-         * @param array 要清空的数组
-         * @returns 清空后的数组
-         */
-        ArrayManager.ArrayClear = function (array) {
-            array.splice(0, array.length);
-            return array;
-        };
-        /**
-         * 插入数组
-         * @param array 要插入的数组
-         * @param Index 要插入的对象
-         * @returns 插入后的数组
-         */
-        ArrayManager.ArrayInsert = function (array, item, Index) {
-            array.splice(Index, 0, item);
-            return array;
-        };
-        /**
-         * 删除数组
-         * @param array 要删除的数组
-         * @param Index 要删除的位序
-         * @returns 删除后的数组
-         */
-        ArrayManager.ArrayRemoveTo = function (array, Index) {
-            array.splice(Index, 1);
-            return array;
-        };
-        /**
-         * 删除数组
-         * @param array 要删除的数组
-         * @param item 要删除的对象
-         * @returns 删除后的数组
-         */
-        ArrayManager.ArrayRemove = function (array, item) {
-            var Index = this.ArrayIndexOf(array, item);
-            if (Index >= 0) {
-                this.ArrayRemoveTo(array, Index);
-            }
-            return array;
-        };
-        /**
-         * 删除所有数组
-         * @param array 要删除的数组
-         * @param item 要删除的对象
-         * @returns 删除后的数组
-         */
-        ArrayManager.ArrayRomeveAll = function (array, item) {
-            var Index = this.ArrayIndexOf(array, item);
-            while (Index >= 0) {
-                this.ArrayRemoveTo(array, Index);
-                Index = this.ArrayIndexOf(array, item);
-            }
-            return array;
-        };
-        return ArrayManager;
-    }());
-    Materal.ArrayManager = ArrayManager;
+    MateralTools.ToolManager = ToolManager;
     /**
      * DOM帮助类
      */
     var DOMManager = /** @class */ (function () {
         function DOMManager() {
         }
-        DOMManager.$ = function (id) {
-            var element;
-            if (ToolManager.GetType(id) === "string") {
-                element = document.getElementById(id);
+        /**
+         * 根据页面元素对象获得页面元素对象
+         * @param element 页面元素
+         * @returns 页面元素对象
+         */
+        DOMManager.$ = function (element) {
+            if (ToolManager.GetType(element) === "string") {
+                element = document.getElementById(element);
             }
             else {
-                element = id;
+                element = element;
             }
             return element;
         };
-        DOMManager.GetClass = function (id) {
-            var ClassList = new Array();
-            var element = this.$(id);
-            if (!ToolManager.IsNullOrUndefined(element)) {
-                var ClassStr = element.getAttribute("class");
-                if (!ToolManager.IsNullOrUndefinedOrEmpty(ClassStr)) {
-                    ClassStr = ClassStr.replace(/\s{2,}/g, " ");
-                    ClassStr = ToolManager.Trim(ClassStr);
-                    ClassList = ClassStr.split(" ");
-                }
-            }
-            return ClassList;
-        };
-        DOMManager.SetClass = function (id, ClassName) {
-            var resM = false;
-            var element = this.$(id);
+        /**
+         * 设置样式
+         * @param element 页面元素
+         * @param className 要设置的样式列表
+         */
+        DOMManager.SetClass = function (element, className) {
+            element = this.$(element);
             if (!ToolManager.IsNullOrUndefined(element)) {
                 var classStr = "";
-                var TypeStr = ToolManager.GetType(ClassName);
+                var TypeStr = ToolManager.GetType(className);
                 var ClassList = void 0;
                 if (TypeStr === "string") {
-                    classStr = ClassName.replace(/\s{2,}/g, " ");
+                    classStr = className.replace(/\s{2,}/g, " ");
                     classStr = ToolManager.Trim(classStr);
                 }
                 else if (TypeStr === "Array") {
-                    classStr = ClassName.join(" ");
+                    classStr = className.join(" ");
                 }
                 if (!ToolManager.IsNullOrUndefinedOrEmpty(classStr)) {
                     element.setAttribute("class", classStr);
-                    resM = true;
                 }
+                else {
+                    element.removeAttribute("class");
+                }
+            }
+        };
+        /**
+         * 添加样式
+         * @param id 页面元素ID
+         * @param className 要添加的样式
+         */
+        DOMManager.AddClass = function (element, className) {
+            element = this.$(element);
+            if (ToolManager.GetType(className) === "string") {
+                className = className.split(" ");
+            }
+            for (var i = 0; i < className.length; i++) {
+                element.classList.add(className[i]);
+            }
+        };
+        /**
+         * 删除样式
+         * @param element 页面元素
+         * @param className 要删除的样式列表
+         */
+        DOMManager.RemoveClass = function (element, className) {
+            element = this.$(element);
+            if (ToolManager.GetType(className) === "string") {
+                className = className.split(" ");
+            }
+            for (var i = 0; i < className.length; i++) {
+                element.classList.remove(className[i]);
+            }
+        };
+        /**
+         * 是否有拥有样式
+         * @param element 页面元素
+         * @param className 要查找的样式列表
+         * @returns 查询结果
+         */
+        DOMManager.HasClass = function (element, className) {
+            var resM = true;
+            element = this.$(element);
+            if (ToolManager.GetType(className) === "string") {
+                className = className.split(" ");
+            }
+            for (var i = 0; i < className.length && resM; i++) {
+                resM = element.classList.contains(className[i]);
             }
             return resM;
         };
-        DOMManager.AddClass = function (element, ClassName) {
-            var resM = false;
-            if (!ToolManager.IsNullOrUndefinedOrEmpty(ClassName)) {
-                var ClassList = this.GetClass(element);
-                if (!ToolManager.IsNullOrUndefined(ClassList) && ToolManager.GetType(ClassList) === "Array") {
-                    var AddClassList = void 0;
-                    var TypeStr = ToolManager.GetType(ClassName);
-                    if (TypeStr === "string") {
-                        var ClassStr = ClassName.replace(/\s{2,}/g, " ");
-                        ClassStr = ToolManager.Trim(ClassStr);
-                        AddClassList = ClassStr.split(" ");
-                    }
-                    else if (TypeStr === "Array") {
-                        AddClassList = ClassName;
-                    }
-                    if (!ToolManager.IsNullOrUndefined(AddClassList) && ToolManager.GetType(AddClassList) === "Array") {
-                        for (var i = 0; i < AddClassList.length; i++) {
-                            if (ArrayManager.ArrayIndexOf(ClassList, AddClassList[i]) < 0) {
-                                ClassList.push(AddClassList[i]);
-                            }
-                        }
-                        resM = this.SetClass(element, ClassList);
-                    }
-                }
-            }
-            return resM;
-        };
-        DOMManager.RemoveClass = function (element, ClassName) {
-            var resM = false;
-            var ClassList = this.GetClass(element);
-            var RemoveClassList;
-            if (ToolManager.GetType(ClassName) === "string") {
-                var ClassStr = ClassName.replace(/\s{2,}/g, " ");
-                ClassStr = ToolManager.Trim(ClassStr);
-                RemoveClassList = ClassStr.split(" ");
-            }
-            else {
-                RemoveClassList = ClassName;
-            }
-            for (var i = 0; i < RemoveClassList.length; i++) {
-                ArrayManager.ArrayRemove(ClassList, RemoveClassList[i]);
-            }
-            resM = this.SetClass(element, ClassList);
-            return resM;
-        };
-        DOMManager.HasClass = function (element, ClassName) {
-            var ClassList = this.GetClass(element);
-            var QueryList;
-            if (ToolManager.GetType(ClassName) === "string") {
-                var ClassStr = ClassName.replace(/\s{2,}/g, " ");
-                ClassStr = ToolManager.Trim(ClassStr);
-                QueryList = ClassStr.split(" ");
-            }
-            else {
-                QueryList = ClassName;
-            }
-            var IsHave = true;
-            for (var i = 0; i < QueryList.length; i++) {
-                IsHave = ClassList.indexOf(QueryList[i]) > -1;
-                if (!IsHave) {
-                    break;
-                }
-            }
-            return IsHave;
-        };
-        DOMManager.GetElementsByClassName = function (id, className) {
-            var element = this.$(id);
+        /**
+         * 根据ClassName获得元素对象
+         * @param element 父元素
+         * @param className ClassName
+         * @returns Element集合
+         */
+        DOMManager.GetElementsByClassName = function (element, className) {
+            element = this.$(element);
             var resultM = new Array();
             var elements;
             if (!ToolManager.IsNullOrUndefined(element)) {
-                if (!ToolManager.IsNullOrUndefined(element.getElementsByClassName)) {
-                    elements = element.getElementsByClassName(className);
+                if (!ToolManager.IsNullOrUndefined(element["getElementsByClassName"])) {
+                    elements = element["getElementsByClassName"](className);
                     return elements;
                 }
                 else {
@@ -490,6 +317,7 @@ var Materal;
                     return resultM;
                 }
             }
+            return null;
         };
         /**
          * 获得事件触发元素
@@ -497,25 +325,39 @@ var Materal;
          * @returns 触发元素
          */
         DOMManager.GetEventTarget = function (event) {
-            return event.srcElement || event.target;
+            return event["srcElement"] || event["target"];
         };
-        DOMManager.AddEvent = function (id, type, fun) {
-            var element = this.$(id);
-            if (!ToolManager.IsNullOrUndefined(element) && !ToolManager.IsNullOrUndefined(type) && !ToolManager.IsNullOrUndefined(fun)) {
-                if (!ToolManager.IsNullOrUndefined(element.addEventListener)) {
-                    element.addEventListener(type, fun);
+        /**
+         * 添加事件
+         * @param thisWindow window对象
+         * @param type 事件类型
+         * @param fun 执行方法
+         */
+        DOMManager.AddEvent = function (element, type, fun) {
+            var typeName = ToolManager.GetType(element);
+            if (ToolManager.GetType(element) === "string" || ToolManager.GetType(element) === "HTMLElement") {
+                element = this.$(element);
+            }
+            if (!ToolManager.IsNullOrUndefined(element)) {
+                if (!ToolManager.IsNullOrUndefined(element["addEventListener"])) {
+                    element["addEventListener"](type, fun);
                 }
-                else if (!ToolManager.IsNullOrUndefined(element["attachEvent"])) {
+                else {
                     element["attachEvent"]("on" + type, fun);
                 }
             }
         };
-        DOMManager.GetChildren = function (id) {
+        /**
+         * 获得子节点
+         * @param element 父元素
+         * @returns 子节点
+         */
+        DOMManager.GetChildren = function (element) {
             var children;
-            var element = this.$(id);
+            element = this.$(element);
             if (!ToolManager.IsNullOrUndefined(element)) {
-                if (!ToolManager.IsNullOrUndefined(element.children)) {
-                    children = element.children;
+                if (element["children"]) {
+                    children = element["children"];
                 }
                 else {
                     children = new Array();
@@ -529,9 +371,14 @@ var Materal;
             }
             return children;
         };
-        DOMManager.GetDataSet = function (id) {
+        /**
+         * 获得自定义属性
+         * @param element 父节点
+         * @returns 自定义属性
+         */
+        DOMManager.GetDataSet = function (element) {
             var DataSet;
-            var element = this.$(id);
+            element = this.$(element);
             if (!ToolManager.IsNullOrUndefined(element)) {
                 if (!ToolManager.IsNullOrUndefined(element.dataset)) {
                     DataSet = element.dataset;
@@ -550,10 +397,15 @@ var Materal;
                 return DataSet;
             }
         };
-        DOMManager.GetComputedStyle = function (id) {
-            var element = this.$(id);
+        /**
+         * 获得元素的实际样式
+         * @param element 元素
+         * @returns 实际样式
+         */
+        DOMManager.GetComputedStyle = function (element) {
+            element = this.$(element);
             var cssStyle;
-            if (!ToolManager.IsNullOrUndefined(element["currentStyle"])) {
+            if (element["currentStyle"]) {
                 cssStyle = element["currentStyle"];
             }
             else {
@@ -561,360 +413,124 @@ var Materal;
             }
             return cssStyle;
         };
+        /**
+         * 设置<input type="date|time|datetime|datetime-local">的值
+         * @param element 要设置的对象
+         * @param dateTime 要设置的时间
+         */
+        DOMManager.SetInputDateTimeValue = function (element, dateTime) {
+            element = this.$(element);
+            if (!ToolManager.IsNullOrUndefined(element)) {
+                var elementType = element.getAttribute("type");
+                if (elementType === "date" || elementType === "time" || elementType === "datetime" || elementType === "datetime-local") {
+                    element.value = ToolManager.GetInputDateTimeValueStr(dateTime);
+                }
+            }
+        };
+        /**
+         * 获得输入的值
+         * @param element 元素对象
+         */
+        DOMManager.GetInputValue = function (element) {
+            element = DOMManager.$(element);
+            if (!ToolManager.IsNullOrUndefined(element["value"])) {
+                return element["value"];
+            }
+            return null;
+        };
         return DOMManager;
     }());
-    Materal.DOMManager = DOMManager;
+    MateralTools.DOMManager = DOMManager;
     /**
-     *JSON帮助类
+     * 数组帮助类
      */
-    var JsonManager = /** @class */ (function () {
-        function JsonManager() {
+    var ArrayManager = /** @class */ (function () {
+        function ArrayManager() {
         }
         /**
-         * Json字符串转换为Json对象
-         * @param JsonStr Json字符串
-         * @returns Json对象
+         * 查询所在数组的位序
+         * @param array 要查询的数组
+         * @param item 要查询的对象
+         * @returns 位序
          */
-        JsonManager.JSONParse = function (JsonStr) {
-            var resM;
-            if (!ToolManager.IsNullOrUndefined(JSON.parse)) {
-                resM = JSON.parse(JsonStr);
+        ArrayManager.ArrayIndexOf = function (array, item, formIndex) {
+            if (formIndex === void 0) { formIndex = 0; }
+            var index = -1;
+            if (ToolManager.IsNullOrUndefined(array.indexOf)) {
+                for (var i = formIndex; i < array.length; i++) {
+                    if (array[i] == item) {
+                        index = i;
+                    }
+                }
             }
             else {
-                resM = eval("(" + JsonStr + ")");
+                index = array.indexOf(item, formIndex);
             }
-            return resM;
+            return index;
         };
         /**
-         * Json对象转换为Json字符串
-         * @param JsonObj Json对象
-         * @returns Json字符串
+         * 清空数组
+         * @param array 要清空的数组
+         * @returns 清空后的数组
          */
-        JsonManager.JSONStringify = function (JsonObj) {
-            var resM;
-            if (!ToolManager.IsNullOrUndefined(JSON.stringify)) {
-                resM = JSON.stringify(JsonObj);
-            }
-            else {
-                var IsArray = void 0;
-                var TypeStr = void 0;
-                for (var key in JsonObj) {
-                    IsArray = false;
-                    TypeStr = ToolManager.GetType(JsonObj[key]);
-                    if (JsonObj instanceof Array) {
-                        IsArray = true;
-                    }
-                    if (TypeStr == "string") {
-                        if (IsArray) {
-                            resM += "\"" + JsonObj[key].toString() + "\",";
-                        }
-                        else {
-                            resM += "\"" + key + "\":\"" + JsonObj[key].toString() + "\",";
-                        }
-                    }
-                    else if (JsonObj[key] instanceof RegExp) {
-                        if (IsArray) {
-                            resM += JsonObj[key].toString() + ",";
-                        }
-                        else {
-                            resM += "\"" + key + "\":\"" + JsonObj[key].toString() + "\",";
-                        }
-                    }
-                    else if (JsonObj[key] instanceof Array) {
-                        resM += "\"" + key + "\":" + this.JSONStringify(JsonObj[key]) + ",";
-                    }
-                    else if (TypeStr == "boolean") {
-                        if (IsArray) {
-                            resM += JsonObj[key].toString() + ",";
-                        }
-                        else {
-                            resM += "\"" + key + "\":" + JsonObj[key].toString() + ",";
-                        }
-                    }
-                    else if (TypeStr == "number") {
-                        if (IsArray) {
-                            resM += JsonObj[key].toString() + ",";
-                        }
-                        else {
-                            resM += "\"" + key + "\":" + JsonObj[key].toString() + ",";
-                        }
-                    }
-                    else if (JsonObj[key] instanceof Object) {
-                        if (IsArray) {
-                            resM += this.JSONStringify(JsonObj[key]) + ",";
-                        }
-                        else {
-                            resM += "\"" + key + "\":" + this.JSONStringify(JsonObj[key]) + ",";
-                        }
-                    }
-                    else if (!JsonObj[key] || JsonObj[key] instanceof Function) {
-                        if (IsArray) {
-                            resM += "null,";
-                        }
-                        else {
-                            resM += "\"" + key + "\":null,";
-                        }
-                    }
-                }
-                if (IsArray) {
-                    resM = "[" + resM.slice(0, -1) + "]";
-                }
-                else {
-                    resM = "{" + resM.slice(0, -1) + "}";
-                }
-            }
-            return resM;
+        ArrayManager.ArrayClear = function (array) {
+            array.splice(0, array.length);
+            return array;
         };
-        return JsonManager;
+        /**
+         * 插入数组
+         * @param array 要插入的数组
+         * @param index 要插入的对象
+         * @returns 插入后的数组
+         */
+        ArrayManager.ArrayInsert = function (array, item, index) {
+            array.splice(index, 0, item);
+            return array;
+        };
+        /**
+         * 删除数组
+         * @param array 要删除的数组
+         * @param index 要删除的位序
+         * @returns 删除后的数组
+         */
+        ArrayManager.ArrayRemoveTo = function (array, index) {
+            var count = array.length;
+            array.splice(index, 1);
+            if (count === array.length && count === 1) {
+                array = [];
+            }
+            return array;
+        };
+        /**
+         * 删除数组
+         * @param array 要删除的数组
+         * @param item 要删除的对象
+         * @returns 删除后的数组
+         */
+        ArrayManager.ArrayRemove = function (array, item) {
+            var index = this.ArrayIndexOf(array, item);
+            if (index >= 0) {
+                this.ArrayRemoveTo(array, index);
+            }
+            return array;
+        };
+        /**
+         * 删除所有数组
+         * @param array 要删除的数组
+         * @param item 要删除的对象
+         * @returns 删除后的数组
+         */
+        ArrayManager.ArrayRomeveAll = function (array, item) {
+            var index = this.ArrayIndexOf(array, item);
+            while (index >= 0) {
+                this.ArrayRemoveTo(array, index);
+                index = this.ArrayIndexOf(array, item);
+            }
+            return array;
+        };
+        return ArrayManager;
     }());
-    Materal.JsonManager = JsonManager;
-    /**
-     * 返回结果枚举
-     */
-    var ResultState;
-    (function (ResultState) {
-        //成功
-        ResultState[ResultState["Success"] = 200] = "Success";
-        //失败
-        ResultState[ResultState["Failure"] = 400] = "Failure";
-        //发生错误
-        ResultState[ResultState["Error"] = 500] = "Error";
-    })(ResultState = Materal.ResultState || (Materal.ResultState = {}));
-    ;
-    /**
-     * 返回模型
-     */
-    var ResultModel = /** @class */ (function () {
-        /**
-         * 构造方法
-         * @param model 返回数据
-         * @param Message 返回信息
-         * @param code 返回代码
-         */
-        function ResultModel(model, Message, code) {
-            if (code === void 0) { code = ResultState.Success; }
-            this.Message = Message;
-            this.Data = model;
-        }
-        Object.defineProperty(ResultModel.prototype, "Code", {
-            get: function () {
-                return this._Code;
-            },
-            set: function (code) {
-                this._Code = code;
-                switch (this._Code) {
-                    case ResultState.Success:
-                        this.CodeMessage = "成功";
-                        break;
-                    case ResultState.Failure:
-                        this.CodeMessage = "失败";
-                        break;
-                    case ResultState.Error:
-                        this.CodeMessage = "错误";
-                        break;
-                }
-            },
-            enumerable: true,
-            configurable: true
-        });
-        /**
-         * 获得一个成功的返回
-         * @param model 返回数据
-         * @param Message 返回信息
-         * @returns
-         */
-        ResultModel.GetSuccessReult = function (model, Message) {
-            if (Message === void 0) { Message = "成功"; }
-            return new ResultModel(model, Message, ResultState.Success);
-        };
-        /**
-         * 获得一个失败的返回
-         * @param model 返回数据
-         * @param Message 返回信息
-         * @returns
-         */
-        ResultModel.GetFailureReult = function (model, Message) {
-            if (Message === void 0) { Message = "失败"; }
-            return new ResultModel(model, Message, ResultState.Failure);
-        };
-        /**
-         * 获得一个错误的返回
-         * @param model 返回数据
-         * @param Message 返回信息
-         * @returns
-         */
-        ResultModel.GetErrorReult = function (model, Message) {
-            if (Message === void 0) { Message = "程序出错了"; }
-            return new ResultModel(model, Message, ResultState.Error);
-        };
-        return ResultModel;
-    }());
-    Materal.ResultModel = ResultModel;
-    /**
-     * Http配置类
-     */
-    var HttpConfigModel = /** @class */ (function () {
-        /**
-         *
-         * @param url
-         * @param type
-         * @param data
-         * @param dataType
-         * @param success
-         * @param error
-         * @param complete
-         */
-        function HttpConfigModel(url, type, data, dataType, success, error, complete) {
-            if (type === void 0) { type = "post"; }
-            if (data === void 0) { data = null; }
-            if (dataType === void 0) { dataType = "json"; }
-            if (success === void 0) { success = null; }
-            if (error === void 0) { error = null; }
-            if (complete === void 0) { complete = null; }
-            //超时时间
-            this.timeout = 15000;
-            //异步发送
-            this.async = true;
-            this.url = url;
-            this.type = type;
-            this.data = data;
-            this.dataType = dataType;
-            this.success = success;
-            this.error = error;
-            this.complete = complete;
-        }
-        return HttpConfigModel;
-    }());
-    Materal.HttpConfigModel = HttpConfigModel;
-    /**
-     * Http帮助类
-     */
-    var HttpManager = /** @class */ (function () {
-        function HttpManager() {
-        }
-        /**
-         * 获取XMLHttpRequest对象
-         * @param config 配置对象
-         * @returns HttpRequest对象
-         */
-        HttpManager.GetHttpRequest = function (config) {
-            var xhr;
-            if (!ToolManager.IsNullOrUndefined(window["XMLHttpRequest"])) {
-                xhr = new XMLHttpRequest();
-            }
-            else {
-                xhr = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            xhr.onreadystatechange = function () {
-                HttpManager.Readystatechange(xhr, config);
-            };
-            return xhr;
-        };
-        /**
-         * 状态更改方法
-         * @param xhr XMLHttpRequest对象
-         * @param config 配置对象
-         */
-        HttpManager.Readystatechange = function (xhr, config) {
-            if (xhr.readyState == 4) {
-                var res = void 0;
-                switch (config.dataType) {
-                    case "json":
-                        res = JsonManager.JSONParse(xhr.responseText);
-                        break;
-                    default:
-                        res = xhr.responseText;
-                        break;
-                }
-                if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
-                    if (config.complete) {
-                        config.complete(xhr, res);
-                    }
-                    if (config.success) {
-                        config.success(res);
-                    }
-                }
-                else {
-                    if (config.complete) {
-                        config.complete(xhr, res);
-                    }
-                    if (config.error) {
-                        config.error(xhr, xhr.status, res);
-                    }
-                }
-            }
-        };
-        /**
-         * 序列化参数
-         * @param data 要序列化的参数
-         * @returns 序列化后的字符串
-         */
-        HttpManager.serialize = function (data) {
-            var result = new Array();
-            var value = "";
-            for (var name_1 in data) {
-                if (typeof data[name_1] === "function") {
-                    continue;
-                }
-                if (ToolManager.GetType(data[name_1]) == "Object") {
-                    result.push(HttpManager.serialize(data[name_1]));
-                }
-                else {
-                    name_1 = encodeURIComponent(name_1);
-                    value = data[name_1].toString();
-                    value = encodeURIComponent(value);
-                    result.push(name_1 + "=" + value);
-                }
-            }
-            ;
-            return result.join("&");
-        };
-        /**
-         * 发送Post请求
-         * @param config 配置对象
-         */
-        HttpManager.SendPost = function (config) {
-            var xhr = HttpManager.GetHttpRequest(config);
-            xhr.open(config.type, config.url, config.async);
-            xhr.setRequestHeader("Content-type", "application/json");
-            if (config.data) {
-                xhr.send(JSON.stringify(config.data));
-            }
-            else {
-                xhr.send(null);
-            }
-        };
-        /**
-         * 发送Get请求
-         * @param config 配置对象
-         */
-        HttpManager.SendGet = function (config) {
-            var xhr = HttpManager.GetHttpRequest(config);
-            config.type = config.type.toLowerCase();
-            var url = config.url;
-            if (config.data) {
-                url += "?" + HttpManager.serialize(config.data);
-            }
-            xhr.open(config.type, url, config.async);
-            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhr.send(null);
-        };
-        /**
-         * 发送请求
-         * @param config 配置对象
-         */
-        HttpManager.Send = function (config) {
-            config.type = config.type.toLowerCase();
-            if (config.type == "post") {
-                HttpManager.SendPost(config);
-            }
-            else {
-                HttpManager.SendGet(config);
-            }
-        };
-        return HttpManager;
-    }());
-    Materal.HttpManager = HttpManager;
+    MateralTools.ArrayManager = ArrayManager;
     /**
      * 加密帮助类
      */
@@ -923,18 +539,18 @@ var Materal;
         }
         /**
          * 获取32位MD5加密字符串
-         * @param Str 要加密的字符串
-         * @param IsLower 是小写
+         * @param str 要加密的字符串
+         * @param isLower 是小写
          * @returns 加密后的字符串
          */
-        EncryptionManager.Get32MD5Str = function (Str, IsLower) {
-            if (IsLower === void 0) { IsLower = false; }
+        EncryptionManager.Get32MD5Str = function (str, isLower) {
+            if (isLower === void 0) { isLower = false; }
             function l(a) {
                 return h(g(o(a), a.length * 8));
             }
             function m(e) {
                 var b = "0123456789ABCDEF";
-                if (IsLower === true) {
+                if (isLower === true) {
                     b = b.toLowerCase();
                 }
                 var c = "";
@@ -1079,74 +695,347 @@ var Materal;
             function j(a, b) {
                 return a << b | a >>> 32 - b;
             }
-            return m(l(n(Str)));
+            return m(l(n(str)));
         };
         /**
          * 获取16位MD5加密字符串
-         * @param Str 要加密的字符串
-         * @param IsLower 是小写
+         * @param str 要加密的字符串
+         * @param isLower 是小写
          * @returns 加密后的字符串
          */
-        EncryptionManager.Get16MD5Str = function (Str, IsLower) {
-            if (IsLower === void 0) { IsLower = false; }
-            return this.Get32MD5Str(Str, IsLower).substr(8, 16);
+        EncryptionManager.Get16MD5Str = function (str, isLower) {
+            if (isLower === void 0) { isLower = false; }
+            return this.Get32MD5Str(str, isLower).substr(8, 16);
         };
         /**
          * 转换为二进制字符串
-         * @param Str 要转换的字符串
+         * @param str 要转换的字符串
          * @returns 转换后的字符串
          */
-        EncryptionManager.ConvertToBinary = function (Str) {
-            var StrList = Array.prototype.map.call(Str, function (c) {
+        EncryptionManager.ConvertToBinary = function (str) {
+            var StrList = Array.prototype.map.call(str, function (c) {
                 return c.charCodeAt(0).toString(2);
             });
             var resStr = "";
             for (var i = 0; i < StrList.length; i++) {
-                resStr += ToolManager.StrCover(StrList[i], 8, "0", true);
+                resStr += ToolManager.PadLeft(StrList[i], 8, "0");
             }
+            return resStr;
+        };
+        /**
+         * 隐藏代码
+         * @param codeStr 要隐藏的代码
+         * @returns 隐藏后的代码
+         */
+        EncryptionManager.HideCode = function (codeStr) {
+            var resStr = this.ConvertToBinary(codeStr);
+            resStr = resStr.replace(/0/g, "\u200d");
+            resStr = resStr.replace(/1/g, "\u200c");
+            return resStr;
+        };
+        /**
+         * 显示代码
+         * @param codeStr 被隐藏的代码
+         * @returns 显示的代码
+         */
+        EncryptionManager.ShowCode = function (codeStr) {
+            var resStr = codeStr.replace(/.{8}/g, function (u) {
+                return String.fromCharCode(parseInt(u.replace(/\u200c/g, "1").replace(/\u200d/g, "0"), 2));
+            });
             return resStr;
         };
         return EncryptionManager;
     }());
-    Materal.EncryptionManager = EncryptionManager;
+    MateralTools.EncryptionManager = EncryptionManager;
     /**
-     * 数学帮助类
+     * Http配置类
      */
-    var MathManager = /** @class */ (function () {
-        function MathManager() {
+    var HttpConfigModel = /** @class */ (function () {
+        /**
+         *
+         * @param url
+         * @param type
+         * @param data
+         * @param dataType
+         * @param success
+         * @param error
+         * @param complete
+         */
+        function HttpConfigModel(url, type, data, dataType, success, error, complete) {
+            if (type === void 0) { type = "post"; }
+            if (data === void 0) { data = null; }
+            if (dataType === void 0) { dataType = "json"; }
+            if (success === void 0) { success = null; }
+            if (error === void 0) { error = null; }
+            if (complete === void 0) { complete = null; }
+            //超时时间
+            this.timeout = 15000;
+            //异步发送
+            this.async = true;
+            this.url = url;
+            this.type = type;
+            this.data = data;
+            this.dataType = dataType;
+            this.success = success;
+            this.error = error;
+            this.complete = complete;
+        }
+        return HttpConfigModel;
+    }());
+    MateralTools.HttpConfigModel = HttpConfigModel;
+    /**
+     * Http帮助类
+     */
+    var HttpManager = /** @class */ (function () {
+        function HttpManager() {
         }
         /**
-         * 返回一个随机数
-         * @param Min 最小值
-         * @param Max 最大值
-         * @returns 随机数
+         * 获取XMLHttpRequest对象
+         * @param config 配置对象
+         * @returns HttpRequest对象
          */
-        MathManager.prototype.GetRandom = function (Min, Max) {
-            return Math.floor(Math.random() * Max + Min);
+        HttpManager.GetHttpRequest = function (config) {
+            var xhr;
+            if (!ToolManager.IsNullOrUndefined(window["XMLHttpRequest"])) {
+                xhr = new XMLHttpRequest();
+            }
+            else {
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xhr.onreadystatechange = function () {
+                HttpManager.Readystatechange(xhr, config);
+            };
+            return xhr;
         };
         /**
-         * 获取四边形的外接圆半径
-         * @param length 长
-         * @param width 宽
-         * @param IsRound 是圆形
+         * 状态更改方法
+         * @param xhr XMLHttpRequest对象
+         * @param config 配置对象
          */
-        MathManager.prototype.GetCircumcircleRadius = function (length, width, IsRound) {
-            if (width === void 0) { width = length; }
-            if (IsRound === void 0) { IsRound = true; }
-            var max = Math.max(length, width);
-            //正方形的对角线=边长^2*2
-            var diameter = Math.sqrt(Math.pow(max, 2) * 2);
-            //外接圆的直径=正方形的对角线
-            //圆的半径=直径/2
-            var radius = diameter / 2;
-            if (IsRound) {
-                radius = Math.round(radius);
+        HttpManager.Readystatechange = function (xhr, config) {
+            if (xhr.readyState == 4) {
+                var resM = void 0;
+                try {
+                    resM = JsonManager.JSONParse(xhr.responseText);
+                }
+                catch (ex) {
+                    resM = xhr.responseText;
+                }
+                if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+                    if (config.complete) {
+                        config.complete(resM, xhr, xhr.status);
+                    }
+                    if (config.success) {
+                        config.success(resM, xhr, xhr.status);
+                    }
+                }
+                else {
+                    if (config.complete) {
+                        config.complete(resM, xhr, xhr.status);
+                    }
+                    if (config.error) {
+                        config.error(resM, xhr, xhr.status);
+                    }
+                }
             }
-            return radius;
         };
-        return MathManager;
+        /**
+         * 序列化参数
+         * @param data 要序列化的参数
+         * @returns 序列化后的字符串
+         */
+        HttpManager.serialize = function (data) {
+            var result = new Array();
+            var value = "";
+            for (var name_1 in data) {
+                if (typeof data[name_1] === "function") {
+                    continue;
+                }
+                if (ToolManager.GetType(data[name_1]) == "Object") {
+                    result.push(this.serialize(data[name_1]));
+                }
+                else {
+                    name_1 = encodeURIComponent(name_1);
+                    if (data[name_1]) {
+                        value = data[name_1].toString();
+                        value = encodeURIComponent(value);
+                    }
+                    else {
+                        value = "";
+                    }
+                    result.push(name_1 + "=" + value);
+                }
+            }
+            ;
+            return result.join("&");
+        };
+        /**
+         * 发送Post请求
+         * @param config 配置对象
+         */
+        HttpManager.SendPost = function (config) {
+            var xhr = this.GetHttpRequest(config);
+            xhr.open(config.type, config.url, config.async);
+            switch (config.dataType) {
+                case "json":
+                    xhr.setRequestHeader("Content-type", "application/json");
+                    break;
+                case "data":
+                    break;
+                default:
+                    break;
+            }
+            if (config.data) {
+                switch (config.dataType) {
+                    case "json":
+                        xhr.send(JSON.stringify(config.data));
+                        break;
+                    case "data":
+                        xhr.send(config.data);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else {
+                xhr.send(null);
+            }
+        };
+        /**
+         * 发送Get请求
+         * @param config 配置对象
+         */
+        HttpManager.SendGet = function (config) {
+            var xhr = HttpManager.GetHttpRequest(config);
+            config.type = config.type.toLowerCase();
+            var url = config.url;
+            if (config.data) {
+                url += "?" + HttpManager.serialize(config.data);
+            }
+            xhr.open(config.type, url, config.async);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send(null);
+        };
+        /**
+         * 发送请求
+         * @param config 配置对象
+         */
+        HttpManager.Send = function (config) {
+            config.type = config.type.toLowerCase();
+            if (config.type == "post") {
+                HttpManager.SendPost(config);
+            }
+            else {
+                HttpManager.SendGet(config);
+            }
+        };
+        return HttpManager;
     }());
-    Materal.MathManager = MathManager;
+    MateralTools.HttpManager = HttpManager;
+    /**
+     *JSON帮助类
+     */
+    var JsonManager = /** @class */ (function () {
+        function JsonManager() {
+        }
+        /**
+         * Json字符串转换为Json对象
+         * @param jsonStr Json字符串
+         * @returns Json对象
+         */
+        JsonManager.JSONParse = function (jsonStr) {
+            var resM;
+            if (!ToolManager.IsNullOrUndefined(JSON.parse)) {
+                resM = JSON.parse(jsonStr);
+            }
+            else {
+                resM = eval("(" + jsonStr + ")");
+            }
+            return resM;
+        };
+        /**
+         * Json对象转换为Json字符串
+         * @param jsonObj Json对象
+         * @returns Json字符串
+         */
+        JsonManager.JSONStringify = function (jsonObj) {
+            var resM;
+            if (!ToolManager.IsNullOrUndefined(JSON.stringify)) {
+                resM = JSON.stringify(jsonObj);
+            }
+            else {
+                var IsArray = void 0;
+                var TypeStr = void 0;
+                for (var key in jsonObj) {
+                    IsArray = false;
+                    TypeStr = ToolManager.GetType(jsonObj[key]);
+                    if (jsonObj instanceof Array) {
+                        IsArray = true;
+                    }
+                    if (TypeStr == "string") {
+                        if (IsArray) {
+                            resM += "\"" + jsonObj[key].toString() + "\",";
+                        }
+                        else {
+                            resM += "\"" + key + "\":\"" + jsonObj[key].toString() + "\",";
+                        }
+                    }
+                    else if (jsonObj[key] instanceof RegExp) {
+                        if (IsArray) {
+                            resM += jsonObj[key].toString() + ",";
+                        }
+                        else {
+                            resM += "\"" + key + "\":\"" + jsonObj[key].toString() + "\",";
+                        }
+                    }
+                    else if (jsonObj[key] instanceof Array) {
+                        resM += "\"" + key + "\":" + this.JSONStringify(jsonObj[key]) + ",";
+                    }
+                    else if (TypeStr == "boolean") {
+                        if (IsArray) {
+                            resM += jsonObj[key].toString() + ",";
+                        }
+                        else {
+                            resM += "\"" + key + "\":" + jsonObj[key].toString() + ",";
+                        }
+                    }
+                    else if (TypeStr == "number") {
+                        if (IsArray) {
+                            resM += jsonObj[key].toString() + ",";
+                        }
+                        else {
+                            resM += "\"" + key + "\":" + jsonObj[key].toString() + ",";
+                        }
+                    }
+                    else if (jsonObj[key] instanceof Object) {
+                        if (IsArray) {
+                            resM += this.JSONStringify(jsonObj[key]) + ",";
+                        }
+                        else {
+                            resM += "\"" + key + "\":" + this.JSONStringify(jsonObj[key]) + ",";
+                        }
+                    }
+                    else if (!jsonObj[key] || jsonObj[key] instanceof Function) {
+                        if (IsArray) {
+                            resM += "null,";
+                        }
+                        else {
+                            resM += "\"" + key + "\":null,";
+                        }
+                    }
+                }
+                if (IsArray) {
+                    resM = "[" + resM.slice(0, -1) + "]";
+                }
+                else {
+                    resM = "{" + resM.slice(0, -1) + "}";
+                }
+            }
+            return resM;
+        };
+        return JsonManager;
+    }());
+    MateralTools.JsonManager = JsonManager;
     /**
      * 本地存储帮助类
      */
@@ -1175,39 +1064,45 @@ var Materal;
         };
         /**
          * 移除本地存储对象
-         * @param Key Key值
+         * @param key Key值
          */
-        LocalDataManager.RemoveLocalData = function (Key) {
-            if (this.IsLocalStorage() == true && Key) {
-                window.localStorage.removeItem(Key);
+        LocalDataManager.RemoveLocalData = function (key) {
+            if (this.IsLocalStorage() == true && key) {
+                window.localStorage.removeItem(key);
             }
         };
-        LocalDataManager.SetLocalData = function (Key, Value, IsJson) {
-            if (IsJson === void 0) { IsJson = true; }
-            if (this.IsLocalStorage() && Key && Value) {
-                this.RemoveLocalData(Key);
-                if (IsJson) {
-                    window.localStorage.setItem(Key, JSON.stringify(Value));
+        /**
+         * 设置本地存储对象
+         * @param key Key值
+         * @param value 要保存的数据
+         * @param isJson 以Json格式保存
+         */
+        LocalDataManager.SetLocalData = function (key, value, isJson) {
+            if (isJson === void 0) { isJson = true; }
+            if (this.IsLocalStorage() && key && value) {
+                this.RemoveLocalData(key);
+                if (isJson) {
+                    window.localStorage.setItem(key, JSON.stringify(value));
                 }
                 else {
-                    window.localStorage.setItem(Key, Value.toString());
+                    window.localStorage.setItem(key, value.toString());
                 }
             }
         };
         /**
          * 获取本地存储对象
-         * @param Key Key值
-         * @param IsJson 以Json格式获取
+         * @param key Key值
+         * @param isJson 以Json格式获取
          * @returns 获取的数据
          */
-        LocalDataManager.GetLocalData = function (Key, IsJson) {
-            if (IsJson === void 0) { IsJson = true; }
-            if (this.IsLocalStorage() == true && Key) {
-                if (IsJson) {
-                    return JSON.parse(window.localStorage.getItem(Key));
+        LocalDataManager.GetLocalData = function (key, isJson) {
+            if (isJson === void 0) { isJson = true; }
+            if (this.IsLocalStorage() == true && key) {
+                if (isJson) {
+                    return JSON.parse(window.localStorage.getItem(key));
                 }
                 else {
-                    return window.localStorage.getItem(Key);
+                    return window.localStorage.getItem(key);
                 }
             }
             return null;
@@ -1234,111 +1129,110 @@ var Materal;
         };
         /**
          * 移除网页存储对象
-         * @param Key Key值
+         * @param key Key值
          */
-        LocalDataManager.RemoveSessionData = function (Key) {
-            if (this.IsSessionStorage() == true && Key) {
-                window.sessionStorage.removeItem(Key);
+        LocalDataManager.RemoveSessionData = function (key) {
+            if (this.IsSessionStorage() == true && key) {
+                window.sessionStorage.removeItem(key);
             }
         };
-        LocalDataManager.SetSessionData = function (Key, Value, IsJson) {
-            if (!IsJson && IsJson != false) {
-                IsJson = true;
+        /**
+         * 设置网页存储对象
+         * @param key Key值
+         * @param value 要保存的数据
+         * @param isJson 以Json格式保存
+         */
+        LocalDataManager.SetSessionData = function (key, value, isJson) {
+            if (isJson === void 0) { isJson = true; }
+            if (!isJson && isJson != false) {
+                isJson = true;
             }
-            if (this.IsSessionStorage() && Key && Value) {
-                this.RemoveSessionData(Key);
-                if (IsJson) {
-                    window.sessionStorage.setItem(Key, JSON.stringify(Value));
+            if (this.IsSessionStorage() && key && value) {
+                this.RemoveSessionData(key);
+                if (isJson) {
+                    window.sessionStorage.setItem(key, JSON.stringify(value));
                 }
                 else {
-                    window.sessionStorage.setItem(Key, Value.toString());
+                    window.sessionStorage.setItem(key, value.toString());
                 }
             }
         };
         /**
          * 获取网页存储对象
-         * @param Key Key值
-         * @param IsJson 以Json格式获取
+         * @param key Key值
+         * @param isJson 以Json格式获取
          * @returns 获取的数据
          */
-        LocalDataManager.GetSessionData = function (Key, IsJson) {
-            if (IsJson === void 0) { IsJson = true; }
-            if (this.IsSessionStorage() == true && Key) {
-                if (IsJson) {
-                    return JSON.parse(window.sessionStorage.getItem(Key));
+        LocalDataManager.GetSessionData = function (key, isJson) {
+            if (isJson === void 0) { isJson = true; }
+            if (this.IsSessionStorage() == true && key) {
+                if (isJson) {
+                    return JSON.parse(window.sessionStorage.getItem(key));
                 }
                 else {
-                    return window.sessionStorage.getItem(Key);
+                    return window.sessionStorage.getItem(key);
                 }
             }
             return null;
         };
         /**
          * 获得有效时间
-         * @param Value 值(默认60)
-         * @param Type 单位(默认m[分钟])
+         * @param timeValue 值
+         * @param timeType 单位
          * @returns 计算后的时间
          */
-        LocalDataManager.GetTimer = function (Value, Type) {
-            if (Value === void 0) { Value = 60; }
-            if (Type === void 0) { Type = "m"; }
-            if (!Type) {
-                Type = "m";
-            }
-            if (!Value) {
-                Value = 60;
-            }
-            switch (Type) {
-                case "y":
-                    Value = 60 * 60 * 24 * 365 * Value;
+        LocalDataManager.Gettime = function (timeValue, timeType) {
+            if (timeValue === void 0) { timeValue = 10000; }
+            if (timeType === void 0) { timeType = TimeType.Minutes; }
+            switch (timeType) {
+                case TimeType.Years:
+                    timeValue = 60 * 60 * 24 * 365 * timeValue * 1000;
                     break;
-                case "M":
-                    Value = 60 * 60 * 24 * 30 * Value;
+                case TimeType.Months:
+                    timeValue = 60 * 60 * 24 * 30 * timeValue * 1000;
                     break;
-                case "d":
-                    Value = 60 * 60 * 24 * Value;
+                case TimeType.Day:
+                    timeValue = 60 * 60 * 24 * timeValue * 1000;
                     break;
-                case "H":
-                    Value = 60 * 60 * Value;
+                case TimeType.Hours:
+                    timeValue = 60 * 60 * timeValue * 1000;
                     break;
-                case "m":
-                    Value = 60 * Value;
+                case TimeType.Minutes:
+                    timeValue = 60 * timeValue * 1000;
                     break;
-                case "s":
-                    Value = Value;
+                case TimeType.Seconds:
+                    timeValue = timeValue * 1000;
                     break;
-                default:
+                case TimeType.Milliseconds:
+                    timeValue = timeValue;
                     break;
             }
-            return Value;
+            return timeValue;
         };
         /**
          * 设置一个Cookie
-         * @param Key Key值
-         * @param Value 要保存的值
-         * @param Timer 持续时间
-         * @param TimerType 单位(默认s[秒])
+         * @param key Key值
+         * @param value 要保存的值
+         * @param time 持续时间
+         * @param timeType 单位(默认s[秒])
          */
-        LocalDataManager.SetCookie = function (Key, Value, IsJson, Timer, TimerType) {
-            if (IsJson === void 0) { IsJson = true; }
-            if (Timer === void 0) { Timer = 60; }
-            if (TimerType === void 0) { TimerType = "m"; }
-            if (!IsJson && IsJson != false) {
-                IsJson = true;
-            }
-            if (IsJson) {
-                document.cookie = Key + "=" + JSON.stringify(Value) + ";max-age=" + this.GetTimer(Timer, TimerType);
+        LocalDataManager.SetCookie = function (key, value, isJson, timeValue, timeType) {
+            if (isJson === void 0) { isJson = true; }
+            if (timeValue === void 0) { timeValue = 60; }
+            if (timeType === void 0) { timeType = TimeType.Minutes; }
+            if (isJson) {
+                document.cookie = key + "=" + JSON.stringify(value) + ";max-age=" + this.Gettime(timeValue, timeType);
             }
             else {
-                document.cookie = Key + "=" + Value + ";max-age=" + this.GetTimer(Timer, TimerType);
+                document.cookie = key + "=" + value + ";max-age=" + this.Gettime(timeValue, timeType);
             }
         };
         /**
          * 删除一个Cookie
-         * @param Key Key值
+         * @param key Key值
          */
-        LocalDataManager.RemoveCookie = function (Key) {
-            document.cookie = Key + "=;max-age=0";
+        LocalDataManager.RemoveCookie = function (key) {
+            document.cookie = key + "=;max-age=0";
         };
         /**
          * 获得所有Cookie
@@ -1360,48 +1254,150 @@ var Materal;
         };
         /**
          * 获得Cookie
-         * @param Key Key值
-         * @param IsJson 是否为Json格式
+         * @param key Key值
+         * @param isJson 是否为Json格式
          * @returns
          */
-        LocalDataManager.GetCookie = function (Key, IsJson) {
-            if (!IsJson && IsJson != false) {
-                IsJson = true;
+        LocalDataManager.GetCookie = function (key, isJson) {
+            if (!isJson && isJson != false) {
+                isJson = true;
             }
             var resM = this.GetAllCookie();
-            if (IsJson && !ToolManager.IsNullOrUndefined(resM) && !ToolManager.IsNullOrUndefined(resM[Key])) {
-                return JSON.parse(resM[Key]);
+            if (isJson && !ToolManager.IsNullOrUndefined(resM) && !ToolManager.IsNullOrUndefined(resM[key])) {
+                return JSON.parse(resM[key]);
             }
             else {
                 return null;
             }
         };
-        LocalDataManager.SetData = function (Key, Value, IsJson, Timer, TimerType) {
-            if (Timer === void 0) { Timer = 60; }
-            if (TimerType === void 0) { TimerType = "m"; }
+        /**
+         * 设置数据
+         * @param key Key值
+         * @param value 要保存的数据
+         * @param isJson 以Json格式保存
+         * @param time 时间
+         * @param timeType 时间类型
+         */
+        LocalDataManager.SetData = function (key, value, isJson, time, timeType) {
+            if (isJson === void 0) { isJson = true; }
+            if (time === void 0) { time = 60; }
+            if (timeType === void 0) { timeType = TimeType.Minutes; }
             if (this.IsLocalStorage()) {
-                this.SetLocalData(Key, Value, IsJson);
+                this.SetLocalData(key, value, isJson);
             }
             else {
-                this.SetCookie(Key, Value, IsJson, Timer, TimerType);
+                this.SetCookie(key, value, isJson, time, timeType);
             }
         };
         /**
          * 获得数据
-         * @param Key Key值
-         * @param IsJson 是否为Json格式
+         * @param key Key值
+         * @param isJson 是否为Json格式
          * @returns [0]是localStorage [1]是Cookie
          */
-        LocalDataManager.GetData = function (Key, IsJson) {
-            if (IsJson === void 0) { IsJson = true; }
+        LocalDataManager.GetData = function (key, isJson) {
+            if (isJson === void 0) { isJson = true; }
             var resM = [];
-            resM.push(this.GetLocalData(Key, IsJson));
-            resM.push(this.GetCookie(Key, IsJson));
+            resM.push(this.GetLocalData(key, isJson));
+            resM.push(this.GetCookie(key, isJson));
             return resM;
         };
         return LocalDataManager;
     }());
-    Materal.LocalDataManager = LocalDataManager;
+    MateralTools.LocalDataManager = LocalDataManager;
+    /**
+     * 数学帮助类
+     */
+    var MathManager = /** @class */ (function () {
+        function MathManager() {
+        }
+        /**
+         * 返回一个随机数
+         * @param min 最小值
+         * @param max 最大值
+         * @returns 随机数
+         */
+        MathManager.prototype.GetRandom = function (min, max) {
+            return Math.floor(Math.random() * max + min);
+        };
+        /**
+         * 获取四边形的外接圆半径
+         * @param length 长
+         * @param width 宽
+         * @param IsRound 是圆形
+         */
+        MathManager.prototype.GetCircumcircleRadius = function (length, width, IsRound) {
+            if (width === void 0) { width = length; }
+            if (IsRound === void 0) { IsRound = true; }
+            var max = Math.max(length, width);
+            //正方形的对角线=边长^2*2
+            var diameter = Math.sqrt(Math.pow(max, 2) * 2);
+            //外接圆的直径=正方形的对角线
+            //圆的半径=直径/2
+            var radius = diameter / 2;
+            if (IsRound) {
+                radius = Math.round(radius);
+            }
+            return radius;
+        };
+        return MathManager;
+    }());
+    MateralTools.MathManager = MathManager;
+    /**
+     * 对象帮助类
+     */
+    var ObjectManager = /** @class */ (function () {
+        function ObjectManager() {
+        }
+        /**
+         * 克隆对象
+         * @param obj 要克隆的对象
+         */
+        ObjectManager.Clone = function (obj) {
+            var ObjectType = ToolManager.GetType(obj, false);
+            var result;
+            if (ObjectType == "Object") {
+                result = new Object();
+            }
+            else if (ObjectType == "array") {
+                result = new Array();
+            }
+            else {
+                result = obj;
+            }
+            for (var i in obj) {
+                var copy = obj[i];
+                var SubObjectType = ToolManager.GetType(copy, false);
+                if (SubObjectType == "Object" || SubObjectType == "array") {
+                    result[i] = arguments.callee(copy);
+                }
+                else {
+                    result[i] = copy;
+                }
+            }
+            return result;
+        };
+        return ObjectManager;
+    }());
+    MateralTools.ObjectManager = ObjectManager;
+    /*时间类型*/
+    var TimeType;
+    (function (TimeType) {
+        /*年*/
+        TimeType[TimeType["Years"] = 0] = "Years";
+        /*月*/
+        TimeType[TimeType["Months"] = 1] = "Months";
+        /*日*/
+        TimeType[TimeType["Day"] = 2] = "Day";
+        /*时*/
+        TimeType[TimeType["Hours"] = 3] = "Hours";
+        /*分*/
+        TimeType[TimeType["Minutes"] = 4] = "Minutes";
+        /*秒*/
+        TimeType[TimeType["Seconds"] = 5] = "Seconds";
+        /*毫秒*/
+        TimeType[TimeType["Milliseconds"] = 6] = "Milliseconds";
+    })(TimeType = MateralTools.TimeType || (MateralTools.TimeType = {}));
     /**
      * 实现引擎模型
      */
@@ -1422,7 +1418,7 @@ var Materal;
         }
         return EngineInfoModel;
     }());
-    Materal.EngineInfoModel = EngineInfoModel;
+    MateralTools.EngineInfoModel = EngineInfoModel;
     /**
      * 浏览器模型
      */
@@ -1448,12 +1444,14 @@ var Materal;
             this.UC = false;
             //是否为Maxthon(遨游)浏览器
             this.Maxthon = false;
+            //是否为微信浏览器
+            this.WeChat = false;
             //具体版本号
             this.Version = "";
         }
         return BrowserInfoModel;
     }());
-    Materal.BrowserInfoModel = BrowserInfoModel;
+    MateralTools.BrowserInfoModel = BrowserInfoModel;
     /**
      * 系统模型
      */
@@ -1494,7 +1492,7 @@ var Materal;
         }
         return SystemInfoModel;
     }());
-    Materal.SystemInfoModel = SystemInfoModel;
+    MateralTools.SystemInfoModel = SystemInfoModel;
     /**
      * 客户端信息模型
      */
@@ -1515,7 +1513,11 @@ var Materal;
             else if (/AppleWebKit\/(\S+)/.test(userAgent)) {
                 this._engineM.Version = RegExp["$1"];
                 this._engineM.WebKit = true;
-                if (/Edge\/(\S+)/.test(userAgent)) {
+                if (/MicroMessenger\/(\S+)/.test(userAgent)) {
+                    this._browserM.Version = RegExp["$1"];
+                    this._browserM.WeChat = true;
+                }
+                else if (/Edge\/(\S+)/.test(userAgent)) {
                     this._browserM.Version = RegExp["$1"];
                     this._browserM.Edge = true;
                 }
@@ -1684,6 +1686,6 @@ var Materal;
         });
         return ClientInfoModel;
     }());
-    Materal.ClientInfoModel = ClientInfoModel;
-})(Materal || (Materal = {}));
+    MateralTools.ClientInfoModel = ClientInfoModel;
+})(MateralTools || (MateralTools = {}));
 //# sourceMappingURL=m-Tools.js.map

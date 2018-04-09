@@ -18,6 +18,7 @@
         <EntityTypeShape EntityType="RecordBillDBModel.V_Token" Width="1.5" PointX="5.75" PointY="2.75" IsExpanded="false" />
         <EntityTypeShape EntityType="RecordBillDBModel.V_User" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="false" />
         <AssociationConnector Association="RecordBillDBModel.FK_User_Token" />
+        <EntityTypeShape EntityType="RecordBillDBModel.V_Bill" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

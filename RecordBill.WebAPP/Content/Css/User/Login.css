@@ -2,6 +2,3 @@
     margin-top: 25px;
     padding: 8px 0;
 }
-.mui-input-group .error.mui-input-row:after {
-    background-color: #ff0000;
-}

@@ -1,6 +1,5 @@
-﻿//启用严格模式
-'use strict';
-namespace Materal {
+﻿'use strict';
+namespace MateralTools {
     /**
      * 普通工具类
      */
@@ -31,19 +30,19 @@ namespace Materal {
         }
         /**
          * 判断字符串是否为空字符串
-         * @param Str 字符串
+         * @param str 字符串
          * @returns 是否为空字符串
          */
-        public static IsEmpty(Str: string): boolean {
-            return Str === "";
+        public static IsEmpty(str: string): boolean {
+            return str === "";
         }
         /**
          * 判断字符串是否为Null或Undefined或空字符串
-         * @param Str 字符串
+         * @param str 字符串
          * @returns 是否为Null或Undefined或空字符串
          */
-        public static IsNullOrUndefinedOrEmpty(Str: string): boolean {
-            return this.IsNull(Str) || this.IsUndefined(Str) || this.IsEmpty(Str);
+        public static IsNullOrUndefinedOrEmpty(str: string): boolean {
+            return this.IsNull(str) || this.IsUndefined(str) || this.IsEmpty(str);
         }
         /**
          * 鉴别类型
@@ -52,43 +51,38 @@ namespace Materal {
          * @returns 对象类型 
          */
         public static GetType(obj: any, IncludeCustom: boolean = true): string {
-            let Lowercase: boolean = true;
             let resStr: string = typeof obj;
             if (resStr === "object") {
                 if (this.IsNull(obj)) {
                     resStr = "null";
                 }
                 else {
-                    Lowercase = false;
                     resStr = Object.prototype.toString.call(obj).slice(8, -1);
                     if (resStr === "Object" && !this.IsNullOrUndefined(obj.constructor) && obj.constructor.name != "Object" && IncludeCustom) {
                         resStr = obj.constructor.name;
                     }
                 }
             }
-            if (!this.IsNullOrUndefinedOrEmpty(resStr) && Lowercase) {
-                resStr = resStr.toLowerCase();
-            }
-            return resStr;
+            return resStr.toLowerCase();
         }
         /**
          * 删除字符串两端空格
-         * @param Str 要删除空格的字符串
+         * @param str 要删除空格的字符串
          * @returns 已删除空格的字符串
          */
-        public static Trim(Str: string): string {
+        public static Trim(str: string): string {
             if (this.IsNullOrUndefined(String.prototype.trim)) {
-                while (Str.substr(0, 1) === " ") {
-                    Str = Str.substr(1, Str.length - 1);
+                while (str.substr(0, 1) === " ") {
+                    str = str.substr(1, str.length - 1);
                 }
-                while (Str.substr(Str.length - 2, 1) === " ") {
-                    Str = Str.substr(0, Str.length - 2);
+                while (str.substr(str.length - 2, 1) === " ") {
+                    str = str.substr(0, str.length - 2);
                 }
             }
             else {
-                Str = Str.trim();
+                str = str.trim();
             }
-            return Str;
+            return str;
         }
         /**
          * 获得URL参数
@@ -114,44 +108,28 @@ namespace Materal {
             return params;
         }
         /**
-         * 补位
-         * @param Str 要补位的字符串
-         * @param Length 长度
-         * @param CoverStr 补位字符
-         * @param IsFront 前置补位
+         * 左侧填充字符
+         * @param str 原字符串
+         * @param length 位数
+         * @param character 填充字符
          */
-        public static StrCover(Str: string, Length: number, CoverStr: string, IsFront: boolean = true): string {
-            for (let i = Str.length; i < Length; i++) {
-                if (IsFront === true) {
-                    Str = CoverStr + Str;
-                }
-                else {
-                    Str = Str + CoverStr;
-                }
+        public static PadLeft(str: string, length: number, character: string = " "): string {
+            for (let i = str.length; i < length; i++) {
+                str = character + str;
             }
-            return Str;
+            return str;
         }
         /**
-         * 隐藏代码
-         * @param CodeStr 要隐藏的代码
-         * @returns 隐藏后的代码
+         * 右侧填充字符
+         * @param str 原字符串
+         * @param length 位数
+         * @param character 填充字符
          */
-        public static HideCode(CodeStr: string): string {
-            let resStr: string = EncryptionManager.ConvertToBinary(CodeStr);
-            resStr = resStr.replace(/0/g, "\u200d");
-            resStr = resStr.replace(/1/g, "\u200c");
-            return resStr;
-        }
-        /**
-         * 显示代码
-         * @param CodeStr 被隐藏的代码
-         * @returns 显示的代码 
-         */
-        public static ShowCode(CodeStr: string): string {
-            let resStr: string = CodeStr.replace(/.{8}/g, function (u) {
-                return String.fromCharCode(parseInt(u.replace(/\u200c/g, "1").replace(/\u200d/g, "0"), 2))
-            });
-            return resStr;
+        public static PadRight(str: string, length: number, character: string = " "): string {
+            for (let i = str.length; i < length; i++) {
+                str = str + character;
+            }
+            return str;
         }
         /**
          * 获得时间差
@@ -159,22 +137,22 @@ namespace Materal {
          * @param date2 时间2
          * @param TimeType 返回类型[ms毫秒s秒m分钟H小时D天数]
          */
-        public static GetTimeDifference(date1: Date, date2: Date, TimeType: string = "s"): number {
+        public static GetTimeDifference(date1: Date, date2: Date, timeType: TimeType = TimeType.Seconds): number {
             let timeDifference: number = date1.getTime() - date2.getTime();
-            switch (TimeType) {
-                case "D":
+            switch (timeType) {
+                case TimeType.Day:
                     timeDifference = Math.floor(timeDifference / (24 * 3600 * 1000));
                     break;
-                case "H":
+                case TimeType.Hours:
                     timeDifference = Math.floor(timeDifference / (3600 * 1000));
                     break;
-                case "m":
+                case TimeType.Minutes:
                     timeDifference = Math.floor(timeDifference / (60 * 1000));
                     break;
-                case "s":
+                case TimeType.Seconds:
                     timeDifference = Math.floor(timeDifference / 1000);
                     break;
-                case "ms":
+                case TimeType.Milliseconds:
                     timeDifference = timeDifference;
                     break;
                 default:
@@ -183,161 +161,35 @@ namespace Materal {
         }
         /**
          * 时间字符串格式化
-         * @param DateTime 时间对象
-         * @param FormatStr 格式化字符串
+         * @param dateTime 时间对象
+         * @param formatStr 格式化字符串
          */
-        public static DateTimeFormat(DateTime: Date, FormatStr: string): string {
+        public static DateTimeFormat(dateTime: Date, formatStr: string): string {
             let formatData: Object = {
-                "M+": DateTime.getMonth() + 1, //月份 
-                "d+": DateTime.getDate(), //日 
-                "H+": DateTime.getHours(), //小时 
-                "m+": DateTime.getMinutes(), //分 
-                "s+": DateTime.getSeconds(), //秒 
-                "q+": Math.floor((DateTime.getMonth() + 3) / 3), //季度 
-                "S": DateTime.getMilliseconds() //毫秒 
+                "M+": dateTime.getMonth() + 1, //月份 
+                "d+": dateTime.getDate(), //日 
+                "H+": dateTime.getHours(), //小时 
+                "m+": dateTime.getMinutes(), //分 
+                "s+": dateTime.getSeconds(), //秒 
+                "q+": Math.floor((dateTime.getMonth() + 3) / 3), //季度 
+                "S": dateTime.getMilliseconds() //毫秒 
             };
-            if (/(y+)/.test(FormatStr)) {
-                FormatStr = FormatStr.replace(RegExp.$1, (DateTime.getFullYear() + "").substr(4 - RegExp.$1.length));
+            if (/(y+)/.test(formatStr)) {
+                formatStr = formatStr.replace(RegExp.$1, (dateTime.getFullYear() + "").substr(4 - RegExp.$1.length));
             }
             for (var data in formatData) {
-                if (new RegExp("(" + data + ")").test(FormatStr))
-                {
-                    FormatStr = FormatStr.replace(RegExp.$1, (RegExp.$1.length == 1) ? (formatData[data]) : (("00" + formatData[data]).substr(("" + formatData[data]).length)));
+                if (new RegExp("(" + data + ")").test(formatStr)) {
+                    formatStr = formatStr.replace(RegExp.$1, (RegExp.$1.length == 1) ? (formatData[data]) : (("00" + formatData[data]).substr(("" + formatData[data]).length)));
                 }
             }
-            return FormatStr;
+            return formatStr;
         }
         /**
-         * 获取Input DateTime设置值字符串
-         * @param DateTime 要设置的时间
+         * 获取Input dateTime设置值字符串
+         * @param dateTime 要设置的时间
          */
-        public static GetInputDateTimeValueStr(DateTime: Date): string {
-            return ToolManager.DateTimeFormat(DateTime, "yyyy-MM-ddTHH:mm:ss");
-        }
-        /**
-         * 设置Input DateTime的值
-         * @param ID 要设置值的ID
-         * @param DateTime 要设置的时间
-         */
-        public static SetInputDateTimeValue(ID: string, DateTime: Date): void {
-            let element: HTMLInputElement = DOMManager.$(ID) as HTMLInputElement;
-            if (!ToolManager.IsNullOrUndefined(element)) {
-                element.value = ToolManager.GetInputDateTimeValueStr(DateTime);
-            }
-        }
-    }
-    /**
-     * 对象帮助类
-     */
-    export class ObjectManager {
-        /**
-         * 克隆对象
-         * @param obj 要克隆的对象
-         */
-        public static Clone(obj: any): any {
-            let ObjectType: string = ToolManager.GetType(obj, false);
-            let result: any;
-            if (ObjectType == "object") {
-                result = new Object();
-            }
-            else if (ObjectType == "array") {
-                result = new Array();
-            }
-            else {
-                result = obj;
-            }
-            for (var i in obj) {
-                let copy = obj[i];
-                let SubObjectType: string = ToolManager.GetType(copy, false);
-                if (SubObjectType == "object" || SubObjectType == "array") {
-                    result[i] = arguments.callee(copy);
-                }
-                else {
-                    result[i] = copy;
-                }
-            }
-            return result;
-        }
-    }
-    /**
-     * 数组帮助类
-     */
-    export class ArrayManager {
-        /**
-         * 查询所在数组的位序
-         * @param array 要查询的数组
-         * @param item 要查询的对象
-         * @returns 位序
-         */
-        public static ArrayIndexOf<T>(array: Array<T>, item: T, formIndex: number = 0): number {
-            let Index: number = -1;
-            if (ToolManager.IsNullOrUndefined(array.indexOf)) {
-                for (let i = formIndex; i < array.length; i++) {
-                    if (array[i] == item) {
-                        Index = i;
-                    }
-                }
-            }
-            else {
-                Index = array.indexOf(item, formIndex);
-            }
-            return Index;
-        }
-        /**
-         * 清空数组
-         * @param array 要清空的数组
-         * @returns 清空后的数组
-         */
-        public static ArrayClear<T>(array: Array<T>): Array<T> {
-            array.splice(0, array.length);
-            return array;
-        }
-        /**
-         * 插入数组
-         * @param array 要插入的数组
-         * @param Index 要插入的对象
-         * @returns 插入后的数组
-         */
-        public static ArrayInsert<T>(array: Array<T>, item: T, Index: number): Array<T> {
-            array.splice(Index, 0, item);
-            return array;
-        }
-        /**
-         * 删除数组
-         * @param array 要删除的数组
-         * @param Index 要删除的位序
-         * @returns 删除后的数组
-         */
-        public static ArrayRemoveTo<T>(array: Array<T>, Index: number): Array<T> {
-            array.splice(Index, 1);
-            return array;
-        }
-        /**
-         * 删除数组
-         * @param array 要删除的数组
-         * @param item 要删除的对象
-         * @returns 删除后的数组
-         */
-        public static ArrayRemove<T>(array: Array<T>, item: T): Array<T> {
-            let Index: number = this.ArrayIndexOf(array, item);
-            if (Index >= 0) {
-                this.ArrayRemoveTo(array, Index);
-            }
-            return array;
-        }
-        /**
-         * 删除所有数组
-         * @param array 要删除的数组
-         * @param item 要删除的对象
-         * @returns 删除后的数组
-         */
-        public static ArrayRomeveAll<T>(array: Array<T>, item: T): Array<T> {
-            let Index: number = this.ArrayIndexOf(array, item);
-            while (Index >= 0) {
-                this.ArrayRemoveTo(array, Index);
-                Index = this.ArrayIndexOf(array, item);
-            }
-            return array;
+        public static GetInputDateTimeValueStr(dateTime: Date): string {
+            return ToolManager.DateTimeFormat(dateTime, "yyyy-MM-ddTHH:mm:ss");
         }
     }
     /**
@@ -345,271 +197,103 @@ namespace Materal {
      */
     export class DOMManager {
         /**
-         * 根据ID获得页面元素对象
-         * @param id 页面元素ID
-         * @returns 页面元素对象
-         */
-        public static $(id: string): HTMLElement;
-        /**
          * 根据页面元素对象获得页面元素对象
          * @param element 页面元素
          * @returns 页面元素对象
          */
-        public static $(element: any): HTMLElement;
-        public static $(id): HTMLElement {
-            let element: HTMLElement;
-            if (ToolManager.GetType(id) === "string") {
-                element = document.getElementById(id);
+        public static $(element: string | HTMLElement | Element): HTMLElement {
+            if (ToolManager.GetType(element) === "string") {
+                element = document.getElementById(element as string);
             }
             else {
-                element = id;
+                element = element;
             }
-            return element;
-        }
-        /**
-         * 获得样式
-         * @param element 页面元素ID
-         * @returns 样式数组
-         */
-        public static GetClass(id: string): string[];
-        /**
-         * 获得样式
-         * @param element 页面元素
-         * @returns 样式数组
-         */
-        public static GetClass(element: Element): string[];
-        public static GetClass(id): string[] {
-            let ClassList: string[] = new Array<string>();
-            let element: HTMLElement = this.$(id);
-            if (!ToolManager.IsNullOrUndefined(element)) {
-                let ClassStr: string = element.getAttribute("class");
-                if (!ToolManager.IsNullOrUndefinedOrEmpty(ClassStr)) {
-                    ClassStr = ClassStr.replace(/\s{2,}/g, " ");
-                    ClassStr = ToolManager.Trim(ClassStr);
-                    ClassList = ClassStr.split(" ");
-                }
-            }
-            return ClassList;
+            return element as HTMLElement;
         }
         /**
          * 设置样式
-         * @param id 页面元素ID
-         * @param ClassName 要设置的样式
-         * @returns 设置结果
-         */
-        public static SetClass(id: string, ClassName: string): boolean;
-        /**
-         * 设置样式
          * @param element 页面元素
-         * @param ClassName 要设置的样式
-         * @returns 设置结果
+         * @param className 要设置的样式列表
          */
-        public static SetClass(element: Element, ClassName: string): boolean;
-        /**
-         * 设置样式
-         * @param id 页面元素ID
-         * @param ClassList 要设置的样式列表
-         * @returns 设置结果
-         */
-        public static SetClass(id: string, ClassList: string[]): boolean;
-        /**
-         * 设置样式
-         * @param element 页面元素
-         * @param ClassList 要设置的样式列表
-         * @returns 设置结果
-         */
-        public static SetClass(element: Element, ClassList: string[]): boolean;
-        public static SetClass(id, ClassName): boolean {
-            let resM: boolean = false;
-            let element: HTMLElement = this.$(id);
+        public static SetClass(element: string | HTMLElement | Element, className: string | string[]): void {
+            element = this.$(element);
             if (!ToolManager.IsNullOrUndefined(element)) {
                 let classStr: string = "";
-                let TypeStr: string = ToolManager.GetType(ClassName);
+                let TypeStr: string = ToolManager.GetType(className);
                 let ClassList: string[];
                 if (TypeStr === "string") {
-                    classStr = (ClassName as string).replace(/\s{2,}/g, " ");
+                    classStr = (className as string).replace(/\s{2,}/g, " ");
                     classStr = ToolManager.Trim(classStr);
                 }
                 else if (TypeStr === "Array") {
-                    classStr = (ClassName as string[]).join(" ");
+                    classStr = (className as string[]).join(" ");
                 }
                 if (!ToolManager.IsNullOrUndefinedOrEmpty(classStr)) {
                     element.setAttribute("class", classStr);
-                    resM = true;
                 }
+                else {
+                    element.removeAttribute("class");
+                }
+            }
+        }
+        /**
+         * 添加样式
+         * @param id 页面元素ID
+         * @param className 要添加的样式
+         */
+        public static AddClass(element: string | HTMLElement | Element, className: string | string[]): void {
+            element = this.$(element);
+            if (ToolManager.GetType(className) === "string") {
+                className = (className as string).split(" ");
+            }
+            for (var i = 0; i < className.length; i++) {
+                element.classList.add(className[i]);
+            }
+        }
+        /**
+         * 删除样式
+         * @param element 页面元素
+         * @param className 要删除的样式列表
+         */
+        public static RemoveClass(element: string | HTMLElement | Element, className: string | string[]): void {
+            element = this.$(element);
+            if (ToolManager.GetType(className) === "string") {
+                className = (className as string).split(" ");
+            }
+            for (var i = 0; i < className.length; i++) {
+                element.classList.remove(className[i]);
+            }
+        }
+        /**
+         * 是否有拥有样式
+         * @param element 页面元素
+         * @param className 要查找的样式列表
+         * @returns 查询结果
+         */
+        public static HasClass(element: string | HTMLElement | Element, className: string | string[]): boolean {
+            let resM = true;
+            element = this.$(element);
+            if (ToolManager.GetType(className) === "string") {
+                className = (className as string).split(" ");
+            }
+            for (var i = 0; i < className.length && resM; i++) {
+                resM = element.classList.contains(className[i]);
             }
             return resM;
         }
-        /**
-         * 添加样式
-         * @param id 页面元素ID
-         * @param ClassName 要添加的样式
-         * @returns 添加结果
-         */
-        public static AddClass(id: string, ClassName: string): boolean;
-        /**
-         * 添加样式
-         * @param element 页面元素
-         * @param ClassName 要添加的样式
-         * @returns 添加结果
-         */
-        public static AddClass(element: Element, ClassName: string): boolean;
-        /**
-         * 添加样式
-         * @param id 页面元素ID
-         * @param ClassList 要添加的样式列表
-         * @returns 添加结果
-         */
-        public static AddClass(id: string, ClassList: string[]): boolean;
-        /**
-         * 添加样式
-         * @param element 页面元素
-         * @param ClassList 要添加的样式列表
-         * @returns 添加结果
-         */
-        public static AddClass(element: Element, ClassList: string[]): boolean;
-        public static AddClass(element, ClassName): boolean {
-            let resM: boolean = false;
-            if (!ToolManager.IsNullOrUndefinedOrEmpty(ClassName)) {
-                let ClassList: string[] = this.GetClass(element);
-                if (!ToolManager.IsNullOrUndefined(ClassList) && ToolManager.GetType(ClassList) === "Array") {
-                    let AddClassList: string[];
-                    let TypeStr: string = ToolManager.GetType(ClassName);
-                    if (TypeStr === "string") {
-                        let ClassStr: string = (ClassName as string).replace(/\s{2,}/g, " ");
-                        ClassStr = ToolManager.Trim(ClassStr);
-                        AddClassList = ClassStr.split(" ");
-                    }
-                    else if (TypeStr === "Array") {
-                        AddClassList = (ClassName as string[]);
-                    }
-                    if (!ToolManager.IsNullOrUndefined(AddClassList) && ToolManager.GetType(AddClassList) === "Array") {
-                        for (let i = 0; i < AddClassList.length; i++) {
-                            if (ArrayManager.ArrayIndexOf(ClassList, AddClassList[i]) < 0) {
-                                ClassList.push(AddClassList[i]);
-                            }
-                        }
-                        resM = this.SetClass(element, ClassList);
-                    }
-                }
-            }
-            return resM;
-        }
-        /**
-         * 删除样式
-         * @param id 页面元素ID
-         * @param ClassName 要删除的样式
-         * @returns 删除结果
-         */
-        public static RemoveClass(id: string, ClassName: string): boolean;
-        /**
-         * 删除样式
-         * @param element 页面元素
-         * @param ClassName 要删除的样式
-         * @returns 删除结果
-         */
-        public static RemoveClass(element: Element, ClassName: string): boolean;
-        /**
-         * 删除样式
-         * @param id 页面元素ID
-         * @param ClassList 要删除的样式列表
-         * @returns 删除结果
-         */
-        public static RemoveClass(id: string, ClassList: string[]): boolean;
-        /**
-         * 删除样式
-         * @param element 页面元素
-         * @param ClassList 要删除的样式列表
-         * @returns 删除结果
-         */
-        public static RemoveClass(element: Element, ClassList: string[]): boolean;
-        public static RemoveClass(element, ClassName): boolean {
-            let resM: boolean = false;
-            let ClassList: string[] = this.GetClass(element);
-            let RemoveClassList: string[];
-            if (ToolManager.GetType(ClassName) === "string") {
-                let ClassStr: string = (ClassName as string).replace(/\s{2,}/g, " ");
-                ClassStr = ToolManager.Trim(ClassStr);
-                RemoveClassList = ClassStr.split(" ");
-            }
-            else {
-                RemoveClassList = ClassName;
-            }
-            for (let i = 0; i < RemoveClassList.length; i++) {
-                ArrayManager.ArrayRemove(ClassList, RemoveClassList[i]);
-            }
-            resM = this.SetClass(element, ClassList);
-            return resM;
-        }
-        /**
-         * 是有拥有样式
-         * @param id 页面元素ID
-         * @param ClassName 要查找的样式
-         * @returns 查询结果
-         */
-        public static HasClass(id: string, ClassName: string): boolean;
-        /**
-         * 是有拥有样式
-         * @param element 页面元素
-         * @param ClassName 要查找的样式
-         * @returns 查询结果
-         */
-        public static HasClass(element: Element, ClassName: string): boolean;
-        /**
-         * 是有拥有样式
-         * @param id 页面元素ID
-         * @param ClassList 要查找的样式列表
-         * @returns 查询结果
-         */
-        public static HasClass(id: string, ClassList: string[]): boolean;
-        /**
-         * 是有拥有样式
-         * @param element 页面元素
-         * @param ClassList 要查找的样式列表
-         * @returns 查询结果
-         */
-        public static HasClass(element: Element, ClassList: string[]): boolean;
-        public static HasClass(element, ClassName): boolean {
-            let ClassList: string[] = this.GetClass(element);
-            let QueryList: string[];
-            if (ToolManager.GetType(ClassName) === "string") {
-                let ClassStr = (ClassName as string).replace(/\s{2,}/g, " ");
-                ClassStr = ToolManager.Trim(ClassStr);
-                QueryList = ClassStr.split(" ");
-            }
-            else {
-                QueryList = (ClassName as string[]);
-            }
-            let IsHave = true;
-            for (let i = 0; i < QueryList.length; i++) {
-                IsHave = ClassList.indexOf(QueryList[i]) > -1;
-                if (!IsHave) {
-                    break;
-                }
-            }
-            return IsHave;
-        }
-        /**
-         * 根据ClassName获得元素对象
-         * @param id 父元素ID
-         * @param className ClassName
-         * @returns Element集合
-         */
-        public static GetElementsByClassName(id: string, className: string): Array<Element>
         /**
          * 根据ClassName获得元素对象
          * @param element 父元素
          * @param className ClassName
          * @returns Element集合
          */
-        public static GetElementsByClassName(element: HTMLElement, className: string): Array<Element> | NodeListOf<Element>
-        public static GetElementsByClassName(id, className): Array<Element> | NodeListOf<Element> {
-            let element: HTMLElement = this.$(id);
+        public static GetElementsByClassName(element: string | HTMLElement | Element, className: string): Array<Element> | NodeListOf<Element> {
+            element = this.$(element);
             let resultM: Array<Element> = new Array<Element>();
             let elements: NodeListOf<Element>;
             if (!ToolManager.IsNullOrUndefined(element)) {
-                if (!ToolManager.IsNullOrUndefined(element.getElementsByClassName)) {
-                    elements = element.getElementsByClassName(className);
+                if (!ToolManager.IsNullOrUndefined(element["getElementsByClassName"])) {
+                    elements = element["getElementsByClassName"](className);
                     return elements;
                 }
                 else {
@@ -622,6 +306,7 @@ namespace Materal {
                     return resultM;
                 }
             }
+            return null;
         }
         /**
          * 获得事件触发元素
@@ -629,58 +314,39 @@ namespace Materal {
          * @returns 触发元素 
          */
         public static GetEventTarget(event: Event): Element | EventTarget {
-            return event.srcElement || event.target
+            return event["srcElement"] || event["target"]
         }
-        /**
-         * 添加事件
-         * @param id 元素ID
-         * @param type 事件类型
-         * @param fun 执行方法
-         */
-        public static AddEvent(id: string, type: string, fun: Function): void;
-        /**
-         * 添加事件
-         * @param element 元素
-         * @param type 事件类型
-         * @param fun 执行方法
-         */
-        public static AddEvent(element: Element, type: string, fun: Function): void;
         /**
          * 添加事件
          * @param thisWindow window对象
          * @param type 事件类型
          * @param fun 执行方法
          */
-        public static AddEvent(thisWindow: Window, type: string, fun: Function): void;
-        public static AddEvent(id, type, fun): void {
-            let element: HTMLElement = this.$(id);
-            if (!ToolManager.IsNullOrUndefined(element) && !ToolManager.IsNullOrUndefined(type) && !ToolManager.IsNullOrUndefined(fun)) {
-                if (!ToolManager.IsNullOrUndefined(element.addEventListener)) {
-                    element.addEventListener(type, fun);
+        public static AddEvent(element: string | HTMLElement | Window | Element, type: string, fun: Function): void {
+            let typeName = ToolManager.GetType(element);
+            if (ToolManager.GetType(element) === "string" || ToolManager.GetType(element) === "HTMLElement") {
+                element = this.$(element as string | HTMLElement);
+            }
+            if (!ToolManager.IsNullOrUndefined(element)) {
+                if (!ToolManager.IsNullOrUndefined(element["addEventListener"])) {
+                    element["addEventListener"](type, fun);
                 }
-                else if (!ToolManager.IsNullOrUndefined(element["attachEvent"])) {
+                else {
                     element["attachEvent"]("on" + type, fun);
                 }
             }
         }
         /**
          * 获得子节点
-         * @param id 父元素ID
-         * @returns 子节点
-         */
-        public static GetChildren(id: string): HTMLCollection | Array<Node>;
-        /**
-         * 获得子节点
          * @param element 父元素
          * @returns 子节点
          */
-        public static GetChildren(element: Element): HTMLCollection | Array<Node>;
-        public static GetChildren(id): HTMLCollection | Array<Node> {
-            let children: any;
-            let element: HTMLElement = this.$(id);
+        public static GetChildren(element: string | HTMLElement): HTMLCollection | Array<Node> {
+            let children: HTMLCollection | Array<Node>;
+            element = this.$(element);
             if (!ToolManager.IsNullOrUndefined(element)) {
-                if (!ToolManager.IsNullOrUndefined(element.children)) {
-                    children = element.children;
+                if (element["children"]) {
+                    children = element["children"];
                 }
                 else {
                     children = new Array<Node>();
@@ -696,19 +362,12 @@ namespace Materal {
         }
         /**
          * 获得自定义属性
-         * @param id 父节点ID
-         * @returns 自定义属性
-         */
-        public static GetDataSet(id: string): DOMStringMap | Object;
-        /**
-         * 获得自定义属性
          * @param element 父节点
          * @returns 自定义属性
          */
-        public static GetDataSet(element: Element): DOMStringMap | Object;
-        public static GetDataSet(id): DOMStringMap | Object {
-            let DataSet: any;
-            let element: HTMLElement = this.$(id);
+        public static GetDataSet(element: string | HTMLElement): DOMStringMap | Object {
+            let DataSet: DOMStringMap | Object;
+            element = this.$(element);
             if (!ToolManager.IsNullOrUndefined(element)) {
                 if (!ToolManager.IsNullOrUndefined(element.dataset)) {
                     DataSet = element.dataset;
@@ -729,20 +388,13 @@ namespace Materal {
         }
         /**
          * 获得元素的实际样式
-         * @param id 元素ID
-         * @returns 实际样式
-         */
-        public static GetComputedStyle(id: string): CSSStyleDeclaration;
-        /**
-         * 获得元素的实际样式
          * @param element 元素
          * @returns 实际样式
          */
-        public static GetComputedStyle(element: Element): CSSStyleDeclaration;
-        public static GetComputedStyle(id): CSSStyleDeclaration {
-            let element: HTMLElement = this.$(id);
+        public static GetComputedStyle(element: string | HTMLElement): CSSStyleDeclaration {
+            element = this.$(element);
             let cssStyle: CSSStyleDeclaration;
-            if (!ToolManager.IsNullOrUndefined(element["currentStyle"])) {
+            if (element["currentStyle"]) {
                 cssStyle = element["currentStyle"];
             }
             else {
@@ -750,349 +402,115 @@ namespace Materal {
             }
             return cssStyle;
         }
-    }
-    /**
-     *JSON帮助类
-     */
-    export class JsonManager {
         /**
-         * Json字符串转换为Json对象
-         * @param JsonStr Json字符串
-         * @returns Json对象
+         * 设置<input type="date|time|datetime|datetime-local">的值
+         * @param element 要设置的对象
+         * @param dateTime 要设置的时间
          */
-        public static JSONParse(JsonStr: string): Object {
-            let resM: Object;
-            if (!ToolManager.IsNullOrUndefined(JSON.parse)) {
-                resM = JSON.parse(JsonStr)
+        public static SetInputDateTimeValue(element: string | HTMLInputElement, dateTime: Date): void {
+            element = this.$(element) as HTMLInputElement;
+            if (!ToolManager.IsNullOrUndefined(element)) {
+                let elementType = element.getAttribute("type");
+                if (elementType === "date" || elementType === "time" || elementType === "datetime" || elementType === "datetime-local") {
+                    element.value = ToolManager.GetInputDateTimeValueStr(dateTime);
+                }
             }
-            else {
-                resM = eval("(" + JsonStr + ")");
-            }
-            return resM;
         }
         /**
-         * Json对象转换为Json字符串
-         * @param JsonObj Json对象
-         * @returns Json字符串
+         * 获得输入的值
+         * @param element 元素对象
          */
-        public static JSONStringify(JsonObj: Object): string {
-            let resM: string;
-            if (!ToolManager.IsNullOrUndefined(JSON.stringify)) {
-                resM = JSON.stringify(JsonObj)
+        public static GetInputValue(element: string | HTMLElement): any {
+            element = DOMManager.$(element);
+            if (!ToolManager.IsNullOrUndefined(element["value"])) {
+                return element["value"];
             }
-            else {
-                let IsArray: boolean;
-                let TypeStr: string;
-                for (let key in JsonObj) {
-                    IsArray = false;
-                    TypeStr = ToolManager.GetType(JsonObj[key]);
-                    if (JsonObj instanceof Array) {
-                        IsArray = true;
-                    }
-                    if (TypeStr == "string") {
-                        if (IsArray) {
-                            resM += "\"" + JsonObj[key].toString() + "\",";
-                        }
-                        else {
-                            resM += "\"" + key + "\":\"" + JsonObj[key].toString() + "\",";
-                        }
-                    }
-                    else if (JsonObj[key] instanceof RegExp) {
-                        if (IsArray) {
-                            resM += JsonObj[key].toString() + ",";
-                        }
-                        else {
-                            resM += "\"" + key + "\":\"" + JsonObj[key].toString() + "\",";
-                        }
-                    }
-                    else if (JsonObj[key] instanceof Array) {
-                        resM += "\"" + key + "\":" + this.JSONStringify(JsonObj[key]) + ",";
-                    }
-                    else if (TypeStr == "boolean") {
-                        if (IsArray) {
-                            resM += JsonObj[key].toString() + ",";
-                        }
-                        else {
-                            resM += "\"" + key + "\":" + JsonObj[key].toString() + ",";
-                        }
-                    }
-                    else if (TypeStr == "number") {
-                        if (IsArray) {
-                            resM += JsonObj[key].toString() + ",";
-                        }
-                        else {
-                            resM += "\"" + key + "\":" + JsonObj[key].toString() + ",";
-                        }
-                    }
-                    else if (JsonObj[key] instanceof Object) {
-                        if (IsArray) {
-                            resM += this.JSONStringify(JsonObj[key]) + ",";
-                        }
-                        else {
-                            resM += "\"" + key + "\":" + this.JSONStringify(JsonObj[key]) + ",";
-                        }
-                    }
-                    else if (!JsonObj[key] || JsonObj[key] instanceof Function) {
-                        if (IsArray) {
-                            resM += "null,";
-                        }
-                        else {
-                            resM += "\"" + key + "\":null,";
-                        }
-                    }
-                }
-                if (IsArray) {
-                    resM = "[" + resM.slice(0, -1) + "]";
-                }
-                else {
-                    resM = "{" + resM.slice(0, -1) + "}";
-                }
-            }
-            return resM;
+            return null;
         }
     }
     /**
-     * 返回结果枚举
+     * 数组帮助类
      */
-    export enum ResultState {
-        //成功
-        Success = 200,
-        //失败
-        Failure = 400,
-        //发生错误
-        Error = 500
-    };
-    /**
-     * 返回模型
-     */
-    export class ResultModel<T> {
-        //返回代码
-        private _Code: ResultState;
-        get Code(): ResultState {
-            return this._Code;
-        }
-        set Code(code: ResultState) {
-            this._Code = code;
-            switch (this._Code) {
-                case ResultState.Success:
-                    this.CodeMessage = "成功";
-                    break;
-                case ResultState.Failure:
-                    this.CodeMessage = "失败";
-                    break;
-                case ResultState.Error:
-                    this.CodeMessage = "错误";
-                    break;
-            }
-        }
-        //返回代码描述
-        public CodeMessage: string;
-        //返回信息
-        public Message: string;
-        //返回数据
-        public Data: T;
+    export class ArrayManager {
         /**
-         * 构造方法
-         * @param model 返回数据
-         * @param Message 返回信息
-         * @param code 返回代码
+         * 查询所在数组的位序
+         * @param array 要查询的数组
+         * @param item 要查询的对象
+         * @returns 位序
          */
-        constructor(model: T, Message: string, code: ResultState = ResultState.Success) {
-            this.Message = Message;
-            this.Data = model;
-        }
-        /**
-         * 获得一个成功的返回
-         * @param model 返回数据
-         * @param Message 返回信息
-         * @returns
-         */
-        public static GetSuccessReult<T>(model: T, Message: string = "成功"): ResultModel<T> {
-            return new ResultModel<T>(model, Message, ResultState.Success);
-        }
-        /**
-         * 获得一个失败的返回
-         * @param model 返回数据
-         * @param Message 返回信息
-         * @returns
-         */
-        public static GetFailureReult<T>(model: T, Message: string = "失败"): ResultModel<T> {
-            return new ResultModel<T>(model, Message, ResultState.Failure);
-        }
-        /**
-         * 获得一个错误的返回
-         * @param model 返回数据
-         * @param Message 返回信息
-         * @returns
-         */
-        public static GetErrorReult<T>(model: T, Message: string = "程序出错了"): ResultModel<T> {
-            return new ResultModel<T>(model, Message, ResultState.Error);
-        }
-    }
-    /**
-     * Http配置类
-     */
-    export class HttpConfigModel {
-        //URL地址
-        public url: string;
-        //要发送的数据
-        public data: Object;
-        //成功方法
-        public success: Function;
-        //失败方法
-        public error: Function;
-        //成功错误都执行的方法
-        public complete: Function;
-        //类型
-        public type: string;
-        //超时时间
-        public timeout: number = 15000;
-        //异步发送
-        public async: boolean = true;
-        //数据类型
-        public dataType: string;
-        /**
-         * 
-         * @param url
-         * @param type
-         * @param data
-         * @param dataType
-         * @param success
-         * @param error
-         * @param complete
-         */
-        constructor(url: string, type: string = "post", data: Object = null, dataType: string = "json", success: Function = null, error: Function = null, complete: Function = null) {
-            this.url = url;
-            this.type = type;
-            this.data = data;
-            this.dataType = dataType;
-            this.success = success;
-            this.error = error;
-            this.complete = complete;
-        }
-    }
-    /**
-     * Http帮助类
-     */
-    export class HttpManager {
-        /**
-         * 获取XMLHttpRequest对象
-         * @param config 配置对象
-         * @returns HttpRequest对象
-         */
-        private static GetHttpRequest(config: HttpConfigModel): XMLHttpRequest {
-            let xhr: XMLHttpRequest;
-            if (!ToolManager.IsNullOrUndefined(window["XMLHttpRequest"])) {
-                xhr = new XMLHttpRequest();
+        public static ArrayIndexOf<T>(array: Array<T>, item: T, formIndex: number = 0): number {
+            let index: number = -1;
+            if (ToolManager.IsNullOrUndefined(array.indexOf)) {
+                for (let i = formIndex; i < array.length; i++) {
+                    if (array[i] == item) {
+                        index = i;
+                    }
+                }
             }
             else {
-                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                index = array.indexOf(item, formIndex);
             }
-            xhr.onreadystatechange = function () {
-                HttpManager.Readystatechange(xhr, config);
-            }
-            return xhr;
+            return index;
         }
         /**
-         * 状态更改方法
-         * @param xhr XMLHttpRequest对象
-         * @param config 配置对象
+         * 清空数组
+         * @param array 要清空的数组
+         * @returns 清空后的数组
          */
-        private static Readystatechange(xhr: XMLHttpRequest, config: HttpConfigModel): void {
-            if (xhr.readyState == 4) {
-                let res: Object;
-                switch (config.dataType) {
-                    case "json":
-                        res = JsonManager.JSONParse(xhr.responseText);
-                        break;
-                    default:
-                        res = xhr.responseText;
-                        break;
-                }
-                if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
-                    if (config.complete) {
-                        config.complete(xhr, res);
-                    }
-                    if (config.success) {
-                        config.success(res);
-                    }
-                }
-                else {
-                    if (config.complete) {
-                        config.complete(xhr, res);
-                    }
-                    if (config.error) {
-                        config.error(xhr, xhr.status, res);
-                    }
-                }
-            }
+        public static ArrayClear<T>(array: Array<T>): Array<T> {
+            array.splice(0, array.length);
+            return array;
         }
         /**
-         * 序列化参数
-         * @param data 要序列化的参数
-         * @returns 序列化后的字符串 
+         * 插入数组
+         * @param array 要插入的数组
+         * @param index 要插入的对象
+         * @returns 插入后的数组
          */
-        private static serialize(data: Object): string {
-            let result: string[] = new Array<string>();
-            let value: string = "";
-            for (let name in data) {
-                if (typeof data[name] === "function") {
-                    continue;
-                }
-                if (ToolManager.GetType(data[name]) == "Object") {
-                    result.push(HttpManager.serialize(data[name]));
-                }
-                else {
-                    name = encodeURIComponent(name);
-                    value = data[name].toString();
-                    value = encodeURIComponent(value);
-                    result.push(name + "=" + value);
-                }
-            };
-            return result.join("&");
+        public static ArrayInsert<T>(array: Array<T>, item: T, index: number): Array<T> {
+            array.splice(index, 0, item);
+            return array;
         }
         /**
-         * 发送Post请求
-         * @param config 配置对象
+         * 删除数组
+         * @param array 要删除的数组
+         * @param index 要删除的位序
+         * @returns 删除后的数组
          */
-        private static SendPost(config: HttpConfigModel): void {
-            let xhr: XMLHttpRequest = HttpManager.GetHttpRequest(config);
-            xhr.open(config.type, config.url, config.async);
-            xhr.setRequestHeader("Content-type", "application/json");
-            if (config.data) {
-                xhr.send(JSON.stringify(config.data));
+        public static ArrayRemoveTo<T>(array: Array<T>, index: number): Array<T> {
+            let count = array.length;
+            array.splice(index, 1);
+            if (count === array.length && count === 1) {
+                array = [];
             }
-            else {
-                xhr.send(null);
-            }
+            return array;
         }
         /**
-         * 发送Get请求
-         * @param config 配置对象
+         * 删除数组
+         * @param array 要删除的数组
+         * @param item 要删除的对象
+         * @returns 删除后的数组
          */
-        private static SendGet(config: HttpConfigModel): void {
-            let xhr: XMLHttpRequest = HttpManager.GetHttpRequest(config);
-            config.type = config.type.toLowerCase();
-            let url: string = config.url;
-            if (config.data) {
-                url += "?" + HttpManager.serialize(config.data);
+        public static ArrayRemove<T>(array: Array<T>, item: T): Array<T> {
+            let index: number = this.ArrayIndexOf(array, item);
+            if (index >= 0) {
+                this.ArrayRemoveTo(array, index);
             }
-            xhr.open(config.type, url, config.async);
-            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhr.send(null);
+            return array;
         }
         /**
-         * 发送请求
-         * @param config 配置对象
+         * 删除所有数组
+         * @param array 要删除的数组
+         * @param item 要删除的对象
+         * @returns 删除后的数组
          */
-        public static Send(config: HttpConfigModel): void {
-            config.type = config.type.toLowerCase();
-            if (config.type == "post") {
-                HttpManager.SendPost(config);
+        public static ArrayRomeveAll<T>(array: Array<T>, item: T): Array<T> {
+            let index: number = this.ArrayIndexOf(array, item);
+            while (index >= 0) {
+                this.ArrayRemoveTo(array, index);
+                index = this.ArrayIndexOf(array, item);
             }
-            else {
-                HttpManager.SendGet(config);
-            }
+            return array;
         }
     }
     /**
@@ -1101,17 +519,17 @@ namespace Materal {
     export class EncryptionManager {
         /**
          * 获取32位MD5加密字符串
-         * @param Str 要加密的字符串
-         * @param IsLower 是小写
+         * @param str 要加密的字符串
+         * @param isLower 是小写
          * @returns 加密后的字符串
          */
-        public static Get32MD5Str(Str: string, IsLower: boolean = false): string {
+        public static Get32MD5Str(str: string, isLower: boolean = false): string {
             function l(a) {
                 return h(g(o(a), a.length * 8));
             }
             function m(e) {
                 let b = "0123456789ABCDEF";
-                if (IsLower === true) {
+                if (isLower === true) {
                     b = b.toLowerCase();
                 }
                 let c = "";
@@ -1256,63 +674,339 @@ namespace Materal {
             function j(a, b) {
                 return a << b | a >>> 32 - b;
             }
-            return m(l(n(Str)));
+            return m(l(n(str)));
         }
         /**
          * 获取16位MD5加密字符串
-         * @param Str 要加密的字符串
-         * @param IsLower 是小写
+         * @param str 要加密的字符串
+         * @param isLower 是小写
          * @returns 加密后的字符串
          */
-        public static Get16MD5Str(Str: string, IsLower: boolean = false): string {
-            return this.Get32MD5Str(Str, IsLower).substr(8, 16);
+        public static Get16MD5Str(str: string, isLower: boolean = false): string {
+            return this.Get32MD5Str(str, isLower).substr(8, 16);
         }
         /**
          * 转换为二进制字符串
-         * @param Str 要转换的字符串
+         * @param str 要转换的字符串
          * @returns 转换后的字符串 
          */
-        public static ConvertToBinary(Str: string): string {
-            let StrList: string = Array.prototype.map.call(Str, function (c) {
+        public static ConvertToBinary(str: string): string {
+            let StrList: string = Array.prototype.map.call(str, function (c) {
                 return c.charCodeAt(0).toString(2);
             });
             let resStr: string = "";
             for (let i = 0; i < StrList.length; i++) {
-                resStr += ToolManager.StrCover(StrList[i], 8, "0", true);
+                resStr += ToolManager.PadLeft(StrList[i], 8, "0");
             }
+            return resStr;
+        }
+        /**
+         * 隐藏代码
+         * @param codeStr 要隐藏的代码
+         * @returns 隐藏后的代码
+         */
+        public static HideCode(codeStr: string): string {
+            let resStr: string = this.ConvertToBinary(codeStr);
+            resStr = resStr.replace(/0/g, "\u200d");
+            resStr = resStr.replace(/1/g, "\u200c");
+            return resStr;
+        }
+        /**
+         * 显示代码
+         * @param codeStr 被隐藏的代码
+         * @returns 显示的代码 
+         */
+        public static ShowCode(codeStr: string): string {
+            let resStr: string = codeStr.replace(/.{8}/g, function (u) {
+                return String.fromCharCode(parseInt(u.replace(/\u200c/g, "1").replace(/\u200d/g, "0"), 2))
+            });
             return resStr;
         }
     }
     /**
-     * 数学帮助类
+     * Http配置类
      */
-    export class MathManager {
+    export class HttpConfigModel {
+        //URL地址
+        public url: string;
+        //要发送的数据
+        public data: Object;
+        //成功方法
+        public success: Function;
+        //失败方法
+        public error: Function;
+        //成功错误都执行的方法
+        public complete: Function;
+        //类型
+        public type: string;
+        //超时时间
+        public timeout: number = 15000;
+        //异步发送
+        public async: boolean = true;
+        //数据类型
+        public dataType: string;
         /**
-         * 返回一个随机数
-         * @param Min 最小值
-         * @param Max 最大值
-         * @returns 随机数
+         * 
+         * @param url
+         * @param type
+         * @param data
+         * @param dataType
+         * @param success
+         * @param error
+         * @param complete
          */
-        public GetRandom(Min: number, Max: number): number {
-            return Math.floor(Math.random() * Max + Min);
+        constructor(url: string, type: string = "post", data: Object = null, dataType: string = "json", success: Function = null, error: Function = null, complete: Function = null) {
+            this.url = url;
+            this.type = type;
+            this.data = data;
+            this.dataType = dataType;
+            this.success = success;
+            this.error = error;
+            this.complete = complete;
+        }
+    }
+    /**
+     * Http帮助类
+     */
+    export class HttpManager {
+        /**
+         * 获取XMLHttpRequest对象
+         * @param config 配置对象
+         * @returns HttpRequest对象
+         */
+        private static GetHttpRequest(config: HttpConfigModel): XMLHttpRequest {
+            let xhr: XMLHttpRequest;
+            if (!ToolManager.IsNullOrUndefined(window["XMLHttpRequest"])) {
+                xhr = new XMLHttpRequest();
+            }
+            else {
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xhr.onreadystatechange = function () {
+                HttpManager.Readystatechange(xhr, config);
+            }
+            return xhr;
         }
         /**
-         * 获取四边形的外接圆半径
-         * @param length 长
-         * @param width 宽
-         * @param IsRound 是圆形
+         * 状态更改方法
+         * @param xhr XMLHttpRequest对象
+         * @param config 配置对象
          */
-        public GetCircumcircleRadius(length: number, width: number = length, IsRound: boolean = true): number {
-            let max: number = Math.max(length, width);
-            //正方形的对角线=边长^2*2
-            let diameter: number = Math.sqrt(Math.pow(max, 2) * 2);
-            //外接圆的直径=正方形的对角线
-            //圆的半径=直径/2
-            let radius: number = diameter / 2;
-            if (IsRound) {
-                radius = Math.round(radius);
+        private static Readystatechange(xhr: XMLHttpRequest, config: HttpConfigModel): void {
+            if (xhr.readyState == 4) {
+                let resM: Object;
+                try {
+                    resM = JsonManager.JSONParse(xhr.responseText);
+                }
+                catch (ex) {
+                    resM = xhr.responseText;
+                }
+                if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+                    if (config.complete) {
+                        config.complete(resM, xhr, xhr.status);
+                    }
+                    if (config.success) {
+                        config.success(resM, xhr, xhr.status);
+                    }
+                }
+                else {
+                    if (config.complete) {
+                        config.complete(resM, xhr, xhr.status);
+                    }
+                    if (config.error) {
+                        config.error(resM, xhr, xhr.status);
+                    }
+                }
             }
-            return radius;
+        }
+        /**
+         * 序列化参数
+         * @param data 要序列化的参数
+         * @returns 序列化后的字符串 
+         */
+        private static serialize(data: Object): string {
+            let result: string[] = new Array<string>();
+            let value: string = "";
+            for (let name in data) {
+                if (typeof data[name] === "function") {
+                    continue;
+                }
+                if (ToolManager.GetType(data[name]) == "Object") {
+                    result.push(this.serialize(data[name]));
+                }
+                else {
+                    name = encodeURIComponent(name);
+                    if (data[name]) {
+                        value = data[name].toString();
+                        value = encodeURIComponent(value);
+                    }
+                    else {
+                        value = "";
+                    }
+                    result.push(name + "=" + value);
+                }
+            };
+            return result.join("&");
+        }
+        /**
+         * 发送Post请求
+         * @param config 配置对象
+         */
+        private static SendPost(config: HttpConfigModel): void {
+            let xhr: XMLHttpRequest = this.GetHttpRequest(config);
+            xhr.open(config.type, config.url, config.async);
+            switch (config.dataType) {
+                case "json":
+                    xhr.setRequestHeader("Content-type", "application/json");
+                    break;
+                case "data":
+                    break;
+                default:
+                    break;
+            }
+            if (config.data) {
+                switch (config.dataType) {
+                    case "json":
+                        xhr.send(JSON.stringify(config.data));
+                        break;
+                    case "data":
+                        xhr.send(config.data);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else {
+                xhr.send(null);
+            }
+        }
+        /**
+         * 发送Get请求
+         * @param config 配置对象
+         */
+        private static SendGet(config: HttpConfigModel): void {
+            let xhr: XMLHttpRequest = HttpManager.GetHttpRequest(config);
+            config.type = config.type.toLowerCase();
+            let url: string = config.url;
+            if (config.data) {
+                url += "?" + HttpManager.serialize(config.data);
+            }
+            xhr.open(config.type, url, config.async);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send(null);
+        }
+        /**
+         * 发送请求
+         * @param config 配置对象
+         */
+        public static Send(config: HttpConfigModel): void {
+            config.type = config.type.toLowerCase();
+            if (config.type == "post") {
+                HttpManager.SendPost(config);
+            }
+            else {
+                HttpManager.SendGet(config);
+            }
+        }
+    }
+    /**
+     *JSON帮助类
+     */
+    export class JsonManager {
+        /**
+         * Json字符串转换为Json对象
+         * @param jsonStr Json字符串
+         * @returns Json对象
+         */
+        public static JSONParse(jsonStr: string): Object {
+            let resM: Object;
+            if (!ToolManager.IsNullOrUndefined(JSON.parse)) {
+                resM = JSON.parse(jsonStr)
+            }
+            else {
+                resM = eval("(" + jsonStr + ")");
+            }
+            return resM;
+        }
+        /**
+         * Json对象转换为Json字符串
+         * @param jsonObj Json对象
+         * @returns Json字符串
+         */
+        public static JSONStringify(jsonObj: Object): string {
+            let resM: string;
+            if (!ToolManager.IsNullOrUndefined(JSON.stringify)) {
+                resM = JSON.stringify(jsonObj)
+            }
+            else {
+                let IsArray: boolean;
+                let TypeStr: string;
+                for (let key in jsonObj) {
+                    IsArray = false;
+                    TypeStr = ToolManager.GetType(jsonObj[key]);
+                    if (jsonObj instanceof Array) {
+                        IsArray = true;
+                    }
+                    if (TypeStr == "string") {
+                        if (IsArray) {
+                            resM += "\"" + jsonObj[key].toString() + "\",";
+                        }
+                        else {
+                            resM += "\"" + key + "\":\"" + jsonObj[key].toString() + "\",";
+                        }
+                    }
+                    else if (jsonObj[key] instanceof RegExp) {
+                        if (IsArray) {
+                            resM += jsonObj[key].toString() + ",";
+                        }
+                        else {
+                            resM += "\"" + key + "\":\"" + jsonObj[key].toString() + "\",";
+                        }
+                    }
+                    else if (jsonObj[key] instanceof Array) {
+                        resM += "\"" + key + "\":" + this.JSONStringify(jsonObj[key]) + ",";
+                    }
+                    else if (TypeStr == "boolean") {
+                        if (IsArray) {
+                            resM += jsonObj[key].toString() + ",";
+                        }
+                        else {
+                            resM += "\"" + key + "\":" + jsonObj[key].toString() + ",";
+                        }
+                    }
+                    else if (TypeStr == "number") {
+                        if (IsArray) {
+                            resM += jsonObj[key].toString() + ",";
+                        }
+                        else {
+                            resM += "\"" + key + "\":" + jsonObj[key].toString() + ",";
+                        }
+                    }
+                    else if (jsonObj[key] instanceof Object) {
+                        if (IsArray) {
+                            resM += this.JSONStringify(jsonObj[key]) + ",";
+                        }
+                        else {
+                            resM += "\"" + key + "\":" + this.JSONStringify(jsonObj[key]) + ",";
+                        }
+                    }
+                    else if (!jsonObj[key] || jsonObj[key] instanceof Function) {
+                        if (IsArray) {
+                            resM += "null,";
+                        }
+                        else {
+                            resM += "\"" + key + "\":null,";
+                        }
+                    }
+                }
+                if (IsArray) {
+                    resM = "[" + resM.slice(0, -1) + "]";
+                }
+                else {
+                    resM = "{" + resM.slice(0, -1) + "}";
+                }
+            }
+            return resM;
         }
     }
     /**
@@ -1341,58 +1035,43 @@ namespace Materal {
         }
         /**
          * 移除本地存储对象
-         * @param Key Key值
+         * @param key Key值
          */
-        public static RemoveLocalData(Key: string): void {
-            if (this.IsLocalStorage() == true && Key) {
-                window.localStorage.removeItem(Key);
+        public static RemoveLocalData(key: string): void {
+            if (this.IsLocalStorage() == true && key) {
+                window.localStorage.removeItem(key);
             }
         }
         /**
          * 设置本地存储对象
-         * @param Key Key值
-         * @param Value 要保存的数据
-         * @param IsJson 以Json格式保存
+         * @param key Key值
+         * @param value 要保存的数据
+         * @param isJson 以Json格式保存
          */
-        public static SetLocalData(Key: string, Value: Object, IsJson: boolean): void
-        /**
-         * 设置本地存储对象
-         * @param Key Key值
-         * @param Value 要保存的数据
-         * @param IsJson 以Json格式保存
-         */
-        public static SetLocalData(Key: string, Value: string, IsJson: boolean): void
-        /**
-         * 设置本地存储对象
-         * @param Key Key值
-         * @param Value 要保存的数据
-         * @param IsJson 以Json格式保存
-         */
-        public static SetLocalData(Key: string, Value: string[], IsJson: boolean): void
-        public static SetLocalData(Key, Value, IsJson = true): void {
-            if (this.IsLocalStorage() && Key && Value) {
-                this.RemoveLocalData(Key);
-                if (IsJson) {
-                    window.localStorage.setItem(Key, JSON.stringify(Value));
+        public static SetLocalData(key: string, value: string | string[] | Object, isJson: boolean = true): void {
+            if (this.IsLocalStorage() && key && value) {
+                this.RemoveLocalData(key);
+                if (isJson) {
+                    window.localStorage.setItem(key, JSON.stringify(value));
                 }
                 else {
-                    window.localStorage.setItem(Key, Value.toString());
+                    window.localStorage.setItem(key, value.toString());
                 }
             }
         }
         /**
          * 获取本地存储对象
-         * @param Key Key值
-         * @param IsJson 以Json格式获取
+         * @param key Key值
+         * @param isJson 以Json格式获取
          * @returns 获取的数据 
          */
-        public static GetLocalData(Key: string, IsJson: boolean = true): Object | string {
-            if (this.IsLocalStorage() == true && Key) {
-                if (IsJson) {
-                    return JSON.parse(window.localStorage.getItem(Key));
+        public static GetLocalData(key: string, isJson: boolean = true): Object | string {
+            if (this.IsLocalStorage() == true && key) {
+                if (isJson) {
+                    return JSON.parse(window.localStorage.getItem(key));
                 }
                 else {
-                    return window.localStorage.getItem(Key);
+                    return window.localStorage.getItem(key);
                 }
             }
             return null;
@@ -1419,126 +1098,103 @@ namespace Materal {
         }
         /**
          * 移除网页存储对象
-         * @param Key Key值
+         * @param key Key值
          */
-        public static RemoveSessionData(Key: string) {
-            if (this.IsSessionStorage() == true && Key) {
-                window.sessionStorage.removeItem(Key);
+        public static RemoveSessionData(key: string) {
+            if (this.IsSessionStorage() == true && key) {
+                window.sessionStorage.removeItem(key);
             }
         }
         /**
          * 设置网页存储对象
-         * @param Key Key值
-         * @param Value 要保存的数据
-         * @param IsJson 以Json格式保存
+         * @param key Key值
+         * @param value 要保存的数据
+         * @param isJson 以Json格式保存
          */
-        public static SetSessionData(Key: string, Value: Object, IsJson: boolean): void
-        /**
-         * 设置网页存储对象
-         * @param Key Key值
-         * @param Value 要保存的数据
-         * @param IsJson 以Json格式保存
-         */
-        public static SetSessionData(Key: string, Value: string, IsJson: boolean): void
-        /**
-         * 设置网页存储对象
-         * @param Key Key值
-         * @param Value 要保存的数据
-         * @param IsJson 以Json格式保存
-         */
-        public static SetSessionData(Key: string, Value: string[], IsJson: boolean): void
-        public static SetSessionData(Key, Value, IsJson) {
-            if (!IsJson && IsJson != false) {
-                IsJson = true;
+        public static SetSessionData(key: string, value: string | string[] | Object, isJson: boolean = true) {
+            if (!isJson && isJson != false) {
+                isJson = true;
             }
-            if (this.IsSessionStorage() && Key && Value) {
-                this.RemoveSessionData(Key);
-                if (IsJson) {
-                    window.sessionStorage.setItem(Key, JSON.stringify(Value));
+            if (this.IsSessionStorage() && key && value) {
+                this.RemoveSessionData(key);
+                if (isJson) {
+                    window.sessionStorage.setItem(key, JSON.stringify(value));
                 }
                 else {
-                    window.sessionStorage.setItem(Key, Value.toString());
+                    window.sessionStorage.setItem(key, value.toString());
                 }
             }
         }
         /**
          * 获取网页存储对象
-         * @param Key Key值
-         * @param IsJson 以Json格式获取
+         * @param key Key值
+         * @param isJson 以Json格式获取
          * @returns 获取的数据 
          */
-        public static GetSessionData(Key: string, IsJson: boolean = true): Object | string {
-            if (this.IsSessionStorage() == true && Key) {
-                if (IsJson) {
-                    return JSON.parse(window.sessionStorage.getItem(Key));
+        public static GetSessionData(key: string, isJson: boolean = true): Object | string {
+            if (this.IsSessionStorage() == true && key) {
+                if (isJson) {
+                    return JSON.parse(window.sessionStorage.getItem(key));
                 }
                 else {
-                    return window.sessionStorage.getItem(Key);
+                    return window.sessionStorage.getItem(key);
                 }
             }
             return null;
         }
         /**
          * 获得有效时间
-         * @param Value 值(默认60)
-         * @param Type 单位(默认m[分钟])
+         * @param timeValue 值
+         * @param timeType 单位
          * @returns 计算后的时间
          */
-        private static GetTimer(Value: number = 60, Type: string = "m"): number {
-            if (!Type) {
-                Type = "m";
-            }
-            if (!Value) {
-                Value = 60;
-            }
-            switch (Type) {
-                case "y":
-                    Value = 60 * 60 * 24 * 365 * Value;
+        private static Gettime(timeValue: number = 10000, timeType: TimeType = TimeType.Minutes): number {
+            switch (timeType) {
+                case TimeType.Years:
+                    timeValue = 60 * 60 * 24 * 365 * timeValue * 1000;
                     break;
-                case "M":
-                    Value = 60 * 60 * 24 * 30 * Value;
+                case TimeType.Months:
+                    timeValue = 60 * 60 * 24 * 30 * timeValue * 1000;
                     break;
-                case "d":
-                    Value = 60 * 60 * 24 * Value;
+                case TimeType.Day:
+                    timeValue = 60 * 60 * 24 * timeValue * 1000;
                     break;
-                case "H":
-                    Value = 60 * 60 * Value;
+                case TimeType.Hours:
+                    timeValue = 60 * 60 * timeValue * 1000;
                     break;
-                case "m":
-                    Value = 60 * Value;
+                case TimeType.Minutes:
+                    timeValue = 60 * timeValue * 1000;
                     break;
-                case "s":
-                    Value = Value;
+                case TimeType.Seconds:
+                    timeValue = timeValue * 1000;
                     break;
-                default:
+                case TimeType.Milliseconds:
+                    timeValue = timeValue;
                     break;
             }
-            return Value;
+            return timeValue;
         }
         /**
          * 设置一个Cookie
-         * @param Key Key值
-         * @param Value 要保存的值
-         * @param Timer 持续时间
-         * @param TimerType 单位(默认s[秒])
+         * @param key Key值
+         * @param value 要保存的值
+         * @param time 持续时间
+         * @param timeType 单位(默认s[秒])
          */
-        public static SetCookie(Key: string, Value: string, IsJson: boolean = true, Timer: number = 60, TimerType: string = "m") {
-            if (!IsJson && IsJson != false) {
-                IsJson = true;
-            }
-            if (IsJson) {
-                document.cookie = Key + "=" + JSON.stringify(Value) + ";max-age=" + this.GetTimer(Timer, TimerType);
+        public static SetCookie(key: string, value: string | string[] | Object, isJson: boolean = true, timeValue: number = 60, timeType: TimeType = TimeType.Minutes) {
+            if (isJson) {
+                document.cookie = key + "=" + JSON.stringify(value) + ";max-age=" + this.Gettime(timeValue, timeType);
             }
             else {
-                document.cookie = Key + "=" + Value + ";max-age=" + this.GetTimer(Timer, TimerType);
+                document.cookie = key + "=" + value + ";max-age=" + this.Gettime(timeValue, timeType);
             }
         }
         /**
          * 删除一个Cookie
-         * @param Key Key值
+         * @param key Key值
          */
-        public static RemoveCookie(Key: string) {
-            document.cookie = Key + "=;max-age=0";
+        public static RemoveCookie(key: string) {
+            document.cookie = key + "=;max-age=0";
         }
         /**
          * 获得所有Cookie
@@ -1560,17 +1216,17 @@ namespace Materal {
         }
         /**
          * 获得Cookie
-         * @param Key Key值
-         * @param IsJson 是否为Json格式
+         * @param key Key值
+         * @param isJson 是否为Json格式
          * @returns
          */
-        public static GetCookie(Key: string, IsJson: boolean): Object {
-            if (!IsJson && IsJson != false) {
-                IsJson = true;
+        public static GetCookie(key: string, isJson: boolean): Object {
+            if (!isJson && isJson != false) {
+                isJson = true;
             }
             let resM: Object = this.GetAllCookie();
-            if (IsJson && !ToolManager.IsNullOrUndefined(resM) && !ToolManager.IsNullOrUndefined(resM[Key])) {
-                return JSON.parse(resM[Key]);
+            if (isJson && !ToolManager.IsNullOrUndefined(resM) && !ToolManager.IsNullOrUndefined(resM[key])) {
+                return JSON.parse(resM[key]);
             }
             else {
                 return null;
@@ -1578,45 +1234,114 @@ namespace Materal {
         }
         /**
          * 设置数据
-         * @param Key Key值
-         * @param Value 要保存的数据
-         * @param IsJson 以Json格式保存
+         * @param key Key值
+         * @param value 要保存的数据
+         * @param isJson 以Json格式保存
+         * @param time 时间
+         * @param timeType 时间类型
          */
-        public static SetData(Key: string, Value: Object, IsJson: boolean, Timer: number, TimerType: string): void
-        /**
-         * 设置数据
-         * @param Key Key值
-         * @param Value 要保存的数据
-         * @param IsJson 以Json格式保存
-         */
-        public static SetData(Key: string, Value: string, IsJson: boolean, Timer: number, TimerType: string): void
-        /**
-         * 设置数据
-         * @param Key Key值
-         * @param Value 要保存的数据
-         * @param IsJson 以Json格式保存
-         */
-        public static SetData(Key: string, Value: string[], IsJson: boolean, Timer: number, TimerType: string): void
-        public static SetData(Key, Value, IsJson, Timer = 60, TimerType = "m"): void {
+        public static SetData(key: string, value: string | string[] | Object, isJson: boolean = true, time: number = 60, timeType: TimeType = TimeType.Minutes): void {
             if (this.IsLocalStorage()) {
-                this.SetLocalData(Key, Value, IsJson);
+                this.SetLocalData(key, value, isJson);
             }
             else {
-                this.SetCookie(Key, Value, IsJson, Timer, TimerType);
+                this.SetCookie(key, value, isJson, time, timeType);
             }
         }
         /**
          * 获得数据
-         * @param Key Key值
-         * @param IsJson 是否为Json格式
+         * @param key Key值
+         * @param isJson 是否为Json格式
          * @returns [0]是localStorage [1]是Cookie
          */
-        public static GetData(Key: string, IsJson: boolean = true): Array<Object> | Array<string> {
+        public static GetData(key: string, isJson: boolean = true): Array<Object> | Array<string> {
             let resM = [];
-            resM.push(this.GetLocalData(Key, IsJson));
-            resM.push(this.GetCookie(Key, IsJson));
+            resM.push(this.GetLocalData(key, isJson));
+            resM.push(this.GetCookie(key, isJson));
             return resM;
         }
+    }
+    /**
+     * 数学帮助类
+     */
+    export class MathManager {
+        /**
+         * 返回一个随机数
+         * @param min 最小值
+         * @param max 最大值
+         * @returns 随机数
+         */
+        public GetRandom(min: number, max: number): number {
+            return Math.floor(Math.random() * max + min);
+        }
+        /**
+         * 获取四边形的外接圆半径
+         * @param length 长
+         * @param width 宽
+         * @param IsRound 是圆形
+         */
+        public GetCircumcircleRadius(length: number, width: number = length, IsRound: boolean = true): number {
+            let max: number = Math.max(length, width);
+            //正方形的对角线=边长^2*2
+            let diameter: number = Math.sqrt(Math.pow(max, 2) * 2);
+            //外接圆的直径=正方形的对角线
+            //圆的半径=直径/2
+            let radius: number = diameter / 2;
+            if (IsRound) {
+                radius = Math.round(radius);
+            }
+            return radius;
+        }
+    }
+    /**
+     * 对象帮助类
+     */
+    export class ObjectManager {
+        /**
+         * 克隆对象
+         * @param obj 要克隆的对象
+         */
+        public static Clone(obj: any): any {
+            let ObjectType: string = ToolManager.GetType(obj, false);
+            let result: any;
+            if (ObjectType == "Object") {
+                result = new Object();
+            }
+            else if (ObjectType == "array") {
+                result = new Array();
+            }
+            else {
+                result = obj;
+            }
+            for (var i in obj) {
+                let copy = obj[i];
+                let SubObjectType: string = ToolManager.GetType(copy, false);
+                if (SubObjectType == "Object" || SubObjectType == "array") {
+                    result[i] = arguments.callee(copy);
+                }
+                else {
+                    result[i] = copy;
+                }
+            }
+            return result;
+        }
+    }
+    /*时间类型*/
+    export enum TimeType {
+        /*年*/
+        Years = 0,
+        /*月*/
+        Months = 1,
+        /*日*/
+        Day = 2,
+        /*时*/
+        Hours = 3,
+        /*分*/
+        Minutes = 4,
+        /*秒*/
+        Seconds = 5,
+        /*毫秒*/
+        Milliseconds = 6
     }
     /**
      * 实现引擎模型
@@ -1659,6 +1384,8 @@ namespace Materal {
         public UC: boolean = false;
         //是否为Maxthon(遨游)浏览器
         public Maxthon: boolean = false;
+        //是否为微信浏览器
+        public WeChat: boolean = false;
         //具体版本号
         public Version: string = "";
     }
@@ -1737,7 +1464,11 @@ namespace Materal {
             else if (/AppleWebKit\/(\S+)/.test(userAgent)) {
                 this._engineM.Version = RegExp["$1"];
                 this._engineM.WebKit = true;
-                if (/Edge\/(\S+)/.test(userAgent)) {
+                if (/MicroMessenger\/(\S+)/.test(userAgent)) {
+                    this._browserM.Version = RegExp["$1"];
+                    this._browserM.WeChat = true;
+                }
+                else if (/Edge\/(\S+)/.test(userAgent)) {
                     this._browserM.Version = RegExp["$1"];
                     this._browserM.Edge = true;
                 }

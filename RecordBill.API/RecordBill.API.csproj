@@ -191,6 +191,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\API\ApiBaseController.cs" />
+    <Compile Include="Controllers\API\BillController.cs" />
     <Compile Include="Controllers\API\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PlatformController.cs" />
@@ -200,6 +201,7 @@
     </Compile>
     <Compile Include="Models\IVerificationLoginModel.cs" />
     <Compile Include="Models\RequestModel.cs" />
+    <Compile Include="Models\BillRequestModel.cs" />
     <Compile Include="Models\UserRequestModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -214,7 +216,7 @@
     <Content Include="Content\Css\Home\Index.css" />
     <Content Include="Content\Css\User\Index.css" />
     <Content Include="Content\Css\User\Login.css" />
-    <Content Include="Content\Images\Log.png" />
+    <Content Include="Content\Images\Log.jpg" />
     <Content Include="Content\Lib\Bootstrap\bootstrap-grid.css" />
     <Content Include="Content\Lib\Bootstrap\bootstrap-grid.min.css" />
     <Content Include="Content\Lib\Bootstrap\bootstrap-reboot.css" />

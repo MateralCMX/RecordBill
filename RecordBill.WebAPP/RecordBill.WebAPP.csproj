@@ -68,8 +68,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Script\Base.js" />
-    <Content Include="Content\Script\User\Login.js" />
+    <Content Include="Content\Css\Base.css" />
     <Content Include="Lib\mui\fonts\mui.ttf" />
     <Content Include="manifest.json" />
     <None Include="packages.config" />
@@ -98,6 +97,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Content\Script\Base.ts" />
+    <TypeScriptCompile Include="Content\Script\User\Login.ts" />
     <TypeScriptCompile Include="Lib\m-Tools\m-Tools.ts" />
   </ItemGroup>
   <ItemGroup>
@@ -119,7 +120,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>6766</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

@@ -71,7 +71,7 @@ namespace RecordBill.API.Controllers.API
         {
             try
             {
-                _bll.EditPassword(inputM.UserID, inputM.NewPassword, inputM.OldPassword);
+                _bll.EditPassword(inputM.UserID, inputM.OldPassword, inputM.NewPassword);
                 return MResultModel.GetSuccessResultM("修改成功");
             }
             catch (RecordBillException ex)
@@ -94,7 +94,7 @@ namespace RecordBill.API.Controllers.API
         {
             try
             {
-                _bll.EditPassword(inputM.LoginUserID, inputM.NewPassword, inputM.OldPassword);
+                _bll.EditPassword(inputM.LoginUserID, inputM.OldPassword, inputM.NewPassword);
                 return MResultModel.GetSuccessResultM("修改成功");
             }
             catch (RecordBillException ex)
