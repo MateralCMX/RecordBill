@@ -1,11 +1,11 @@
 @using RecordBill.API.Areas.HelpPage.ModelDescriptions
 @model EnumTypeModelDescription
 
-<p>Possible enumeration values:</p>
+<p>可能的枚举值:</p>
 
-<table class="help-page-table">
+<table class="table table-hover">
     <thead>
-        <tr><th>Name</th><th>Value</th><th>Description</th></tr>
+        <tr><th>名称</th><th>值</th><th>简介</th></tr>
     </thead>
     <tbody>
         @foreach (EnumValueDescription value in Model.Values)

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace RecordBill.API
 {
@@ -10,7 +8,7 @@ namespace RecordBill.API
         public static void Register(HttpConfiguration config)
         {
             // Web API 配置和服务
-
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
             // Web API 路由
             config.MapHttpAttributeRoutes();
 
@@ -19,6 +17,10 @@ namespace RecordBill.API
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            //注册统一异常处理
+            config.Filters.Add(new WebApiExceptionAttribute());
+            //注册登录验证
+            config.Filters.Add(new VerificationLoginAttribute());
         }
     }
 }

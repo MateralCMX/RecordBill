@@ -1,24 +1,102 @@
-﻿<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-        a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-        is an ideal platform for building RESTful applications on the .NET Framework.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>软通支付接口管理平台</title>
+    <link href="~/Content/Lib/Bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Css/Home/Index.css" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg  navbar-dark bg-primary">
+        <a class="navbar-brand" href="/Home/Index">软通支付</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul id="NavMenuList" class="navbar-nav mr-auto"></ul>
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="LoginUserNameDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                <div class="dropdown-menu nav-right-dropdown" aria-labelledby="LoginUserNameDropdown">
+                    <a class="dropdown-item" data-toggle="modal" data-target="#EditModal">修改信息</a>
+                    <a class="dropdown-item" data-toggle="modal" data-target="#EditMyPasswordModal">修改密码</a>
+                    <div class="dropdown-divider"></div>
+                    <a id="BtnLogout" class="dropdown-item">安全退出</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="mainFrame">
+        <iframe id="mainFrame" src="/Home/WelCome"></iframe>
+    </main>
+    <!-- 编辑窗口 -->
+    <div id="EditModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="EditModalLabel">我的信息</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="InputForm" class="needs-validation">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">姓名:</label>
+                            <input type="text" class="form-control" id="InputName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">账户:</label>
+                            <input type="text" class="form-control" id="InputAccount" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button id="BtnSave" type="button" class="btn btn-primary iconfont icon-save"> 保存</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
+    <!-- 编辑窗口 -->
+    <div id="EditMyPasswordModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="EditMyPasswordModalLabel">修改密码</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="EditMyPasswordForm" class="needs-validation">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">旧密码:</label>
+                            <input type="text" class="form-control" id="InputOldPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">新密码:</label>
+                            <input type="text" class="form-control" id="InputNewPassword" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button id="BtnEditMyPassword" type="button" class="btn btn-primary iconfont icon-save"> 保存</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
-    </div>
-</div>
+    <script src="~/Content/Lib/JQuery/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/Lib/Popper/popper.min.js"></script>
+    <script src="~/Content/Lib/Bootstrap/bootstrap.min.js"></script>
+    <script src="~/Content/Lib/m-Tools/m-Tools.js"></script>
+    <script src="~/Content/Lib/m-Reset/m-Reset.js"></script>
+    <script src="~/Content/Scripts/Base/Base.js"></script>
+    <script src="~/Content/Scripts/Home/Index.js"></script>
+</body>
+</html>

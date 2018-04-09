@@ -7,20 +7,37 @@
 @{
     ApiDescription description = Model.ApiDescription;
 }
-<h1>@description.HttpMethod.Method @description.RelativePath</h1>
-<div>
-    <p>@description.Documentation</p>
-
-    <h2>Request Information</h2>
-
-    <h3>URI Parameters</h3>
+<div class="ApiModel_Title">
+    <h1>
+        @description.RelativePath.Split('?')[0]
+        @if (description.HttpMethod.Method == "POST")
+        {
+            <span class="badge badge-primary">
+                @description.HttpMethod.Method
+            </span>
+        }
+        else
+        {
+            <span class="badge badge-success">
+                @description.HttpMethod.Method
+            </span>
+        }
+    </h1>
+    @if (!string.IsNullOrEmpty(description.Documentation))
+    {
+        <p>@description.Documentation</p>
+    }
+    else
+    {
+        <p>未能找到说明文档</p>
+    }
+</div>
+<div class="ApiModel_Body">
+    <h3>请求信息：</h3>
+    <h5>URL参数</h5>
     @Html.DisplayFor(m => m.UriParameters, "Parameters")
-
-    <h3>Body Parameters</h3>
-
-    <p>@Model.RequestDocumentation</p>
-
-    @if (Model.RequestModelDescription != null)
+    <h5>Body参数</h5>
+    @if (!string.IsNullOrEmpty(Model.RequestDocumentation))
     {
         @Html.DisplayFor(m => m.RequestModelDescription.ModelType, "ModelDescriptionLink", new { modelDescription = Model.RequestModelDescription })
         if (Model.RequestBodyParameters != null)
@@ -30,21 +47,28 @@
     }
     else
     {
-        <p>None.</p>
+        <div class="alert alert-info" role="alert">
+            None.
+        </div>
     }
-
     @if (Model.SampleRequests.Count > 0)
     {
-        <h3>Request Formats</h3>
+        <h5>请求格式</h5>
         @Html.DisplayFor(m => m.SampleRequests, "Samples")
     }
-
-    <h2>Response Information</h2>
-
-    <h3>Resource Description</h3>
-
-    <p>@description.ResponseDescription.Documentation</p>
-
+    <h3>响应信息</h3>
+    @if (!string.IsNullOrEmpty(Model.RequestDocumentation))
+    {
+    <div class="alert alert-info" role="alert">
+        @description.ResponseDescription.Documentation
+    </div>
+    }
+    else
+    {
+        <div class="alert alert-info" role="alert">
+           未能找到说明文档
+        </div>
+    }
     @if (Model.ResourceDescription != null)
     {
         @Html.DisplayFor(m => m.ResourceDescription.ModelType, "ModelDescriptionLink", new { modelDescription = Model.ResourceDescription })
@@ -57,11 +81,9 @@
     {
         <p>None.</p>
     }
-
     @if (Model.SampleResponses.Count > 0)
     {
-        <h3>Response Formats</h3>
+        <h3>响应格式</h3>
         @Html.DisplayFor(m => m.SampleResponses, "Samples")
     }
-
 </div>

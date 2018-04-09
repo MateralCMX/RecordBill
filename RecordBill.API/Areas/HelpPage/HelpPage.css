@@ -1,4 +1,25 @@
-.help-page h1,
+.Index_Title {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.Index_Body {
+    text-align: center;
+}
+.Api_Body,
+.Index_Body_APIList {
+    max-width: 80%;
+    margin: 0 auto;
+}
+.ApiModel_Title,
+.ApiGroup_Title {
+    margin-top: 10px;
+}
+
+.ApiGroup_Table > tbody > tr > td > a > span {
+    margin-left: 5px;
+}
+/*.help-page h1,
 .help-page .h1,
 .help-page h2,
 .help-page .h2,
@@ -131,4 +152,4 @@
 .help-page a {
     color: #0000EE;
     text-decoration: none;
-}
+}*/

@@ -1,12 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    @RenderSection("scripts", required: false)
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>RecordBill接口管理平台</title>
+    <link href="~/Content/Lib/Bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Areas/HelpPage/HelpPage.css" rel="stylesheet" />
 </head>
 <body>
-    @RenderBody()
+    <main>
+        @RenderBody()
+    </main>
+    <script src="~/Content/Lib/JQuery/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/Lib/Popper/popper.min.js"></script>
+    <script src="~/Content/Lib/Bootstrap/bootstrap.min.js"></script>
 </body>
 </html>

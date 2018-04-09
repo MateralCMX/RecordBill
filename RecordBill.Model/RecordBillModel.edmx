@@ -1,0 +1,530 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RecordBillDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="T_ApplicationLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="Types" Type="tinyint" Nullable="false" />
+          <Property Name="FK_Parent_ID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="T_ApplicationLog_Exception">
+          <Key>
+            <PropertyRef Name="FK_Log_ID" />
+          </Key>
+          <Property Name="FK_Log_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StackTrace" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="Types" Type="nvarchar" MaxLength="400" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Bill">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FK_User_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Contents" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Amount" Type="money" Nullable="false" />
+          <Property Name="RecordTime" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Token">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FK_User_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Types" Type="tinyint" Nullable="false" />
+          <Property Name="Value" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="ExpiryTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Account" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“RecordBillDB.dbo.V_ApplicationLog_Exception”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="V_ApplicationLog_Exception">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="Message" />
+            <PropertyRef Name="StackTrace" />
+            <PropertyRef Name="Types" />
+            <PropertyRef Name="CreateTime" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="StackTrace" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="Types" Type="nvarchar" MaxLength="400" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="FK_Parent_ID" Type="uniqueidentifier" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“RecordBillDB.dbo.V_Token”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="V_Token">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="FK_User_ID" />
+            <PropertyRef Name="Types" />
+            <PropertyRef Name="Value" />
+            <PropertyRef Name="CreateTime" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FK_User_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Types" Type="tinyint" Nullable="false" />
+          <Property Name="Value" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“RecordBillDB.dbo.V_User”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="V_User">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Account" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Account" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ApplicationLog_ApplicationLog">
+          <End Role="T_ApplicationLog" Type="Self.T_ApplicationLog" Multiplicity="0..1" />
+          <End Role="T_ApplicationLog1" Type="Self.T_ApplicationLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_ApplicationLog">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_ApplicationLog1">
+              <PropertyRef Name="FK_Parent_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Log_Exception">
+          <End Role="T_ApplicationLog" Type="Self.T_ApplicationLog" Multiplicity="1" />
+          <End Role="T_ApplicationLog_Exception" Type="Self.T_ApplicationLog_Exception" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="T_ApplicationLog">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_ApplicationLog_Exception">
+              <PropertyRef Name="FK_Log_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_Bill_T_User">
+          <End Role="T_User" Type="Self.T_User" Multiplicity="1" />
+          <End Role="T_Bill" Type="Self.T_Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Bill">
+              <PropertyRef Name="FK_User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Token">
+          <End Role="T_User" Type="Self.T_User" Multiplicity="1" />
+          <End Role="T_Token" Type="Self.T_Token" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Token">
+              <PropertyRef Name="FK_User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RecordBillDBModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_ApplicationLog" EntityType="Self.T_ApplicationLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_ApplicationLog_Exception" EntityType="Self.T_ApplicationLog_Exception" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Bill" EntityType="Self.T_Bill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Token" EntityType="Self.T_Token" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_User" EntityType="Self.T_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="V_ApplicationLog_Exception" EntityType="Self.V_ApplicationLog_Exception" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_ApplicationLog_Exception].[ID] AS [ID], 
+    [V_ApplicationLog_Exception].[Title] AS [Title], 
+    [V_ApplicationLog_Exception].[Message] AS [Message], 
+    [V_ApplicationLog_Exception].[StackTrace] AS [StackTrace], 
+    [V_ApplicationLog_Exception].[Types] AS [Types], 
+    [V_ApplicationLog_Exception].[CreateTime] AS [CreateTime], 
+    [V_ApplicationLog_Exception].[FK_Parent_ID] AS [FK_Parent_ID]
+    FROM [dbo].[V_ApplicationLog_Exception] AS [V_ApplicationLog_Exception]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_Token" EntityType="Self.V_Token" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_Token].[ID] AS [ID], 
+    [V_Token].[FK_User_ID] AS [FK_User_ID], 
+    [V_Token].[Types] AS [Types], 
+    [V_Token].[Value] AS [Value], 
+    [V_Token].[CreateTime] AS [CreateTime]
+    FROM [dbo].[V_Token] AS [V_Token]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_User" EntityType="Self.V_User" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_User].[ID] AS [ID], 
+    [V_User].[Account] AS [Account], 
+    [V_User].[Name] AS [Name]
+    FROM [dbo].[V_User] AS [V_User]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_ApplicationLog_ApplicationLog" Association="Self.FK_ApplicationLog_ApplicationLog">
+            <End Role="T_ApplicationLog" EntitySet="T_ApplicationLog" />
+            <End Role="T_ApplicationLog1" EntitySet="T_ApplicationLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Log_Exception" Association="Self.FK_Log_Exception">
+            <End Role="T_ApplicationLog" EntitySet="T_ApplicationLog" />
+            <End Role="T_ApplicationLog_Exception" EntitySet="T_ApplicationLog_Exception" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_Bill_T_User" Association="Self.FK_T_Bill_T_User">
+            <End Role="T_User" EntitySet="T_User" />
+            <End Role="T_Bill" EntitySet="T_Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Token" Association="Self.FK_User_Token">
+            <End Role="T_User" EntitySet="T_User" />
+            <End Role="T_Token" EntitySet="T_Token" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RecordBillDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="T_Bill">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="FK_User_ID" Type="Guid" Nullable="false" />
+          <Property Name="Contents" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="RecordTime" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="T_User" Relationship="Self.FK_T_Bill_T_User" FromRole="T_Bill" ToRole="T_User" />
+        </EntityType>
+        <EntityType Name="T_User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Account" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="T_Bill" Relationship="Self.FK_T_Bill_T_User" FromRole="T_User" ToRole="T_Bill" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="T_Token" Relationship="RecordBillDBModel.FK_User_Token" FromRole="T_User" ToRole="T_Token" />
+        </EntityType>
+        <Association Name="FK_T_Bill_T_User">
+          <End Role="T_User" Type="Self.T_User" Multiplicity="1" />
+          <End Role="T_Bill" Type="Self.T_Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Bill">
+              <PropertyRef Name="FK_User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RecordBillDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="T_Bill" EntityType="Self.T_Bill" />
+          <EntitySet Name="T_User" EntityType="Self.T_User" />
+          <AssociationSet Name="FK_T_Bill_T_User" Association="Self.FK_T_Bill_T_User">
+            <End Role="T_User" EntitySet="T_User" />
+            <End Role="T_Bill" EntitySet="T_Bill" />
+          </AssociationSet>
+          <EntitySet Name="T_ApplicationLog" EntityType="RecordBillDBModel.T_ApplicationLog" />
+          <EntitySet Name="T_ApplicationLog_Exception" EntityType="RecordBillDBModel.T_ApplicationLog_Exception" />
+          <EntitySet Name="V_ApplicationLog_Exception" EntityType="RecordBillDBModel.V_ApplicationLog_Exception" />
+          <AssociationSet Name="FK_ApplicationLog_ApplicationLog" Association="RecordBillDBModel.FK_ApplicationLog_ApplicationLog">
+            <End Role="T_ApplicationLog" EntitySet="T_ApplicationLog" />
+            <End Role="T_ApplicationLog1" EntitySet="T_ApplicationLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Log_Exception" Association="RecordBillDBModel.FK_Log_Exception">
+            <End Role="T_ApplicationLog" EntitySet="T_ApplicationLog" />
+            <End Role="T_ApplicationLog_Exception" EntitySet="T_ApplicationLog_Exception" />
+          </AssociationSet>
+          <EntitySet Name="T_Token" EntityType="RecordBillDBModel.T_Token" />
+          <EntitySet Name="V_Token" EntityType="RecordBillDBModel.V_Token" />
+          <EntitySet Name="V_User" EntityType="RecordBillDBModel.V_User" />
+          <AssociationSet Name="FK_User_Token" Association="RecordBillDBModel.FK_User_Token">
+            <End Role="T_User" EntitySet="T_User" />
+            <End Role="T_Token" EntitySet="T_Token" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="T_ApplicationLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Types" Type="Byte" Nullable="false" />
+          <Property Name="FK_Parent_ID" Type="Guid" />
+          <NavigationProperty Name="T_ApplicationLog1" Relationship="RecordBillDBModel.FK_ApplicationLog_ApplicationLog" FromRole="T_ApplicationLog" ToRole="T_ApplicationLog1" />
+          <NavigationProperty Name="T_ApplicationLog2" Relationship="RecordBillDBModel.FK_ApplicationLog_ApplicationLog" FromRole="T_ApplicationLog1" ToRole="T_ApplicationLog" />
+          <NavigationProperty Name="T_ApplicationLog_Exception" Relationship="RecordBillDBModel.FK_Log_Exception" FromRole="T_ApplicationLog" ToRole="T_ApplicationLog_Exception" />
+        </EntityType>
+        <EntityType Name="T_ApplicationLog_Exception">
+          <Key>
+            <PropertyRef Name="FK_Log_ID" />
+          </Key>
+          <Property Name="FK_Log_ID" Type="Guid" Nullable="false" />
+          <Property Name="StackTrace" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Types" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="T_ApplicationLog" Relationship="RecordBillDBModel.FK_Log_Exception" FromRole="T_ApplicationLog_Exception" ToRole="T_ApplicationLog" />
+        </EntityType>
+        <EntityType Name="V_ApplicationLog_Exception">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="Message" />
+            <PropertyRef Name="StackTrace" />
+            <PropertyRef Name="Types" />
+            <PropertyRef Name="CreateTime" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="StackTrace" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Types" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FK_Parent_ID" Type="Guid" />
+        </EntityType>
+        <Association Name="FK_ApplicationLog_ApplicationLog">
+          <End Type="RecordBillDBModel.T_ApplicationLog" Role="T_ApplicationLog" Multiplicity="0..1" />
+          <End Type="RecordBillDBModel.T_ApplicationLog" Role="T_ApplicationLog1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_ApplicationLog">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_ApplicationLog1">
+              <PropertyRef Name="FK_Parent_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Log_Exception">
+          <End Type="RecordBillDBModel.T_ApplicationLog" Role="T_ApplicationLog" Multiplicity="1" />
+          <End Type="RecordBillDBModel.T_ApplicationLog_Exception" Role="T_ApplicationLog_Exception" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="T_ApplicationLog">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_ApplicationLog_Exception">
+              <PropertyRef Name="FK_Log_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="T_Token">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="FK_User_ID" Type="Guid" Nullable="false" />
+          <Property Name="Types" Type="Byte" Nullable="false" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExpiryTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="T_User" Relationship="RecordBillDBModel.FK_User_Token" FromRole="T_Token" ToRole="T_User" />
+        </EntityType>
+        <EntityType Name="V_Token">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="FK_User_ID" />
+            <PropertyRef Name="Types" />
+            <PropertyRef Name="Value" />
+            <PropertyRef Name="CreateTime" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="FK_User_ID" Type="Guid" Nullable="false" />
+          <Property Name="Types" Type="Byte" Nullable="false" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_User">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Account" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="ID" Type="Guid" Nullable="false" />
+          <Property Name="Account" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_User_Token">
+          <End Type="RecordBillDBModel.T_User" Role="T_User" Multiplicity="1" />
+          <End Type="RecordBillDBModel.T_Token" Role="T_Token" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="T_Token">
+              <PropertyRef Name="FK_User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RecordBillDBModelStoreContainer" CdmEntityContainer="RecordBillDBEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="RecordBillDBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Bill">
+            <EntityTypeMapping TypeName="RecordBillDBModel.T_Bill">
+              <MappingFragment StoreEntitySet="T_Bill">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FK_User_ID" ColumnName="FK_User_ID" />
+                <ScalarProperty Name="Contents" ColumnName="Contents" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="RecordTime" ColumnName="RecordTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_User">
+            <EntityTypeMapping TypeName="RecordBillDBModel.T_User">
+              <MappingFragment StoreEntitySet="T_User">
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_ApplicationLog">
+            <EntityTypeMapping TypeName="RecordBillDBModel.T_ApplicationLog">
+              <MappingFragment StoreEntitySet="T_ApplicationLog">
+                <ScalarProperty Name="FK_Parent_ID" ColumnName="FK_Parent_ID" />
+                <ScalarProperty Name="Types" ColumnName="Types" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_ApplicationLog_Exception">
+            <EntityTypeMapping TypeName="RecordBillDBModel.T_ApplicationLog_Exception">
+              <MappingFragment StoreEntitySet="T_ApplicationLog_Exception">
+                <ScalarProperty Name="Types" ColumnName="Types" />
+                <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+                <ScalarProperty Name="FK_Log_ID" ColumnName="FK_Log_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_ApplicationLog_Exception">
+            <EntityTypeMapping TypeName="RecordBillDBModel.V_ApplicationLog_Exception">
+              <MappingFragment StoreEntitySet="V_ApplicationLog_Exception">
+                <ScalarProperty Name="FK_Parent_ID" ColumnName="FK_Parent_ID" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Types" ColumnName="Types" />
+                <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Token">
+            <EntityTypeMapping TypeName="RecordBillDBModel.T_Token">
+              <MappingFragment StoreEntitySet="T_Token">
+                <ScalarProperty Name="ExpiryTime" ColumnName="ExpiryTime" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Types" ColumnName="Types" />
+                <ScalarProperty Name="FK_User_ID" ColumnName="FK_User_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_Token">
+            <EntityTypeMapping TypeName="RecordBillDBModel.V_Token">
+              <MappingFragment StoreEntitySet="V_Token">
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Types" ColumnName="Types" />
+                <ScalarProperty Name="FK_User_ID" ColumnName="FK_User_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_User">
+            <EntityTypeMapping TypeName="RecordBillDBModel.V_User">
+              <MappingFragment StoreEntitySet="V_User">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
