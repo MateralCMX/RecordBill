@@ -129,7 +129,7 @@ namespace RecordBill.Home {
             },
             {
                 Url: "/Platform/Index",
-                Name: "平台管理"
+                Name: "小本本"
             },
             {
                 Url: "/Help",
