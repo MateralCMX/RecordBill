@@ -6,6 +6,7 @@ namespace RecordBill.User {
          * 构造方法
          */
         constructor() {
+            Common.BindFooterInfo();
             this.BindEvent();
         }
         /**

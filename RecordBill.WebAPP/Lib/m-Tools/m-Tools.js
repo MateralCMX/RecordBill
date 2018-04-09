@@ -1688,4 +1688,4 @@ var MateralTools;
     }());
     MateralTools.ClientInfoModel = ClientInfoModel;
 })(MateralTools || (MateralTools = {}));
-//# sourceMappingURL=m-Tools.js.map
+//# sourceMappingURL=m-tools.js.map

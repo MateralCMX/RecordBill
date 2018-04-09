@@ -89,13 +89,13 @@ var RecordBill;
             Common.RequestError = function (resM, xhr, status) {
                 switch (status) {
                     case 400://参数错误
-                        window["mui"]["alert"]("服务器不能识别该请求。", "请求错误");
+                        window["mui"]["toast"]("服务器不能识别该请求。");
                         break;
                     case 401://未登录
                         Common.GoToPage("Login");
                         break;
                     default://服务器错误或其他
-                        window["mui"]["alert"]("服务器发生错误，请联系管理员。", "网页发生错误");
+                        window["mui"]["toast"]("服务器发生错误，请联系管理员。");
                         break;
                 }
                 ;
@@ -189,7 +189,7 @@ var RecordBill;
                 return value;
             };
             Common.config = {
-                ServerURL: "http://localhost:6731/",
+                ServerURL: "http://myqa.materalcmx.com/",
                 LoginUserName: "LOGINUSER",
                 PageInfo: {
                     PagingIndex: 1,

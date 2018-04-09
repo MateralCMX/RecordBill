@@ -342,8 +342,28 @@ var RecordBill;
             }
             return value;
         };
+        /**
+         * 绑定标准页面脚部
+         */
+        Common.BindFooterInfo = function () {
+            var footers = document.getElementsByClassName("DefultFooter");
+            for (var i = 0; i < footers.length; i++) {
+                var ContentP = document.createElement("p");
+                ContentP.textContent = "小本本";
+                var KeepA = document.createElement("a");
+                KeepA.href = "http://www.miibeian.gov.cn";
+                KeepA.target = "_blank";
+                KeepA.textContent = "滇ICP备17011382号-1";
+                var CopyrightP = document.createElement("p");
+                CopyrightP.textContent = "Materal © 2018 -- 小瑞瑞";
+                footers[i].appendChild(ContentP);
+                footers[i].appendChild(CopyrightP);
+                footers[i].appendChild(KeepA);
+            }
+        };
+        ;
         Common.config = {
-            ServerURL: "http://localhost:6731/",
+            ServerURL: "http://MYQA.MateralCMX.com/",
             LoginUserName: "LOGINUSER",
             PageInfo: {
                 PagingIndex: 1,

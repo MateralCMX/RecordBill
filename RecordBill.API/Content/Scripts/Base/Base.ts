@@ -8,7 +8,7 @@ namespace RecordBill {
      */
     export class Common {
         public static config = {
-            ServerURL: "http://localhost:6731/",//服务器地址
+            ServerURL: "http://MYQA.MateralCMX.com/",//"http://localhost:6731/",//
             LoginUserName: "LOGINUSER",//保存登录用户Key
             PageInfo: {
                 PagingIndex:1,
@@ -332,6 +332,25 @@ namespace RecordBill {
             }
             return value;
         }
+        /**
+         * 绑定标准页面脚部
+         */
+        public static BindFooterInfo() {
+            let footers = document.getElementsByClassName("DefultFooter");
+            for (var i = 0; i < footers.length; i++) {
+                let ContentP = document.createElement("p");
+                ContentP.textContent = "小本本";
+                let KeepA = document.createElement("a");
+                KeepA.href = "http://www.miibeian.gov.cn";
+                KeepA.target = "_blank";
+                KeepA.textContent = "滇ICP备17011382号-1";
+                let CopyrightP = document.createElement("p");
+                CopyrightP.textContent = "Materal © 2018 -- 小瑞瑞";
+                footers[i].appendChild(ContentP);
+                footers[i].appendChild(CopyrightP);
+                footers[i].appendChild(KeepA);
+            }
+        };
     }
     /**
      * 登录用户模型

@@ -63,10 +63,27 @@ namespace RecordBill.APP.User {
             let url = Common.config.ServerURL + "api/User/Login";
             let SFun: Function = function (resM: any, xhr: XMLHttpRequest, status: number) {
                 Common.SetLoginUserInfo(resM["Data"]);
-                window.location.href = "/View/Index.html";
+                window["mui"]["openWindow"]({
+                    url: "/View/Index.html",
+                    id: "Index",
+                    styles: {
+                        top: 0,//新页面顶部位置
+                        bottom: 0,//新页面底部位置
+                    },
+                    extras: {
+                    },
+                    createNew: false,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+                    show: {
+                        autoShow: true,//页面loaded事件发生后自动显示，默认为true
+                        aniShow: "slide-in-right",//页面显示动画，默认为”slide-in-right“；
+                    },
+                    waiting: {
+                        title: '正在加载...',//等待对话框上显示的提示内容
+                    }
+                })
             };
             let FFun: Function = function (resM: any, xhr: XMLHttpRequest, status: number) {
-                window["mui"].alert("帐号或者密码错误");
+                window["mui"]["toast"]("帐号或者密码错误");
                 window["mui"]("#BtnLogin").button('reset');
             };
             let CFun: Function = function (resM: any, xhr: XMLHttpRequest, status: number) {

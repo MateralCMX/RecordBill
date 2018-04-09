@@ -194,7 +194,6 @@
     <Compile Include="Controllers\API\BillController.cs" />
     <Compile Include="Controllers\API\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PlatformController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -293,6 +292,8 @@
     <Content Include="Views\Home\WelCome.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
+    <None Include="Properties\PublishProfiles\本地文件-Debug.pubxml" />
+    <None Include="Properties\PublishProfiles\本地文件-Release.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Content\Lib\JQuery\JQuery.d.ts" />

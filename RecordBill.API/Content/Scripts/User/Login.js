@@ -9,6 +9,7 @@ var RecordBill;
              * 构造方法
              */
             function LoginPage() {
+                RecordBill.Common.BindFooterInfo();
                 this.BindEvent();
             }
             /**

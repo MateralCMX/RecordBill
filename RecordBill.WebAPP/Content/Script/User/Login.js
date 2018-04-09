@@ -68,10 +68,26 @@ var RecordBill;
                     var url = APP.Common.config.ServerURL + "api/User/Login";
                     var SFun = function (resM, xhr, status) {
                         APP.Common.SetLoginUserInfo(resM["Data"]);
-                        window.location.href = "/View/Index.html";
+                        window["mui"]["openWindow"]({
+                            url: "/View/Index.html",
+                            id: "Index",
+                            styles: {
+                                top: 0,
+                                bottom: 0,
+                            },
+                            extras: {},
+                            createNew: false,
+                            show: {
+                                autoShow: true,
+                                aniShow: "slide-in-right",
+                            },
+                            waiting: {
+                                title: '正在加载...',
+                            }
+                        });
                     };
                     var FFun = function (resM, xhr, status) {
-                        window["mui"].alert("帐号或者密码错误");
+                        window["mui"]["toast"]("帐号或者密码错误");
                         window["mui"]("#BtnLogin").button('reset');
                     };
                     var CFun = function (resM, xhr, status) {
