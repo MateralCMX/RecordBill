@@ -2,6 +2,8 @@
 var MDMa = MateralTools.DOMManager;
 var MTMa = MateralTools.ToolManager;
 var MLMa = MateralTools.LocalDataManager;
+var mui = window["mui"];
+var plus = window["plus"];
 var RecordBill;
 (function (RecordBill) {
     var APP;
@@ -12,6 +14,22 @@ var RecordBill;
         var Common = /** @class */ (function () {
             function Common() {
             }
+            /**
+             * 获得验证对象
+             * @param e 触发事件对象
+             */
+            Common.GetValidityState = function (e) {
+                MDMa.AddClass(e.target.parentElement, "error");
+                var validity = e.target.validity;
+                return validity;
+            };
+            /**
+             * 移除错误样式
+             * @param e
+             */
+            Common.RemoveError = function (e) {
+                MDMa.RemoveClass(e.target.parentElement, "error");
+            };
             /**
              * 获得用户输入的信息
              */
@@ -61,14 +79,23 @@ var RecordBill;
              * @param pageName 页面名称
              */
             Common.GetPageUrl = function (pageName) {
-                var url = Common.config.ServerURL;
+                var url;
                 switch (pageName) {
-                    case "Home":
-                        url += "Home/Index";
+                    case "MyInfo":
+                        url = "/View/User/MyInfo.html";
+                        break;
+                    case "About":
+                        url = "/View/Home/About.html";
+                        break;
+                    case "Setting":
+                        url = "/View/Home/Setting.html";
+                        break;
+                    case "AddBill":
+                        url = "/View/Bill/Edit.html";
                         break;
                     case "Login":
                     default:
-                        url += "User/Login";
+                        url = "/View/User/Login.html";
                         break;
                 }
                 return url;
@@ -78,7 +105,42 @@ var RecordBill;
              * @param pageName 页面名称
              */
             Common.GoToPage = function (pageName) {
-                window.location.href = Common.GetPageUrl(pageName);
+                var extras = null;
+                switch (pageName) {
+                    case "AddBill":
+                        extras = {
+                            Type: "Add"
+                        };
+                        break;
+                }
+                Common.OpenWindow(Common.GetPageUrl(pageName), pageName, extras);
+            };
+            /**
+             * 打开窗口
+             * @param url 路径
+             * @param id ID
+             * @param extras 参数
+             */
+            Common.OpenWindow = function (url, id, extras) {
+                var opt = {
+                    url: url,
+                    id: id,
+                    styles: {
+                        top: 0,
+                        bottom: 0,
+                    },
+                    extras: {},
+                    show: {
+                        aniShow: "slide-in-right",
+                    },
+                    waiting: {
+                        title: '正在加载...',
+                    }
+                };
+                if (extras) {
+                    opt.extras = extras;
+                }
+                mui.openWindow(opt);
             };
             /**
              * 请求错误统一处理方法
@@ -89,13 +151,13 @@ var RecordBill;
             Common.RequestError = function (resM, xhr, status) {
                 switch (status) {
                     case 400://参数错误
-                        window["mui"]["toast"]("服务器不能识别该请求。");
+                        mui.toast("服务器不能识别该请求。");
                         break;
                     case 401://未登录
                         Common.GoToPage("Login");
                         break;
                     default://服务器错误或其他
-                        window["mui"]["toast"]("服务器发生错误，请联系管理员。");
+                        mui.toast("服务器发生错误，请联系管理员。");
                         break;
                 }
                 ;
@@ -188,6 +250,26 @@ var RecordBill;
                 }
                 return value;
             };
+            /**
+             * 绑定跳转页面按钮
+             */
+            Common.BindBtnGotoPage = function () {
+                var btns = document.querySelectorAll("*[data-gotopage]");
+                for (var i = 0; i < btns.length; i++) {
+                    MDMa.AddEvent(btns[i], "tap", Common.Event_BtnGotoPage_tap);
+                }
+            };
+            /**
+             * 跳转页面按钮事件
+             * @param e
+             */
+            Common.Event_BtnGotoPage_tap = function (e) {
+                var element = e.target;
+                var targetPage = Common.GetDataSetOrPanertDataSet(element, "gotopage");
+                if (targetPage) {
+                    Common.GoToPage(targetPage);
+                }
+            };
             Common.config = {
                 ServerURL: "http://myqa.materalcmx.com/",
                 LoginUserName: "LOGINUSER",
@@ -228,4 +310,7 @@ var RecordBill;
         APP.UserModel = UserModel;
     })(APP = RecordBill.APP || (RecordBill.APP = {}));
 })(RecordBill || (RecordBill = {}));
+MDMa.AddEvent(window, "load", function () {
+    RecordBill.APP.Common.BindBtnGotoPage();
+});
 //# sourceMappingURL=Base.js.map

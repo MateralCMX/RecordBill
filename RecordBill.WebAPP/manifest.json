@@ -1,4 +1,4 @@
-﻿{
+{
   "@platforms": [ "android", "iPhone", "iPad" ],
   "id": "H5B84E130", /*应用的标识，创建应用时自动生成，勿手动修改*/
   "name": "RecordBill.WebAPP", /*应用名称，程序桌面图标名称*/
@@ -10,7 +10,7 @@
   "icons": {
     "72": "icon.png"
   },
-  "launch_path": "View/User/Login.html", /*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
+  "launch_path": "View/Home/Index.html", /*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
   "developer": {
     "name": "", /*开发者名称*/
     "email": "", /*开发者邮箱地址*/
@@ -135,5 +135,177 @@
         }
       }
     }
-  }
+  },
+	"dependencies": {
+		"pages": {
+			"View/Home/Index.html": {
+				"resources": [],
+				"refer": [
+					"View/Home/Setting.html",
+					"View/Bill/Edit.html"
+				],
+				"priority": 0
+			},
+			"View/Home/Setting.html": {
+				"resources": [],
+				"refer": [
+					"View/User/Login.html"
+				],
+				"priority": 0
+			},
+			"View/Bill/Edit.html": {
+				"resources": [],
+				"refer": [
+					"View/User/Login.html"
+				],
+				"priority": 0
+			}
+		},
+		"idle": {
+			"resources": [
+				"bin/roslyn/vbc.exe",
+				"Content/Lib/mui/js/mui.indexedlist.js",
+				"Content/Images/About2.png",
+				"bin/roslyn/Microsoft.CodeAnalysis.dll",
+				"Web.Debug.config",
+				"bin/roslyn/vbc.rsp",
+				"Content/Lib/mui/js/beecloud.js",
+				"bin/roslyn/System.ValueTuple.dll",
+				"Content/Lib/mui/css/mui.imageviewer.css",
+				"Content/Script/Home/Setting.js",
+				"obj/Debug/Tsc.out",
+				"bin/roslyn/System.Security.Claims.dll",
+				"obj/Debug/RecordBill.WebAPP.csproj.CopyComplete",
+				"bin/roslyn/Microsoft.Win32.Primitives.dll",
+				"Content/Lib/mui/css/mui.min.css",
+				"Content/Lib/mui/js/mui.lazyload.js",
+				"bin/roslyn/System.IO.Pipes.dll",
+				"Content/Script/Test.js.map",
+				"bin/roslyn/System.IO.FileSystem.DriveInfo.dll",
+				"bin/roslyn/Microsoft.DiaSymReader.Native.amd64.dll",
+				"bin/roslyn/System.Threading.Thread.dll",
+				"obj/Debug/RecordBill.WebAPP.csproj.CoreCompileInputs.cache",
+				"Content/Lib/mui/css/mui.picker.all.css",
+				"Properties/AssemblyInfo.cs",
+				"RecordBill.WebAPP.csproj.user",
+				"bin/roslyn/System.Xml.XPath.dll",
+				"bin/roslyn/System.AppContext.dll",
+				"Content/Lib/mui/js/arttmpl.js",
+				"Content/Lib/m-Tools/m-Tools.ts",
+				"Content/Lib/m-Tools/m-Tools.js.map",
+				"Content/Lib/mui/js/mui.picker.all.js",
+				"obj/Debug/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs",
+				"bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll",
+				"Content/Lib/mui/js/city.data-3.js",
+				"bin/roslyn/System.Reflection.Metadata.dll",
+				"Content/Script/Home/Index.js",
+				"Web.Release.config",
+				"obj/Debug/RecordBill.WebAPP.csprojResolveAssemblyReference.cache",
+				"bin/roslyn/System.Diagnostics.StackTrace.dll",
+				"Content/Lib/mui/js/mui.previewimage.js",
+				"bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml",
+				"Content/Lib/mui/js/mui.min.js",
+				"Content/Lib/mui/js/mui.poppicker.js",
+				"Content/Script/Home/Setting.js.map",
+				"Content/Script/User/MyInfo.js",
+				"bin/roslyn/System.IO.FileSystem.Primitives.dll",
+				"bin/roslyn/System.Security.Principal.Windows.dll",
+				"bin/roslyn/System.Security.Cryptography.Encoding.dll",
+				"Content/Lib/mui/js/mui.js",
+				"Content/Lib/mui/css/mui.css",
+				"obj/Debug/RecordBill.WebAPP.pdb",
+				"Content/Lib/mui/js/95516.js",
+				"bin/roslyn/System.Xml.XmlDocument.dll",
+				"Content/Images/About.png",
+				"bin/RecordBill.WebAPP.dll.config",
+				"Content/Lib/mui/js/mui.view.js",
+				"Web.config",
+				"Content/Lib/mui/css/mui.dtpicker.css",
+				"bin/RecordBill.WebAPP.pdb",
+				"Content/Script/User/Login.js.map",
+				"Content/Script/Home/Setting.ts",
+				"Content/Css/Home/Index.css",
+				"bin/roslyn/Microsoft.VisualBasic.Core.targets",
+				"Content/Lib/mui/js/mui.dtpicker.js",
+				"View/Bill/List.html",
+				"Content/Lib/mui/css/icons-extra.css",
+				"Content/Script/Base/Base.js.map",
+				"Content/Script/Test.ts",
+				"Content/Lib/mui/css/mui.picker.min.css",
+				"Content/Lib/mui/js/webviewGroup.js",
+				"bin/roslyn/csi.rsp",
+				"View/Home/About.html",
+				"Content/Lib/mui/js/mui.locker.js",
+				"RecordBill.WebAPP.csproj",
+				"Content/Lib/mui/fonts/mui.ttf",
+				"Content/Lib/mui/js/city.data.js",
+				"Content/Lib/mui/css/mui.poppicker.css",
+				"bin/roslyn/System.Xml.XPath.XDocument.dll",
+				"bin/roslyn/System.Diagnostics.Process.dll",
+				"bin/roslyn/Microsoft.CSharp.Core.targets",
+				"bin/roslyn/System.IO.Compression.dll",
+				"Content/Lib/mui/css/feedback.css",
+				"bin/roslyn/System.Security.Cryptography.X509Certificates.dll",
+				"Content/Css/Base/Base.css",
+				"bin/roslyn/System.IO.FileSystem.dll",
+				"bin/roslyn/Microsoft.DiaSymReader.Native.x86.dll",
+				"obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache",
+				"bin/roslyn/csc.exe.config",
+				"Content/Script/Base/Base.js",
+				"Content/Script/User/MyInfo.ts",
+				"Content/Css/Home/Setting.css",
+				"obj/Debug/RecordBill.WebAPP.csproj.FileListAbsolute.txt",
+				"bin/roslyn/System.Console.dll",
+				"bin/roslyn/System.Security.AccessControl.dll",
+				"Content/Lib/mui/css/mui.listpicker.css",
+				"Content/Lib/mui/js/mui.zoom.js",
+				"Content/Lib/mui/css/mui.indexedlist.css",
+				"Content/Lib/mui/js/mui.listpicker.js",
+				"Content/Lib/mui/css/app.css",
+				"Content/Script/User/Login.js",
+				"bin/roslyn/csi.exe.config",
+				"Content/Script/User/Login.ts",
+				"bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll",
+				"bin/roslyn/csc.exe",
+				"Content/Script/User/MyInfo.js.map",
+				"Content/Lib/mui/js/mui.pullToRefresh.material.js",
+				"Content/Lib/mui/js/mui.picker.min.js",
+				"bin/roslyn/System.Diagnostics.FileVersionInfo.dll",
+				"bin/RecordBill.WebAPP.dll",
+				"bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll",
+				"bin/roslyn/System.Xml.ReaderWriter.dll",
+				"bin/roslyn/VBCSCompiler.exe",
+				"Content/Script/Test.js",
+				"View/Test.html",
+				"Content/Lib/mui/js/mui.picker.js",
+				"Content/Lib/mui/js/feedback.js",
+				"packages.config",
+				"bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll",
+				"bin/roslyn/VBCSCompiler.exe.config",
+				"View/User/MyInfo.html",
+				"bin/roslyn/Microsoft.CodeAnalysis.CSharp.Scripting.dll",
+				"bin/roslyn/vbc.exe.config",
+				"Content/Lib/mui/css/mui.picker.css",
+				"Content/Lib/mui/js/update.js",
+				"Content/Lib/m-Tools/m-Tools.js",
+				"bin/roslyn/Microsoft.CodeAnalysis.Scripting.dll",
+				"Content/Lib/mui/js/mui.pullToRefresh.js",
+				"bin/roslyn/System.Security.Cryptography.Primitives.dll",
+				"Content/Script/Home/Index.ts",
+				"bin/roslyn/csc.rsp",
+				"bin/roslyn/csi.exe",
+				"bin/roslyn/System.Collections.Immutable.dll",
+				"Content/Lib/mui/js/mui.lazyload.img.js",
+				"obj/Debug/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs",
+				"Content/Lib/mui/js/mui.imageViewer.js",
+				"Content/Script/Base/Base.ts",
+				"Content/Script/Home/Index.js.map",
+				"bin/roslyn/System.Security.Cryptography.Algorithms.dll",
+				"obj/Debug/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs",
+				"obj/Debug/RecordBill.WebAPP.dll",
+				"bin/roslyn/System.Text.Encoding.CodePages.dll",
+				"Content/Css/User/Login.css"
+			]
+		}
+	}
 }

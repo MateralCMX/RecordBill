@@ -25,7 +25,9 @@ namespace RecordBill.API.Controllers.API
         {
             try
             {
-                T_Bill resM = _bll.Add(inputM.GetTModel());
+                T_Bill resM = inputM.GetTModel();
+                resM.FK_User_ID = inputM.LoginUserID;
+                resM = _bll.Add(resM);
                 return MResultModel<V_Bill>.GetSuccessResultM(resM.MCopyProperties<V_Bill>(), "操作成功");
             }
             catch (RecordBillException ex)
@@ -48,7 +50,9 @@ namespace RecordBill.API.Controllers.API
         {
             try
             {
-                T_Bill resM = _bll.Update(inputM.GetTModel());
+                T_Bill resM = inputM.GetTModel();
+                resM.FK_User_ID = inputM.LoginUserID;
+                resM = _bll.Update(resM);
                 return MResultModel<V_Bill>.GetSuccessResultM(resM.MCopyProperties<V_Bill>(), "操作成功");
             }
             catch (RecordBillException ex)

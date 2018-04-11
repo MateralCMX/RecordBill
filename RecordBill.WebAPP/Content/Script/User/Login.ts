@@ -1,12 +1,10 @@
-﻿/// <reference path="../../../lib/m-tools/m-tools.ts" />
-/// <reference path="../base.ts" />
-namespace RecordBill.APP.User {
+﻿namespace RecordBill.APP.User {
     export class LoginPage {
         /**
          * 构造函数
          */
         constructor() {
-            window["mui"]["init"]();
+            mui.init();
             this.BindeEvent();
         }
         /**
@@ -14,18 +12,30 @@ namespace RecordBill.APP.User {
          */
         private BindeEvent() {
             MDMa.AddEvent("BtnLogin", "tap", this.Event_BtnLogin_Tap);
-            MDMa.AddEvent("InputAccount", "invalid", function (e) {
-                MDMa.AddClass(e.target.parentElement, "error");
-            });
-            MDMa.AddEvent("InputAccount", "change", function (e) {
-                MDMa.RemoveClass(e.target.parentElement, "error");
-            });
-            MDMa.AddEvent("InputPassword", "invalid", function (e) {
-                MDMa.AddClass(e.target.parentElement, "error");
-            });
-            MDMa.AddEvent("InputPassword", "change", function (e) {
-                MDMa.RemoveClass(e.target.parentElement, "error");
-            });
+            MDMa.AddEvent("InputAccount", "invalid", this.Event_InputAccount_Invalid);
+            MDMa.AddEvent("InputAccount", "change", Common.RemoveError);
+            MDMa.AddEvent("InputPassword", "invalid", this.Event_InputPassword_Invalid);
+            MDMa.AddEvent("InputPassword", "change", Common.RemoveError);
+        }
+        /**
+         * 账号验证事件
+         * @param e
+         */
+        private Event_InputAccount_Invalid(e: Event) {
+            let validity: ValidityState = Common.GetValidityState(e);
+            if (validity.valueMissing) {
+                mui.toast("请填写账号");
+            }
+        }
+        /**
+         * 密码验证事件
+         * @param e
+         */
+        private Event_InputPassword_Invalid(e: Event) {
+            let validity: ValidityState = Common.GetValidityState(e);
+            if (validity.valueMissing) {
+                mui.toast("请填写密码");
+            }
         }
         /**
          * 登录按钮点击事件
@@ -33,13 +43,13 @@ namespace RecordBill.APP.User {
          */
         private Event_BtnLogin_Tap(e) {
             let element = e.target;
-            window["mui"](element).button('loading');
+            mui(element).button('loading');
             var InputM = LoginPage.GetInputData();
             if (InputM) {
                 LoginPage.Login(InputM);
             }
             else {
-                window["mui"](element).button('reset');
+                mui(element).button('reset');
             }
         }
         /**
@@ -63,28 +73,11 @@ namespace RecordBill.APP.User {
             let url = Common.config.ServerURL + "api/User/Login";
             let SFun: Function = function (resM: any, xhr: XMLHttpRequest, status: number) {
                 Common.SetLoginUserInfo(resM["Data"]);
-                window["mui"]["openWindow"]({
-                    url: "/View/Index.html",
-                    id: "Index",
-                    styles: {
-                        top: 0,//新页面顶部位置
-                        bottom: 0,//新页面底部位置
-                    },
-                    extras: {
-                    },
-                    createNew: false,//是否重复创建同样id的webview，默认为false:不重复创建，直接显示
-                    show: {
-                        autoShow: true,//页面loaded事件发生后自动显示，默认为true
-                        aniShow: "slide-in-right",//页面显示动画，默认为”slide-in-right“；
-                    },
-                    waiting: {
-                        title: '正在加载...',//等待对话框上显示的提示内容
-                    }
-                })
+                mui.back();
             };
             let FFun: Function = function (resM: any, xhr: XMLHttpRequest, status: number) {
-                window["mui"]["toast"]("帐号或者密码错误");
-                window["mui"]("#BtnLogin").button('reset');
+                mui.toast("帐号或者密码错误");
+                mui("#BtnLogin").button('reset');
             };
             let CFun: Function = function (resM: any, xhr: XMLHttpRequest, status: number) {
             };

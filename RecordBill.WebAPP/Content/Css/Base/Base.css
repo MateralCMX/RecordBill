@@ -1,0 +1,20 @@
+﻿.mui-input-group .error.mui-input-row:after {
+    background-color: #ff0000;
+}
+.mui-input-group .error > label{
+    color: #ff0000;
+}
+.mui-table-view-title {
+    margin: 20px 15px 7px;
+    color: #6d6d72;
+    font-size: 15px;
+}
+
+.mui-pull-right {
+    color: #6d6d72;
+    font-size: 12px;
+    margin-right:30px;
+}
+.form-submit-btn{
+    width:80%;
+}

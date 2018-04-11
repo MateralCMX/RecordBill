@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>设置</title>
+    <link href="../../Content/Lib/mui/css/mui.min.css" rel="stylesheet" />
+    <link href="../../Content/Css/Base/Base.css" rel="stylesheet" />
+    <link href="../../Content/Css/Home/Setting.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">设置</h1>
+    </header>
+    <main class="mui-content">
+        <div class="mui-table-view-title">我的信息</div>
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell" data-gotopage="MyInfo">
+                <a class="mui-navigate-right">
+                    <div class="mui-media-body">
+                        <span id="LoginUserName">读取中...</span>
+                        <p class="mui-ellipsis" id="LoginUserAccount">账号：读取中...</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+        <div class="mui-table-view-title">系统</div>
+        <ul class="mui-table-view">
+            <li class="mui-table-view-cell" data-gotopage="About">
+                <a class="mui-navigate-right">
+                    关于
+                </a>
+            </li>
+            <li class="mui-table-view-cell">
+                更新
+                <i class="mui-pull-right">检查更新中...</i>
+                <!--<span class="mui-badge mui-badge-danger">1</span>-->
+            </li>
+        </ul>
+        <button id="BtnLogout" type="button" class="mui-btn mui-btn-block mui-btn-danger" data-loading-text="正在退出">退出登录</button>
+    </main>
+    <script src="../../Content/Lib/mui/js/mui.min.js"></script>
+    <script src="../../Content/Lib/m-Tools/m-Tools.js"></script>
+    <script src="../../Content/Script/Base/Base.js"></script>
+    <script src="../../Content/Script/Home/Setting.js"></script>
+</body>
+</html>

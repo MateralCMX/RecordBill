@@ -1,5 +1,3 @@
-/// <reference path="../../../lib/m-tools/m-tools.ts" />
-/// <reference path="../base.ts" />
 var RecordBill;
 (function (RecordBill) {
     var APP;
@@ -11,7 +9,7 @@ var RecordBill;
                  * 构造函数
                  */
                 function LoginPage() {
-                    window["mui"]["init"]();
+                    mui.init();
                     this.BindeEvent();
                 }
                 /**
@@ -19,18 +17,30 @@ var RecordBill;
                  */
                 LoginPage.prototype.BindeEvent = function () {
                     MDMa.AddEvent("BtnLogin", "tap", this.Event_BtnLogin_Tap);
-                    MDMa.AddEvent("InputAccount", "invalid", function (e) {
-                        MDMa.AddClass(e.target.parentElement, "error");
-                    });
-                    MDMa.AddEvent("InputAccount", "change", function (e) {
-                        MDMa.RemoveClass(e.target.parentElement, "error");
-                    });
-                    MDMa.AddEvent("InputPassword", "invalid", function (e) {
-                        MDMa.AddClass(e.target.parentElement, "error");
-                    });
-                    MDMa.AddEvent("InputPassword", "change", function (e) {
-                        MDMa.RemoveClass(e.target.parentElement, "error");
-                    });
+                    MDMa.AddEvent("InputAccount", "invalid", this.Event_InputAccount_Invalid);
+                    MDMa.AddEvent("InputAccount", "change", APP.Common.RemoveError);
+                    MDMa.AddEvent("InputPassword", "invalid", this.Event_InputPassword_Invalid);
+                    MDMa.AddEvent("InputPassword", "change", APP.Common.RemoveError);
+                };
+                /**
+                 * 账号验证事件
+                 * @param e
+                 */
+                LoginPage.prototype.Event_InputAccount_Invalid = function (e) {
+                    var validity = APP.Common.GetValidityState(e);
+                    if (validity.valueMissing) {
+                        mui.toast("请填写账号");
+                    }
+                };
+                /**
+                 * 密码验证事件
+                 * @param e
+                 */
+                LoginPage.prototype.Event_InputPassword_Invalid = function (e) {
+                    var validity = APP.Common.GetValidityState(e);
+                    if (validity.valueMissing) {
+                        mui.toast("请填写密码");
+                    }
                 };
                 /**
                  * 登录按钮点击事件
@@ -38,13 +48,13 @@ var RecordBill;
                  */
                 LoginPage.prototype.Event_BtnLogin_Tap = function (e) {
                     var element = e.target;
-                    window["mui"](element).button('loading');
+                    mui(element).button('loading');
                     var InputM = LoginPage.GetInputData();
                     if (InputM) {
                         LoginPage.Login(InputM);
                     }
                     else {
-                        window["mui"](element).button('reset');
+                        mui(element).button('reset');
                     }
                 };
                 /**
@@ -68,27 +78,11 @@ var RecordBill;
                     var url = APP.Common.config.ServerURL + "api/User/Login";
                     var SFun = function (resM, xhr, status) {
                         APP.Common.SetLoginUserInfo(resM["Data"]);
-                        window["mui"]["openWindow"]({
-                            url: "/View/Index.html",
-                            id: "Index",
-                            styles: {
-                                top: 0,
-                                bottom: 0,
-                            },
-                            extras: {},
-                            createNew: false,
-                            show: {
-                                autoShow: true,
-                                aniShow: "slide-in-right",
-                            },
-                            waiting: {
-                                title: '正在加载...',
-                            }
-                        });
+                        mui.back();
                     };
                     var FFun = function (resM, xhr, status) {
-                        window["mui"]["toast"]("帐号或者密码错误");
-                        window["mui"]("#BtnLogin").button('reset');
+                        mui.toast("帐号或者密码错误");
+                        mui("#BtnLogin").button('reset');
                     };
                     var CFun = function (resM, xhr, status) {
                     };

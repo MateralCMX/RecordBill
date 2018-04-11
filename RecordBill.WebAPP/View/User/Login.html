@@ -3,17 +3,17 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <title>RecordBill</title>
-    <link href="../../Lib/mui/css/mui.min.css" rel="stylesheet" />
-    <link href="../../Content/Css/Base.css" rel="stylesheet" />
+    <title>登录</title>
+    <link href="../../Content/Lib/mui/css/mui.min.css" rel="stylesheet" />
+    <link href="../../Content/Css/Base/Base.css" rel="stylesheet" />
     <link href="../../Content/Css/User/Login.css" rel="stylesheet" />
 </head>
 <body>
     <div class="mui-card">
         <div class="mui-card-header">
-            	登录小本本
+            登录小本本
         </div>
-        <div class="mui-card-content">
+        <main class="mui-card-content">
             <div class="mui-content-padded">
                 <form id="loginForm" class="mui-input-group">
                     <div class="mui-input-row">
@@ -24,17 +24,19 @@
                         <label>密码</label>
                         <input id="InputPassword" type="password" class="mui-input-password" required>
                     </div>
-                    <button id="BtnLogin" type="button" data-loading-icon="mui-spinner mui-spinner-custom" data-loading-text="正在登录" data-loading-icon-position="right" class="mui-btn mui-btn-primary mui-btn-block">登录</button>
+                    <div class="mui-button-row">
+                        <button id="BtnLogin" type="button" data-loading-icon="mui-spinner mui-spinner-custom" data-loading-text="正在登录" data-loading-icon-position="right" class="mui-btn mui-btn-primary form-submit-btn">登录</button>
+                    </div>
                 </form>
             </div>
-        </div>
+        </main>
         <div class="mui-card-footer">
             Materal © 2018 -- 瑞瑞
         </div>
     </div>
-    <script src="../../Lib/mui/js/mui.min.js"></script>
-    <script src="../../Lib/m-Tools/m-Tools.js"></script>
-    <script src="../../Content/Script/Base.js"></script>
+    <script src="../../Content/Lib/mui/js/mui.min.js"></script>
+    <script src="../../Content/Lib/m-Tools/m-Tools.js"></script>
+    <script src="../../Content/Script/Base/Base.js"></script>
     <script src="../../Content/Script/User/Login.js"></script>
 </body>
 </html>

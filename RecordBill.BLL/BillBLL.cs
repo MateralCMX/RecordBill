@@ -33,7 +33,7 @@ namespace RecordBill.BLL
         protected override bool Verification(T_Bill model, out string msg)
         {
             List<string> msgs = new List<string>();
-            if (model.Contents.MIsNullOrEmpty())
+            if (!model.Contents.MIsNullOrEmpty())
             {
                 msgs.Add("账单内容不能为空");
             }

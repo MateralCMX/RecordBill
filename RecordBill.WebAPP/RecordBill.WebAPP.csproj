@@ -68,43 +68,47 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Css\Base.css" />
-    <Content Include="Lib\mui\css\app.css" />
-    <Content Include="Lib\mui\css\feedback.css" />
-    <Content Include="Lib\mui\css\icons-extra.css" />
-    <Content Include="Lib\mui\css\mui.dtpicker.css" />
-    <Content Include="Lib\mui\css\mui.imageviewer.css" />
-    <Content Include="Lib\mui\css\mui.indexedlist.css" />
-    <Content Include="Lib\mui\css\mui.listpicker.css" />
-    <Content Include="Lib\mui\css\mui.picker.all.css" />
-    <Content Include="Lib\mui\css\mui.picker.css" />
-    <Content Include="Lib\mui\css\mui.picker.min.css" />
-    <Content Include="Lib\mui\css\mui.poppicker.css" />
-    <Content Include="Lib\mui\fonts\mui.ttf" />
-    <Content Include="Lib\mui\js\95516.js" />
-    <Content Include="Lib\mui\js\arttmpl.js" />
-    <Content Include="Lib\mui\js\beecloud.js" />
-    <Content Include="Lib\mui\js\city.data-3.js" />
-    <Content Include="Lib\mui\js\city.data.js" />
-    <Content Include="Lib\mui\js\feedback.js" />
-    <Content Include="Lib\mui\js\mui.dtpicker.js" />
-    <Content Include="Lib\mui\js\mui.imageViewer.js" />
-    <Content Include="Lib\mui\js\mui.indexedlist.js" />
-    <Content Include="Lib\mui\js\mui.lazyload.img.js" />
-    <Content Include="Lib\mui\js\mui.lazyload.js" />
-    <Content Include="Lib\mui\js\mui.listpicker.js" />
-    <Content Include="Lib\mui\js\mui.locker.js" />
-    <Content Include="Lib\mui\js\mui.picker.all.js" />
-    <Content Include="Lib\mui\js\mui.picker.js" />
-    <Content Include="Lib\mui\js\mui.picker.min.js" />
-    <Content Include="Lib\mui\js\mui.poppicker.js" />
-    <Content Include="Lib\mui\js\mui.previewimage.js" />
-    <Content Include="Lib\mui\js\mui.pullToRefresh.js" />
-    <Content Include="Lib\mui\js\mui.pullToRefresh.material.js" />
-    <Content Include="Lib\mui\js\mui.view.js" />
-    <Content Include="Lib\mui\js\mui.zoom.js" />
-    <Content Include="Lib\mui\js\update.js" />
-    <Content Include="Lib\mui\js\webviewGroup.js" />
+    <Content Include="Content\Css\Base\Base.css" />
+    <Content Include="Content\Css\Home\Index.css" />
+    <Content Include="Content\Css\Home\Setting.css" />
+    <Content Include="Content\Images\About.png" />
+    <Content Include="Content\Images\About2.png" />
+    <Content Include="Content\Lib\mui\css\app.css" />
+    <Content Include="Content\Lib\mui\css\feedback.css" />
+    <Content Include="Content\Lib\mui\css\icons-extra.css" />
+    <Content Include="Content\Lib\mui\css\mui.dtpicker.css" />
+    <Content Include="Content\Lib\mui\css\mui.imageviewer.css" />
+    <Content Include="Content\Lib\mui\css\mui.indexedlist.css" />
+    <Content Include="Content\Lib\mui\css\mui.listpicker.css" />
+    <Content Include="Content\Lib\mui\css\mui.picker.all.css" />
+    <Content Include="Content\Lib\mui\css\mui.picker.css" />
+    <Content Include="Content\Lib\mui\css\mui.picker.min.css" />
+    <Content Include="Content\Lib\mui\css\mui.poppicker.css" />
+    <Content Include="Content\Lib\mui\fonts\mui.ttf" />
+    <Content Include="Content\Lib\mui\js\95516.js" />
+    <Content Include="Content\Lib\mui\js\arttmpl.js" />
+    <Content Include="Content\Lib\mui\js\beecloud.js" />
+    <Content Include="Content\Lib\mui\js\city.data-3.js" />
+    <Content Include="Content\Lib\mui\js\city.data.js" />
+    <Content Include="Content\Lib\mui\js\feedback.js" />
+    <Content Include="Content\Lib\mui\js\mui.dtpicker.js" />
+    <Content Include="Content\Lib\mui\js\mui.imageViewer.js" />
+    <Content Include="Content\Lib\mui\js\mui.indexedlist.js" />
+    <Content Include="Content\Lib\mui\js\mui.lazyload.img.js" />
+    <Content Include="Content\Lib\mui\js\mui.lazyload.js" />
+    <Content Include="Content\Lib\mui\js\mui.listpicker.js" />
+    <Content Include="Content\Lib\mui\js\mui.locker.js" />
+    <Content Include="Content\Lib\mui\js\mui.picker.all.js" />
+    <Content Include="Content\Lib\mui\js\mui.picker.js" />
+    <Content Include="Content\Lib\mui\js\mui.picker.min.js" />
+    <Content Include="Content\Lib\mui\js\mui.poppicker.js" />
+    <Content Include="Content\Lib\mui\js\mui.previewimage.js" />
+    <Content Include="Content\Lib\mui\js\mui.pullToRefresh.js" />
+    <Content Include="Content\Lib\mui\js\mui.pullToRefresh.material.js" />
+    <Content Include="Content\Lib\mui\js\mui.view.js" />
+    <Content Include="Content\Lib\mui\js\mui.zoom.js" />
+    <Content Include="Content\Lib\mui\js\update.js" />
+    <Content Include="Content\Lib\mui\js\webviewGroup.js" />
     <Content Include="manifest.json" />
     <None Include="packages.config" />
     <Content Include="unpackage\.confirmed_dependencies" />
@@ -118,14 +122,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Css\User\Login.css" />
-    <Content Include="View\Home\MainTabbar.html" />
-    <Content Include="View\Index.html" />
-    <Content Include="Lib\mui\css\mui.css" />
-    <Content Include="Lib\mui\css\mui.min.css" />
-    <Content Include="Lib\mui\js\mui.js" />
-    <Content Include="Lib\mui\js\mui.min.js" />
-    <Content Include="View\RecordBill\Edit.html" />
-    <Content Include="View\RecordBill\List.html" />
+    <Content Include="View\Home\About.html" />
+    <Content Include="View\Home\Setting.html" />
+    <Content Include="View\Home\Index.html" />
+    <Content Include="Content\Lib\mui\css\mui.css" />
+    <Content Include="Content\Lib\mui\css\mui.min.css" />
+    <Content Include="Content\Lib\mui\js\mui.js" />
+    <Content Include="Content\Lib\mui\js\mui.min.js" />
+    <Content Include="View\Bill\Edit.html" />
+    <Content Include="View\Bill\List.html" />
+    <Content Include="View\User\MyInfo.html" />
     <Content Include="View\User\Login.html" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -133,17 +139,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Content\Script\Base.ts" />
-    <TypeScriptCompile Include="Content\Script\Index.ts" />
+    <TypeScriptCompile Include="Content\Script\Base\Base.ts" />
+    <TypeScriptCompile Include="Content\Script\Bill\Edit.ts" />
+    <TypeScriptCompile Include="Content\Script\Home\Index.ts" />
+    <TypeScriptCompile Include="Content\Script\Home\Setting.ts" />
     <TypeScriptCompile Include="Content\Script\User\Login.ts" />
-    <TypeScriptCompile Include="Lib\m-Tools\m-Tools.ts" />
+    <TypeScriptCompile Include="Content\Lib\m-Tools\m-Tools.ts" />
+    <TypeScriptCompile Include="Content\Script\User\MyInfo.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Fonts\" />
-    <Folder Include="Content\Images\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

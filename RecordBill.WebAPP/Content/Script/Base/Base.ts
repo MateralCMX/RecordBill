@@ -2,6 +2,8 @@
 import MDMa = MateralTools.DOMManager;
 import MTMa = MateralTools.ToolManager;
 import MLMa = MateralTools.LocalDataManager;
+let mui = window["mui"];
+let plus = window["plus"];
 namespace RecordBill.APP {
     /**
      * 公共方法
@@ -15,6 +17,22 @@ namespace RecordBill.APP {
                 PagingSize: 20
             } as PageMode
         };
+        /**
+         * 获得验证对象
+         * @param e 触发事件对象
+         */
+        public static GetValidityState(e: Event): ValidityState {
+            MDMa.AddClass((e.target as HTMLInputElement).parentElement, "error");
+            let validity: ValidityState = (e.target as HTMLInputElement).validity;
+            return validity;
+        }
+        /**
+         * 移除错误样式
+         * @param e
+         */
+        public static RemoveError(e: Event) {
+            MDMa.RemoveClass((e.target as HTMLInputElement).parentElement, "error");
+        }
         /**
          * 获得用户输入的信息
          */
@@ -62,14 +80,23 @@ namespace RecordBill.APP {
          * @param pageName 页面名称
          */
         public static GetPageUrl(pageName: string) {
-            let url: string = Common.config.ServerURL;
+            let url: string;
             switch (pageName) {
-                case "Home":
-                    url += "Home/Index";
+                case "MyInfo":
+                    url = "/View/User/MyInfo.html";
+                    break;
+                case "About":
+                    url = "/View/Home/About.html";
+                    break;
+                case "Setting":
+                    url = "/View/Home/Setting.html";
+                    break;
+                case "AddBill":
+                    url = "/View/Bill/Edit.html";
                     break;
                 case "Login":
                 default:
-                    url += "User/Login";
+                    url = "/View/User/Login.html";
                     break;
             }
             return url;
@@ -79,7 +106,43 @@ namespace RecordBill.APP {
          * @param pageName 页面名称
          */
         public static GoToPage(pageName: string) {
-            window.location.href = Common.GetPageUrl(pageName);
+            let extras: any = null;
+            switch (pageName) {
+                case "AddBill":
+                    extras = {
+                        Type: "Add"
+                    };
+                    break;
+            }
+            Common.OpenWindow(Common.GetPageUrl(pageName), pageName, extras);
+        }
+        /**
+         * 打开窗口
+         * @param url 路径
+         * @param id ID
+         * @param extras 参数
+         */
+        public static OpenWindow(url: string, id: string, extras: any) {
+            let opt = {
+                url: url,
+                id: id,
+                styles: {
+                    top: 0,//新页面顶部位置
+                    bottom: 0,//新页面底部位置
+                },
+                extras: {
+                },
+                show: {
+                    aniShow: "slide-in-right",//页面显示动画，默认为”slide-in-right“；
+                },
+                waiting: {
+                    title: '正在加载...',//等待对话框上显示的提示内容
+                }
+            };
+            if (extras) {
+                opt.extras = extras;
+            }
+            mui.openWindow(opt);
         }
         /**
          * 请求错误统一处理方法
@@ -90,13 +153,13 @@ namespace RecordBill.APP {
         private static RequestError(resM: any, xhr: XMLHttpRequest, status: number) {
             switch (status) {
                 case 400://参数错误
-                    window["mui"]["toast"]("服务器不能识别该请求。");
+                    mui.toast("服务器不能识别该请求。");
                     break;
                 case 401://未登录
                     Common.GoToPage("Login");
                     break;
                 default://服务器错误或其他
-                    window["mui"]["toast"]("服务器发生错误，请联系管理员。");
+                    mui.toast("服务器发生错误，请联系管理员。");
                     break;
             };
         }
@@ -179,6 +242,26 @@ namespace RecordBill.APP {
             }
             return value;
         }
+        /**
+         * 绑定跳转页面按钮
+         */
+        public static BindBtnGotoPage() {
+            let btns = document.querySelectorAll("*[data-gotopage]");
+            for (var i = 0; i < btns.length; i++) {
+                MDMa.AddEvent(btns[i], "tap", Common.Event_BtnGotoPage_tap);
+            }
+        }
+        /**
+         * 跳转页面按钮事件
+         * @param e
+         */
+        public static Event_BtnGotoPage_tap(e: Event) {
+            let element = e.target as HTMLElement;
+            let targetPage = Common.GetDataSetOrPanertDataSet(element, "gotopage");
+            if (targetPage) {
+                Common.GoToPage(targetPage);
+            }
+        }
     }
     /**
      * 登录用户模型
@@ -228,3 +311,6 @@ namespace RecordBill.APP {
         public Account: string;
     }
 }
+MDMa.AddEvent(window, "load", function () {
+    RecordBill.APP.Common.BindBtnGotoPage();
+});

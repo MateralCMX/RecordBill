@@ -1,13 +1,11 @@
-﻿namespace RecordBill.APP {
+﻿namespace RecordBill.APP.Home {
     export class IndexPage {
         /**
          * 构造函数
          */
         constructor() {
-            window["mui"]["init"]();
-            window["mui"]["plusReady"](function () {
-                console.log("当前页面URL：" + window["plus"].webview.currentWebview().getURL());
-            });
+            Common.GetLoginUserInfo(true);
+            mui.init();
             this.BindeEvent();
         }
         /**
@@ -18,5 +16,5 @@
     }
 }
 MDMa.AddEvent(window, "load", function () {
-    let pageM = new RecordBill.APP.IndexPage();
+    let pageM = new RecordBill.APP.Home.IndexPage();
 });
