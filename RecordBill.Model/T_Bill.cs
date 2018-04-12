@@ -19,6 +19,7 @@ namespace RecordBill.Model
         public string Contents { get; set; }
         public decimal Amount { get; set; }
         public System.DateTime RecordTime { get; set; }
+        public System.DateTimeOffset CreateTime { get; set; }
     
         public virtual T_User T_User { get; set; }
     }

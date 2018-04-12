@@ -43,6 +43,7 @@
           <Property Name="Contents" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Amount" Type="money" Nullable="false" />
           <Property Name="RecordTime" Type="date" Nullable="false" />
+          <Property Name="CreateTime" Type="datetimeoffset" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="T_Token">
           <Key>
@@ -94,6 +95,7 @@
             <PropertyRef Name="Contents" />
             <PropertyRef Name="Amount" />
             <PropertyRef Name="RecordTime" />
+            <PropertyRef Name="CreateTime" />
           </Key>
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="FK_User_ID" Type="uniqueidentifier" Nullable="false" />
@@ -101,6 +103,7 @@
           <Property Name="Contents" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Amount" Type="money" Nullable="false" />
           <Property Name="RecordTime" Type="date" Nullable="false" />
+          <Property Name="CreateTime" Type="datetimeoffset" Precision="7" Nullable="false" />
         </EntityType>
         <!--生成过程中发现错误:
 警告 6002: 表/视图“RecordBillDB.dbo.V_Token”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
@@ -203,7 +206,8 @@
     [V_Bill].[UserName] AS [UserName], 
     [V_Bill].[Contents] AS [Contents], 
     [V_Bill].[Amount] AS [Amount], 
-    [V_Bill].[RecordTime] AS [RecordTime]
+    [V_Bill].[RecordTime] AS [RecordTime], 
+    [V_Bill].[CreateTime] AS [CreateTime]
     FROM [dbo].[V_Bill] AS [V_Bill]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="V_Token" EntityType="Self.V_Token" store:Type="Views" store:Schema="dbo">
@@ -263,6 +267,7 @@
           <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="RecordTime" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="T_User" Relationship="Self.FK_T_Bill_T_User" FromRole="T_Bill" ToRole="T_User" />
+          <Property Name="CreateTime" Type="DateTimeOffset" Nullable="false" Precision="7" />
         </EntityType>
         <EntityType Name="T_User">
           <Key>
@@ -436,6 +441,7 @@
             <PropertyRef Name="Contents" />
             <PropertyRef Name="Amount" />
             <PropertyRef Name="RecordTime" />
+            <PropertyRef Name="CreateTime" />
           </Key>
           <Property Name="ID" Type="Guid" Nullable="false" />
           <Property Name="FK_User_ID" Type="Guid" Nullable="false" />
@@ -443,6 +449,7 @@
           <Property Name="Contents" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="RecordTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CreateTime" Type="DateTimeOffset" Nullable="false" Precision="7" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -464,6 +471,7 @@
           <EntitySetMapping Name="T_Bill">
             <EntityTypeMapping TypeName="RecordBillDBModel.T_Bill">
               <MappingFragment StoreEntitySet="T_Bill">
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="FK_User_ID" ColumnName="FK_User_ID" />
                 <ScalarProperty Name="Contents" ColumnName="Contents" />
@@ -552,6 +560,7 @@
           <EntitySetMapping Name="V_Bill">
             <EntityTypeMapping TypeName="RecordBillDBModel.V_Bill">
               <MappingFragment StoreEntitySet="V_Bill">
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
                 <ScalarProperty Name="RecordTime" ColumnName="RecordTime" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="Contents" ColumnName="Contents" />

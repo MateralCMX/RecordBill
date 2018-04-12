@@ -37,7 +37,7 @@ namespace RecordBill.DAL
             {
                 expression = expression.And(m => m.RecordTime <= maxDate.Value.Date);
             }
-            IQueryable<V_Bill> listM = _DB.V_Bill.Where(expression.Compile()).AsQueryable();
+            IQueryable<V_Bill> listM = _DB.V_Bill.Where(expression.Compile()).OrderByDescending(m=>m.RecordTime).ThenBy(m=>m.CreateTime).AsQueryable();
             pageM.DataCount = listM.Count();
             listM = listM.Paging(pageM.PagingIndex, pageM.PagingSize);
             return listM.ToList();

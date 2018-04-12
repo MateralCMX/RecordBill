@@ -9,7 +9,15 @@ var RecordBill;
                  * 构造函数
                  */
                 function LoginPage() {
-                    mui.init();
+                    mui.init({
+                        beforeback: function () {
+                            if (plus) {
+                                var self = plus.webview.currentWebview().opener();
+                                mui.fire(self, 'init');
+                            }
+                            return true;
+                        }
+                    });
                     this.BindeEvent();
                 }
                 /**

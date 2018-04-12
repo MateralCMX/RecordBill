@@ -1,18 +1,87 @@
 {
-	"View/Home/Index.html": {
-		"refer": [
-			"View/Home/Setting.html",
-			"View/Bill/Edit.html"
-		]
-	},
-	"View/Home/Setting.html": {
-		"refer": [
-			"View/User/Login.html"
-		]
-	},
-	"View/Bill/Edit.html": {
-		"refer": [
-			"View/User/Login.html"
-		]
-	}
+  "View/Home/Index.html": {
+    "refer": [
+      "View/Home/Setting.html",
+      "View/Bill/Edit.html",
+      "View/User/MyInfo.html",
+      "View/Home/About.html",
+      "View/User/Login.html"
+    ],
+    "resources": [
+      "Content/Lib/mui/css/mui.min.css",
+      "Content/Css/Base/Base.css",
+      "Content/Css/Home/Index.css",
+      "Content/Lib/mui/js/mui.min.js",
+      "Content/Lib/m-Tools/m-Tools.js",
+      "Content/Script/Base/Base.js",
+      "Content/Script/Home/Index.js"
+    ]
+  },
+  "View/Home/Setting.html": {
+    "refer": [
+      "View/User/Login.html"
+    ],
+    "resources": [
+      "Content/Lib/mui/css/mui.min.css",
+      "Content/Css/Base/Base.css",
+      "Content/Css/Home/Setting.css",
+      "Content/Lib/mui/js/mui.min.js",
+      "Content/Lib/m-Tools/m-Tools.js",
+      "Content/Script/Base/Base.js",
+      "Content/Script/Home/Setting.js"
+    ]
+  },
+  "View/Bill/Edit.html": {
+    "refer": [
+      "View/User/Login.html"
+    ],
+    "resources": [
+      "Content/Lib/mui/css/mui.min.css",
+      "Content/Css/Base/Base.css",
+      "Content/Lib/mui/js/mui.min.js",
+      "Content/Lib/m-Tools/m-Tools.js",
+      "Content/Script/Base/Base.js",
+      "Content/Script/Bill/Edit.js"
+    ]
+  },
+  "View/User/MyInfo.html": {
+    "href": "View/User/MyInfo.html",
+    "resources": [
+      "Content/Lib/mui/css/mui.min.css",
+      "Content/Css/Base/Base.css",
+      "Content/Lib/mui/js/mui.min.js",
+      "Content/Lib/m-Tools/m-Tools.js",
+      "Content/Script/Base/Base.js",
+      "Content/Script/User/MyInfo.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "View/Home/About.html": {
+    "href": "View/Home/About.html",
+    "resources": [
+      "Content/Lib/mui/css/mui.min.css",
+      "Content/Css/Base/Base.css",
+      "Content/Lib/mui/js/mui.min.js",
+      "Content/Lib/m-Tools/m-Tools.js",
+      "Content/Script/Base/Base.js",
+      "Content/Images/About.png"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "View/User/Login.html": {
+    "href": "View/User/Login.html",
+    "resources": [
+      "Content/Lib/mui/css/mui.min.css",
+      "Content/Css/Base/Base.css",
+      "Content/Css/User/Login.css",
+      "Content/Lib/mui/js/mui.min.js",
+      "Content/Lib/m-Tools/m-Tools.js",
+      "Content/Script/Base/Base.js",
+      "Content/Script/User/Login.js"
+    ],
+    "refer": [],
+    "priority": 0
+  }
 }

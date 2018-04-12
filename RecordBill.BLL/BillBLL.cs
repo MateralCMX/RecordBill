@@ -13,6 +13,18 @@ namespace RecordBill.BLL
     public class BillBLL : BaseBLL<BillDAL, T_Bill, V_Bill>
     {
         /// <summary>
+        /// 添加一个账单
+        /// </summary>
+        /// <param name="model">要添加的对象</param>
+        /// <param name="idName">主键名称</param>
+        /// <returns></returns>
+        public override T_Bill Add(T_Bill model, string idName = "ID")
+        {
+            model.CreateTime = DateTimeOffset.Now;
+            return base.Add(model, idName);
+        }
+
+        /// <summary>
         /// 根据条件获得账单信息
         /// </summary>
         /// <param name="userID">所属人</param>
@@ -33,7 +45,7 @@ namespace RecordBill.BLL
         protected override bool Verification(T_Bill model, out string msg)
         {
             List<string> msgs = new List<string>();
-            if (!model.Contents.MIsNullOrEmpty())
+            if (model.Contents.MIsNullOrEmpty())
             {
                 msgs.Add("账单内容不能为空");
             }

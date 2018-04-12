@@ -9,7 +9,15 @@ var RecordBill;
                  * 构造函数
                  */
                 function EditPage() {
-                    mui.init();
+                    mui.init({
+                        beforeback: function () {
+                            if (plus) {
+                                var self = plus.webview.currentWebview().opener();
+                                mui.fire(self, 'init');
+                            }
+                            return true;
+                        }
+                    });
                     mui.plusReady(function () {
                         var self = plus.webview.currentWebview();
                         var id = self["ID"];
@@ -26,10 +34,10 @@ var RecordBill;
                     var nowDate = new Date();
                     var InputRecordTime = MDMa.$("InputRecordTime");
                     InputRecordTime.value = MTMa.DateTimeFormat(nowDate, "yyyy-MM-dd");
-                    var InputAmount = MDMa.$("InputAmount");
-                    InputAmount.value = "15";
-                    var InputContent = MDMa.$("InputContent");
-                    InputContent.value = "吃饭";
+                    //let InputAmount = MDMa.$("InputAmount") as HTMLInputElement;
+                    //InputAmount.value = "15";
+                    //let InputContent = MDMa.$("InputContent") as HTMLInputElement;
+                    //InputContent.value = "吃饭";
                 };
                 /**
                  * 绑定事件
@@ -152,7 +160,7 @@ var RecordBill;
                         return {
                             RecordTime: MDMa.GetInputValue("InputRecordTime"),
                             Amount: MDMa.GetInputValue("InputAmount"),
-                            Content: MDMa.GetInputValue("InputContent"),
+                            Contents: MDMa.GetInputValue("InputContent"),
                         };
                     }
                     return null;

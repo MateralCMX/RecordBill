@@ -12,10 +12,6 @@ namespace RecordBill.APP {
         public static config = {
             ServerURL: "http://myqa.materalcmx.com/",//服务器地址
             LoginUserName: "LOGINUSER",//保存登录用户Key
-            PageInfo: {
-                PagingIndex:1,
-                PagingSize: 20
-            } as PageMode
         };
         /**
          * 获得验证对象
@@ -85,6 +81,9 @@ namespace RecordBill.APP {
                 case "MyInfo":
                     url = "/View/User/MyInfo.html";
                     break;
+                case "MyBill":
+                    url = "/View/User/List.html";
+                    break;
                 case "About":
                     url = "/View/Home/About.html";
                     break;
@@ -111,6 +110,11 @@ namespace RecordBill.APP {
                 case "AddBill":
                     extras = {
                         Type: "Add"
+                    };
+                    break;
+                case "MyBill":
+                    extras = {
+                        Type: "My"
                     };
                     break;
             }
@@ -279,19 +283,19 @@ namespace RecordBill.APP {
         /**
          * 当前页面
          */
-        public PagingIndex: number;
+        public static PagingIndex: number = 1;
         /**
          * 总页数
          */
-        public PagingCount: number;
+        public static PagingCount: number = 0;
         /**
          * 数据总数
          */
-        public DataCount: number;
+        public static DataCount: number = 0;
         /**
          * 显示数量
          */
-        public PagingSize: number;
+        public static PagingSize: number = 20;
     }
     /**
      * 用户模型

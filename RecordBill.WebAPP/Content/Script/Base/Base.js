@@ -84,6 +84,9 @@ var RecordBill;
                     case "MyInfo":
                         url = "/View/User/MyInfo.html";
                         break;
+                    case "MyBill":
+                        url = "/View/User/List.html";
+                        break;
                     case "About":
                         url = "/View/Home/About.html";
                         break;
@@ -110,6 +113,11 @@ var RecordBill;
                     case "AddBill":
                         extras = {
                             Type: "Add"
+                        };
+                        break;
+                    case "MyBill":
+                        extras = {
+                            Type: "My"
                         };
                         break;
                 }
@@ -273,10 +281,6 @@ var RecordBill;
             Common.config = {
                 ServerURL: "http://myqa.materalcmx.com/",
                 LoginUserName: "LOGINUSER",
-                PageInfo: {
-                    PagingIndex: 1,
-                    PagingSize: 20
-                }
             };
             return Common;
         }());
@@ -296,6 +300,22 @@ var RecordBill;
         var PageMode = /** @class */ (function () {
             function PageMode() {
             }
+            /**
+             * 当前页面
+             */
+            PageMode.PagingIndex = 1;
+            /**
+             * 总页数
+             */
+            PageMode.PagingCount = 0;
+            /**
+             * 数据总数
+             */
+            PageMode.DataCount = 0;
+            /**
+             * 显示数量
+             */
+            PageMode.PagingSize = 20;
             return PageMode;
         }());
         APP.PageMode = PageMode;

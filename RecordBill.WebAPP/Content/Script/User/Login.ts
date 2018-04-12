@@ -4,7 +4,15 @@
          * 构造函数
          */
         constructor() {
-            mui.init();
+            mui.init({
+                beforeback: function () {
+                    if (plus) {
+                        var self = plus.webview.currentWebview().opener();
+                        mui.fire(self, 'init');
+                    }
+                    return true;
+                }
+            });
             this.BindeEvent();
         }
         /**

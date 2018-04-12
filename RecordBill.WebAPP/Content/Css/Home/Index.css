@@ -1,2 +1,3 @@
-﻿body {
+﻿.mui-off-canvas-left, .mui-off-canvas-right {
+    background: #ccc;
 }

@@ -18,3 +18,9 @@
 .form-submit-btn{
     width:80%;
 }
+.mui-pull-bottom-pocket, .mui-pull-top-pocket {
+    visibility: visible;
+}
+.mui-off-canvas-left, .mui-off-canvas-right {
+    width: 80%;
+}

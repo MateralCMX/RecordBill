@@ -7,7 +7,15 @@
          * 构造函数
          */
         constructor() {
-            mui.init();
+            mui.init({
+                beforeback: function () {
+                    if (plus) {
+                        var self = plus.webview.currentWebview().opener();
+                        mui.fire(self, 'init');
+                    }
+                    return true;
+                }
+            });
             mui.plusReady(function () {
                 var self = plus.webview.currentWebview();
                 let id = self["ID"];
@@ -24,10 +32,10 @@
             let nowDate = new Date();
             let InputRecordTime = MDMa.$("InputRecordTime") as HTMLInputElement;
             InputRecordTime.value = MTMa.DateTimeFormat(nowDate, "yyyy-MM-dd");
-            let InputAmount = MDMa.$("InputAmount") as HTMLInputElement;
-            InputAmount.value = "15";
-            let InputContent = MDMa.$("InputContent") as HTMLInputElement;
-            InputContent.value = "吃饭";
+            //let InputAmount = MDMa.$("InputAmount") as HTMLInputElement;
+            //InputAmount.value = "15";
+            //let InputContent = MDMa.$("InputContent") as HTMLInputElement;
+            //InputContent.value = "吃饭";
         }
         /**
          * 绑定事件
@@ -150,7 +158,7 @@
                 return {
                     RecordTime: MDMa.GetInputValue("InputRecordTime"),
                     Amount: MDMa.GetInputValue("InputAmount"),
-                    Content: MDMa.GetInputValue("InputContent"),
+                    Contents: MDMa.GetInputValue("InputContent"),
                 };
             }
             return null;
