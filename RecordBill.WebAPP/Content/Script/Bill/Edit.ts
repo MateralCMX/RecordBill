@@ -155,7 +155,6 @@
             else if (validity.rangeUnderflow) {
                 mui.toast("金额不能小于0元");
             }
-            console.log(validity);
         }
         /**
          * 内容验证事件
@@ -195,7 +194,6 @@
             else {
                 url += "api/Bill/Add";
             }
-            console.log(InputM);
             let SFun: Function = function (resM: any, xhr: XMLHttpRequest, status: number) {
                 if (EditPage.config.ID) {
                     mui.toast("保存成功");

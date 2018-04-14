@@ -153,7 +153,6 @@ var RecordBill;
                     else if (validity.rangeUnderflow) {
                         mui.toast("金额不能小于0元");
                     }
-                    console.log(validity);
                 };
                 /**
                  * 内容验证事件
@@ -193,7 +192,6 @@ var RecordBill;
                     else {
                         url += "api/Bill/Add";
                     }
-                    console.log(InputM);
                     var SFun = function (resM, xhr, status) {
                         if (EditPage.config.ID) {
                             mui.toast("保存成功");
