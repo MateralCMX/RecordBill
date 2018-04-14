@@ -81,6 +81,9 @@
     <Compile Include="T_Bill.cs">
       <DependentUpon>RecordBillModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="T_BillTypes.cs">
+      <DependentUpon>RecordBillModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="T_Token.cs">
       <DependentUpon>RecordBillModel.tt</DependentUpon>
     </Compile>
@@ -91,6 +94,9 @@
       <DependentUpon>RecordBillModel.tt</DependentUpon>
     </Compile>
     <Compile Include="V_Bill.cs">
+      <DependentUpon>RecordBillModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="V_BillTypes.cs">
       <DependentUpon>RecordBillModel.tt</DependentUpon>
     </Compile>
     <Compile Include="V_Token.cs">

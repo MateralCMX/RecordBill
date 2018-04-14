@@ -94,6 +94,7 @@ var RecordBill;
                         url = "/View/Home/Setting.html";
                         break;
                     case "AddBill":
+                    case "EditBill":
                         url = "/View/Bill/Edit.html";
                         break;
                     case "Login":
@@ -107,18 +108,11 @@ var RecordBill;
              * 跳转
              * @param pageName 页面名称
              */
-            Common.GoToPage = function (pageName) {
-                var extras = null;
+            Common.GoToPage = function (pageName, extras) {
+                if (extras === void 0) { extras = {}; }
                 switch (pageName) {
-                    case "AddBill":
-                        extras = {
-                            Type: "Add"
-                        };
-                        break;
                     case "MyBill":
-                        extras = {
-                            Type: "My"
-                        };
+                        extras["Type"] = "My";
                         break;
                 }
                 Common.OpenWindow(Common.GetPageUrl(pageName), pageName, extras);
@@ -275,7 +269,22 @@ var RecordBill;
                 var element = e.target;
                 var targetPage = Common.GetDataSetOrPanertDataSet(element, "gotopage");
                 if (targetPage) {
-                    Common.GoToPage(targetPage);
+                    var pageExtras = Common.GetDataSetOrPanertDataSet(element, "extras");
+                    if (pageExtras) {
+                        var Extras = pageExtras.split("&");
+                        var paras = {};
+                        var temp = void 0;
+                        for (var i = 0; i < Extras.length; i++) {
+                            temp = Extras[i].split("=");
+                            if (temp[0] && temp[1]) {
+                                paras[temp[0]] = temp[1];
+                            }
+                        }
+                        Common.GoToPage(targetPage, paras);
+                    }
+                    else {
+                        Common.GoToPage(targetPage);
+                    }
                 }
             };
             Common.config = {
@@ -300,6 +309,16 @@ var RecordBill;
         var PageMode = /** @class */ (function () {
             function PageMode() {
             }
+            /**
+             * 设置值
+             * @param inputM
+             */
+            PageMode.SetValue = function (inputM) {
+                PageMode.DataCount = inputM["DataCount"];
+                PageMode.PagingCount = inputM["PagingCount"];
+                PageMode.PagingIndex = inputM["PagingIndex"];
+                PageMode.PagingSize = inputM["PagingSize"];
+            };
             /**
              * 当前页面
              */

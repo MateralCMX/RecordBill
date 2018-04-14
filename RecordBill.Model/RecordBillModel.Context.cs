@@ -26,14 +26,16 @@ namespace RecordBill.Model
         }
     
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<T_Bill> T_Bill { get; set; }
-        public virtual DbSet<T_User> T_User { get; set; }
         public virtual DbSet<T_ApplicationLog> T_ApplicationLog { get; set; }
         public virtual DbSet<T_ApplicationLog_Exception> T_ApplicationLog_Exception { get; set; }
-        public virtual DbSet<V_ApplicationLog_Exception> V_ApplicationLog_Exception { get; set; }
+        public virtual DbSet<T_Bill> T_Bill { get; set; }
+        public virtual DbSet<T_BillTypes> T_BillTypes { get; set; }
         public virtual DbSet<T_Token> T_Token { get; set; }
+        public virtual DbSet<T_User> T_User { get; set; }
+        public virtual DbSet<V_ApplicationLog_Exception> V_ApplicationLog_Exception { get; set; }
+        public virtual DbSet<V_Bill> V_Bill { get; set; }
+        public virtual DbSet<V_BillTypes> V_BillTypes { get; set; }
         public virtual DbSet<V_Token> V_Token { get; set; }
         public virtual DbSet<V_User> V_User { get; set; }
-        public virtual DbSet<V_Bill> V_Bill { get; set; }
     }
 }

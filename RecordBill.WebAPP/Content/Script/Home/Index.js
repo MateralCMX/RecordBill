@@ -54,25 +54,23 @@ var RecordBill;
                  * 获得查询条件
                  */
                 IndexPage.GetSearchInput = function () {
-                    var onlyLookMe = MDMa.$("switchOnlyLookMe").classList.contains("mui-active");
-                    var queryM = new QueryBillModel();
-                    if (onlyLookMe) {
-                        queryM.userID = APP.Common.GetLoginUserInfo(true).UserID;
+                    var loginUserInfo = APP.Common.GetLoginUserInfo(true);
+                    if (loginUserInfo) {
+                        var queryM = new QueryBillModel();
+                        queryM.userID = loginUserInfo.UserID;
+                        queryM.minDate = null;
+                        queryM.maxDate = null;
+                        return queryM;
                     }
-                    else {
-                        queryM.userID = "";
-                    }
-                    queryM.maxDate = MDMa.GetInputValue("SearchMaxDate");
-                    queryM.minDate = MDMa.GetInputValue("SearchMinDate");
-                    return queryM;
+                    return null;
                 };
                 /**
                  * 查询账单
                  */
                 IndexPage.SearchBill = function () {
                     var me = this;
-                    if (!IndexPage.pullRefresh) {
-                        IndexPage.pullRefresh = this;
+                    if (me["endPullupToRefresh"]) {
+                        IndexPage.pullRefresh = me;
                     }
                     var serachData = IndexPage.GetSearchInput();
                     var data = {
@@ -86,27 +84,8 @@ var RecordBill;
                     var SFun = function (resM, xhr, status) {
                         IndexPage.BindList(resM["Data"]["Data"]);
                         var pageM = resM["Data"]["PageInfo"];
-                        APP.PageMode.DataCount = pageM["DataCount"];
-                        APP.PageMode.PagingCount = pageM["PagingCount"];
-                        APP.PageMode.PagingIndex = pageM["PagingIndex"];
-                        APP.PageMode.PagingSize = pageM["PagingSize"];
-                        if (APP.PageMode.PagingIndex >= APP.PageMode.PagingCount) {
-                            if (me["endPullupToRefresh"]) {
-                                me["endPullupToRefresh"](true);
-                            }
-                            else if (IndexPage.pullRefresh && IndexPage.pullRefresh["endPullupToRefresh"]) {
-                                IndexPage.pullRefresh["endPullupToRefresh"](true);
-                            }
-                        }
-                        else {
-                            APP.PageMode.PagingIndex++;
-                            if (me["endPullupToRefresh"]) {
-                                me["endPullupToRefresh"](false);
-                            }
-                            else if (IndexPage.pullRefresh && IndexPage.pullRefresh["endPullupToRefresh"]) {
-                                IndexPage.pullRefresh["endPullupToRefresh"](false);
-                            }
-                        }
+                        APP.PageMode.SetValue(pageM);
+                        IndexPage.pullRefresh["endPullupToRefresh"](APP.PageMode.PagingIndex++ >= APP.PageMode.PagingCount);
                     };
                     var FFun = function (resM, xhr, status) {
                     };
@@ -123,6 +102,9 @@ var RecordBill;
                     if (ListData) {
                         for (var i = 0; i < listM.length; i++) {
                             var Li_Item = document.createElement("li");
+                            Li_Item.dataset.gotopage = "EditBill";
+                            Li_Item.dataset.extras = "ID=" + listM[i]["ID"];
+                            MDMa.AddEvent(Li_Item, "tap", APP.Common.Event_BtnGotoPage_tap);
                             MDMa.AddClass(Li_Item, "mui-table-view-cell mui-media");
                             var A_Item = document.createElement("a");
                             Li_Item.appendChild(A_Item);
@@ -133,7 +115,7 @@ var RecordBill;
                             Div_Item.appendChild(Text_Content);
                             var P_User = document.createElement("p");
                             MDMa.AddClass(P_User, "mui-ellipsis");
-                            P_User.innerText = MTMa.DateTimeFormat(new Date(listM[i]["RecordTime"]), "yyyy-MM-dd") + " " + listM[i]["UserName"];
+                            P_User.innerText = MTMa.DateTimeFormat(new Date(listM[i]["RecordTime"]), "yyyy/MM/dd") + "-" + listM[i]["Type"] + "-" + listM[i]["UserName"];
                             Div_Item.appendChild(P_User);
                             var Span_Amount = document.createElement("span");
                             MDMa.AddClass(Span_Amount, "mui-badge mui-badge-success");

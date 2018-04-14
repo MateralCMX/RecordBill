@@ -50,25 +50,23 @@
          * 获得查询条件
          */
         private static GetSearchInput(): QueryBillModel {
-            let onlyLookMe = MDMa.$("switchOnlyLookMe").classList.contains("mui-active");
-            let queryM: QueryBillModel = new QueryBillModel();
-            if (onlyLookMe) {
-                queryM.userID = Common.GetLoginUserInfo(true).UserID;
+            let loginUserInfo = Common.GetLoginUserInfo(true);
+            if (loginUserInfo) {
+                let queryM: QueryBillModel = new QueryBillModel();
+                queryM.userID = loginUserInfo.UserID
+                queryM.minDate = null
+                queryM.maxDate = null;
+                return queryM;
             }
-            else {
-                queryM.userID = "";
-            }
-            queryM.maxDate = MDMa.GetInputValue("SearchMaxDate");
-            queryM.minDate = MDMa.GetInputValue("SearchMinDate");
-            return queryM;
+            return null;
         }
         /**
          * 查询账单
          */
         private static SearchBill() {
             let me = this;
-            if (!IndexPage.pullRefresh) {
-                IndexPage.pullRefresh = this;
+            if (me["endPullupToRefresh"]) {
+                IndexPage.pullRefresh = me;
             }
             let serachData = IndexPage.GetSearchInput();
             let data = {
@@ -82,27 +80,8 @@
             let SFun: Function = function (resM: any, xhr: XMLHttpRequest, status: number) {
                 IndexPage.BindList(resM["Data"]["Data"]);
                 let pageM = resM["Data"]["PageInfo"];
-                PageMode.DataCount = pageM["DataCount"];
-                PageMode.PagingCount = pageM["PagingCount"];
-                PageMode.PagingIndex = pageM["PagingIndex"];
-                PageMode.PagingSize = pageM["PagingSize"];
-                if (PageMode.PagingIndex >= PageMode.PagingCount) {
-                    if (me["endPullupToRefresh"]) {
-                        me["endPullupToRefresh"](true);
-                    }
-                    else if (IndexPage.pullRefresh && IndexPage.pullRefresh["endPullupToRefresh"]) {
-                        IndexPage.pullRefresh["endPullupToRefresh"](true);
-                    }
-                }
-                else {
-                    PageMode.PagingIndex++;
-                    if (me["endPullupToRefresh"]) {
-                        me["endPullupToRefresh"](false);
-                    }
-                    else if (IndexPage.pullRefresh && IndexPage.pullRefresh["endPullupToRefresh"]) {
-                        IndexPage.pullRefresh["endPullupToRefresh"](false);
-                    }
-                }
+                PageMode.SetValue(pageM);
+                IndexPage.pullRefresh["endPullupToRefresh"](PageMode.PagingIndex++ >= PageMode.PagingCount);
             };
             let FFun: Function = function (resM: any, xhr: XMLHttpRequest, status: number) {
             };
@@ -119,6 +98,9 @@
             if (ListData) {
                 for (var i = 0; i < listM.length; i++) {
                     let Li_Item = document.createElement("li");
+                    Li_Item.dataset.gotopage = "EditBill";
+                    Li_Item.dataset.extras = "ID=" + listM[i]["ID"];
+                    MDMa.AddEvent(Li_Item, "tap", Common.Event_BtnGotoPage_tap);
                     MDMa.AddClass(Li_Item, "mui-table-view-cell mui-media");
                     let A_Item = document.createElement("a");
                     Li_Item.appendChild(A_Item);
@@ -129,7 +111,7 @@
                     Div_Item.appendChild(Text_Content);
                     let P_User = document.createElement("p");
                     MDMa.AddClass(P_User, "mui-ellipsis");
-                    P_User.innerText = MTMa.DateTimeFormat(new Date(listM[i]["RecordTime"]), "yyyy-MM-dd") + " " + listM[i]["UserName"];
+                    P_User.innerText = MTMa.DateTimeFormat(new Date(listM[i]["RecordTime"]), "yyyy/MM/dd") + "-" + listM[i]["Type"] + "-" + listM[i]["UserName"];
                     Div_Item.appendChild(P_User);
                     let Span_Amount = document.createElement("span");
                     MDMa.AddClass(Span_Amount, "mui-badge mui-badge-success");

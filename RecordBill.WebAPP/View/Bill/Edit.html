@@ -6,6 +6,7 @@
     <title>账单</title>
     <link href="../../Content/Lib/mui/css/mui.min.css" rel="stylesheet" />
     <link href="../../Content/Css/Base/Base.css" rel="stylesheet" />
+    <link href="../../Content/Lib/mui/css/mui.picker.min.css" rel="stylesheet" />
 </head>
 <body>
     <header class="mui-bar mui-bar-nav">
@@ -16,22 +17,28 @@
         <form id="InputForm" class="mui-input-group">
             <div class="mui-input-row">
                 <label>日期</label>
-                <input id="InputRecordTime" type="date" required>
+                <button type="button" id="BtnRecordTime"></button>
+            </div>
+            <div class="mui-input-row">
+                <label>类型</label>
+                <button type="button" id="BtnType"></button>
             </div>
             <div class="mui-input-row">
                 <label>金额</label>
-                <input id="InputAmount" type="number" required  min="0.01" step="0">
+                <input id="InputAmount" type="number" required min="0" step="0.01">
             </div>
             <div class="mui-input-row">
                 <label>内容</label>
                 <input id="InputContent" type="text" class="mui-input-clear" required>
             </div>
             <div class="mui-button-row">
-                <button id="BtnSave" type="button" data-loading-icon="mui-spinner mui-spinner-custom" data-loading-text="正在保存" data-loading-icon-position="right" class="mui-btn mui-btn-primary form-submit-btn">保存</button>
+                <button id="BtnSave" disabled type="button" data-loading-icon="mui-spinner mui-spinner-custom" data-loading-text="正在保存" data-loading-icon-position="right" class="mui-btn mui-btn-primary form-submit-btn">保存</button>
             </div>
         </form>
     </main>
     <script src="../../Content/Lib/mui/js/mui.min.js"></script>
+    <script src="../../Content/Lib/mui/js/mui.picker.min.js"></script>
+    <script src="../../Content/Lib/mui/js/mui.poppicker.js"></script>
     <script src="../../Content/Lib/m-Tools/m-Tools.js"></script>
     <script src="../../Content/Script/Base/Base.js"></script>
     <script src="../../Content/Script/Bill/Edit.js"></script>

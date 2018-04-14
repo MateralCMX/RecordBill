@@ -12,16 +12,10 @@ namespace RecordBill.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class V_Bill
+    public partial class V_BillTypes
     {
         public System.Guid ID { get; set; }
-        public System.Guid FK_User_ID { get; set; }
-        public string UserName { get; set; }
-        public string Contents { get; set; }
-        public decimal Amount { get; set; }
-        public System.DateTime RecordTime { get; set; }
-        public System.DateTimeOffset CreateTime { get; set; }
-        public System.Guid FK_Type_ID { get; set; }
-        public string Type { get; set; }
+        public string Name { get; set; }
+        public int Stort { get; set; }
     }
 }

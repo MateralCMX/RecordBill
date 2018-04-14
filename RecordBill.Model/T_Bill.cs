@@ -20,7 +20,9 @@ namespace RecordBill.Model
         public decimal Amount { get; set; }
         public System.DateTime RecordTime { get; set; }
         public System.DateTimeOffset CreateTime { get; set; }
+        public System.Guid FK_Type_ID { get; set; }
     
+        public virtual T_BillTypes T_BillTypes { get; set; }
         public virtual T_User T_User { get; set; }
     }
 }

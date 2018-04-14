@@ -12,16 +12,19 @@ namespace RecordBill.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class V_Bill
+    public partial class T_BillTypes
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public T_BillTypes()
+        {
+            this.T_Bill = new HashSet<T_Bill>();
+        }
+    
         public System.Guid ID { get; set; }
-        public System.Guid FK_User_ID { get; set; }
-        public string UserName { get; set; }
-        public string Contents { get; set; }
-        public decimal Amount { get; set; }
-        public System.DateTime RecordTime { get; set; }
-        public System.DateTimeOffset CreateTime { get; set; }
-        public System.Guid FK_Type_ID { get; set; }
-        public string Type { get; set; }
+        public string Name { get; set; }
+        public int Stort { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<T_Bill> T_Bill { get; set; }
     }
 }

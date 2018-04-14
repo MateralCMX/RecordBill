@@ -23,7 +23,6 @@ namespace RecordBill.BLL
             model.CreateTime = DateTimeOffset.Now;
             return base.Add(model, idName);
         }
-
         /// <summary>
         /// 根据条件获得账单信息
         /// </summary>

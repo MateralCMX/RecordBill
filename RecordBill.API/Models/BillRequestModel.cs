@@ -22,6 +22,10 @@ namespace RecordBill.API
         /// </summary>
         public DateTime RecordTime { get; set; }
         /// <summary>
+        /// 账单类型ID
+        /// </summary>
+        public Guid FK_Type_ID { get; set; }
+        /// <summary>
         /// 登录用户ID
         /// </summary>
         public Guid LoginUserID { get; set; }

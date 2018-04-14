@@ -115,13 +115,13 @@ namespace RecordBill.API.Controllers.API
         /// <summary>
         /// 根据唯一标识获得视图信息
         /// </summary>
-        /// <param name="userID">查询账单</param>
+        /// <param name="ID">查询账单</param>
         /// <returns>返回结果</returns>
         [HttpGet]
         [Route("GetViewInfoByID")]
-        public MResultModel<V_Bill> GetViewInfoByID(Guid userID)
+        public MResultModel<V_Bill> GetViewInfoByID(Guid ID)
         {
-            V_Bill resM = _bll.GetDBModelViewInfoByID(userID);
+            V_Bill resM = _bll.GetDBModelViewInfoByID(ID);
             return MResultModel<V_Bill>.GetSuccessResultM(resM, "查询结果");
         }
     }

@@ -24,3 +24,11 @@
 .mui-off-canvas-left, .mui-off-canvas-right {
     width: 80%;
 }
+.mui-input-row > button {
+    line-height: 40px;
+    border: none;
+    height: 40px;
+    padding: 0;
+    width: 65%;
+    text-align: left;
+}

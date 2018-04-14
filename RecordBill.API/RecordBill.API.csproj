@@ -191,6 +191,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\API\ApiBaseController.cs" />
+    <Compile Include="Controllers\API\BillTypesController.cs" />
     <Compile Include="Controllers\API\BillController.cs" />
     <Compile Include="Controllers\API\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -198,6 +199,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BillTypesAddRequestModel.cs" />
     <Compile Include="Models\IVerificationLoginModel.cs" />
     <Compile Include="Models\RequestModel.cs" />
     <Compile Include="Models\BillRequestModel.cs" />

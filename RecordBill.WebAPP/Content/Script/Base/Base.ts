@@ -91,6 +91,7 @@ namespace RecordBill.APP {
                     url = "/View/Home/Setting.html";
                     break;
                 case "AddBill":
+                case "EditBill":
                     url = "/View/Bill/Edit.html";
                     break;
                 case "Login":
@@ -104,18 +105,10 @@ namespace RecordBill.APP {
          * 跳转
          * @param pageName 页面名称
          */
-        public static GoToPage(pageName: string) {
-            let extras: any = null;
+        public static GoToPage(pageName: string, extras: any = {}) {
             switch (pageName) {
-                case "AddBill":
-                    extras = {
-                        Type: "Add"
-                    };
-                    break;
                 case "MyBill":
-                    extras = {
-                        Type: "My"
-                    };
+                    extras["Type"] = "My";
                     break;
             }
             Common.OpenWindow(Common.GetPageUrl(pageName), pageName, extras);
@@ -263,7 +256,22 @@ namespace RecordBill.APP {
             let element = e.target as HTMLElement;
             let targetPage = Common.GetDataSetOrPanertDataSet(element, "gotopage");
             if (targetPage) {
-                Common.GoToPage(targetPage);
+                let pageExtras = Common.GetDataSetOrPanertDataSet(element, "extras");
+                if (pageExtras) {
+                    let Extras: string[] = pageExtras.split("&");
+                    let paras = {};
+                    let temp: string[];
+                    for (var i = 0; i < Extras.length; i++) {
+                        temp = Extras[i].split("=");
+                        if (temp[0] && temp[1]) {
+                            paras[temp[0]] = temp[1];
+                        }
+                    }
+                    Common.GoToPage(targetPage, paras);
+                }
+                else {
+                    Common.GoToPage(targetPage);
+                }
             }
         }
     }
@@ -296,6 +304,16 @@ namespace RecordBill.APP {
          * 显示数量
          */
         public static PagingSize: number = 20;
+        /**
+         * 设置值
+         * @param inputM
+         */
+        public static SetValue(inputM) {
+            PageMode.DataCount = inputM["DataCount"];
+            PageMode.PagingCount = inputM["PagingCount"];
+            PageMode.PagingIndex = inputM["PagingIndex"];
+            PageMode.PagingSize = inputM["PagingSize"];
+        }
     }
     /**
      * 用户模型

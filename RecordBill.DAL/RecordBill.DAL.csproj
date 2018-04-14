@@ -50,6 +50,7 @@
     <Compile Include="ApplicationLogDAL.cs" />
     <Compile Include="ApplicationLogExceptionDAL.cs" />
     <Compile Include="BaseDAL.cs" />
+    <Compile Include="BillTypesDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TokenDAL.cs" />
     <Compile Include="BillDAL.cs" />
