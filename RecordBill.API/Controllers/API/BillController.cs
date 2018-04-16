@@ -124,5 +124,19 @@ namespace RecordBill.API.Controllers.API
             V_Bill resM = _bll.GetDBModelViewInfoByID(ID);
             return MResultModel<V_Bill>.GetSuccessResultM(resM, "查询结果");
         }
+        /// <summary>
+        /// 根据条件获得账单报告信息
+        /// </summary>
+        /// <param name="userID">所属人</param>
+        /// <param name="minDate">最小日期</param>
+        /// <param name="maxDate">最大日期</param>
+        /// <returns>账单报告信息</returns>
+        [HttpGet]
+        [Route("GetBillReportInfoByWhere")]
+        public MResultModel<BillReportModel> GetBillReportInfoByWhere(Guid userID, DateTime minDate, DateTime maxDate)
+        {
+            BillReportModel resM = _bll.GetBillReportInfoByWhere(userID, minDate, maxDate);
+            return MResultModel<BillReportModel>.GetSuccessResultM(resM, "查询结果");
+        }
     }
 }

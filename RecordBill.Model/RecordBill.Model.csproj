@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationLogModel.cs" />
+    <Compile Include="BillModel.cs" />
     <Compile Include="LoginUserModel.cs" />
     <Compile Include="RecordBillException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

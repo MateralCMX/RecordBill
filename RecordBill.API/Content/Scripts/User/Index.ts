@@ -32,8 +32,8 @@ namespace RecordBill.User {
          * @param inputM
          */
         private static SetInputInfo(inputM: UserModel = { ID: "", Name: "", Account: "" }) {
-            let InputName = MDMa.$("InputName") as HTMLInputElement
-            let InputAccount = MDMa.$("InputAccount") as HTMLInputElement
+            let InputName = MDMa.$("InputName") as HTMLInputElement;
+            let InputAccount = MDMa.$("InputAccount") as HTMLInputElement;
             InputName.value = inputM.Name;
             InputAccount.value = inputM.Account;
             IndexPage.config.SelectedID = inputM.ID;

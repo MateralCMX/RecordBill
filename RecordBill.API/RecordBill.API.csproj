@@ -194,6 +194,7 @@
     <Compile Include="Controllers\API\BillTypesController.cs" />
     <Compile Include="Controllers\API\BillController.cs" />
     <Compile Include="Controllers\API\UserController.cs" />
+    <Compile Include="Controllers\BillTypeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -214,6 +215,7 @@
     <Content Include="App_Data\Materal.UI.WinForm\MateralTools.MVerify.dll" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\Css\Base.css" />
+    <Content Include="Content\Css\BillType\Index.css" />
     <Content Include="Content\Css\Home\Index.css" />
     <Content Include="Content\Css\User\Index.css" />
     <Content Include="Content\Css\User\Login.css" />
@@ -296,6 +298,7 @@
     <Content Include="Views\User\Login.cshtml" />
     <None Include="Properties\PublishProfiles\本地文件-Debug.pubxml" />
     <None Include="Properties\PublishProfiles\本地文件-Release.pubxml" />
+    <Content Include="Views\BillType\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Content\Lib\JQuery\JQuery.d.ts" />
@@ -303,6 +306,7 @@
     <TypeScriptCompile Include="Content\Lib\m-Tools\m-Tools.ts" />
     <TypeScriptCompile Include="Content\Lib\Popper\Popper.d.ts" />
     <TypeScriptCompile Include="Content\Scripts\Base\Base.ts" />
+    <TypeScriptCompile Include="Content\Scripts\BillType\Index.ts" />
     <TypeScriptCompile Include="Content\Scripts\Home\Index.ts" />
     <TypeScriptCompile Include="Content\Scripts\User\Index.ts" />
     <TypeScriptCompile Include="Content\Scripts\User\Login.ts" />
@@ -359,6 +363,7 @@
       <Name>RecordBill.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

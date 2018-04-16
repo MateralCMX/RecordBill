@@ -36,6 +36,21 @@ namespace RecordBill.BLL
             return _dal.GetBillViewInfoByWhere(userID, minDate, maxDate, pageM);
         }
         /// <summary>
+        /// 根据条件获得账单报告信息
+        /// </summary>
+        /// <param name="userID">所属人</param>
+        /// <param name="minDate">最小日期</param>
+        /// <param name="maxDate">最大日期</param>
+        /// <returns>账单报告信息</returns>
+        public BillReportModel GetBillReportInfoByWhere(Guid userID, DateTime minDate, DateTime maxDate)
+        {
+            BillReportModel resM = new BillReportModel
+            {
+                Data = _dal.GetBillViewInfoByWhere(userID, minDate, maxDate).ToList()
+            };
+            return resM;
+        }
+        /// <summary>
         /// 验证模型
         /// </summary>
         /// <param name="model">要验证的模型</param>

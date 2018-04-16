@@ -26,6 +26,26 @@ namespace RecordBill.BLL
             return base.Add(model, idName);
         }
         /// <summary>
+        /// 修改账单类型
+        /// </summary>
+        /// <param name="model">类型对象</param>
+        /// <param name="idName">主键名称</param>
+        /// <returns>修改的对象</returns>
+        public override T_BillTypes Update(T_BillTypes model, string idName = "ID")
+        {
+            T_BillTypes DBM = _dal.GetDBModelInfoByID(model.ID);
+            if (VerificationUpdate(DBM,out string msg))
+            {
+                DBM.Name = model.Name;
+                _dal.SaveChange();
+            }
+            else
+            {
+                throw new RecordBillException(msg);
+            }
+            return DBM;
+        }
+        /// <summary>
         /// 调换位序
         /// </summary>
         /// <param name="id1">对象1ID</param>

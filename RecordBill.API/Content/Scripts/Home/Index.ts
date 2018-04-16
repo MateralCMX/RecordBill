@@ -128,8 +128,8 @@ namespace RecordBill.Home {
                 Name: "用户中心"
             },
             {
-                Url: "/Platform/Index",
-                Name: "小本本"
+                Url: "/BillType/Index",
+                Name: "账单类型"
             },
             {
                 Url: "/Help",
