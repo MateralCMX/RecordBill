@@ -94,6 +94,9 @@ namespace RecordBill.APP {
                 case "EditBill":
                     url = "/View/Bill/Edit.html";
                     break;
+                case "BillReport":
+                    url = "/View/Bill/Report.html";
+                    break;
                 case "Login":
                 default:
                     url = "/View/User/Login.html";
@@ -111,7 +114,8 @@ namespace RecordBill.APP {
                     extras["Type"] = "My";
                     break;
             }
-            Common.OpenWindow(Common.GetPageUrl(pageName), pageName, extras);
+            let url = Common.GetPageUrl(pageName);
+            Common.OpenWindow(url, pageName, extras);
         }
         /**
          * 打开窗口
@@ -303,7 +307,7 @@ namespace RecordBill.APP {
         /**
          * 显示数量
          */
-        public static PagingSize: number = 20;
+        public static PagingSize: number = 10;
         /**
          * 设置值
          * @param inputM

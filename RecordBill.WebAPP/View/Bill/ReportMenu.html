@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>账单</title>
+    <link href="../../Content/Lib/mui/css/mui.min.css" rel="stylesheet" />
+    <link href="../../Content/Lib/mui/css/mui.picker.min.css" rel="stylesheet" />
+    <link href="../../Content/Css/Base/Base.css" rel="stylesheet" />
+    <link href="../../Content/Css/Bill/ReportMenu.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="mui-content">
+        <div class="content">
+            <form class="mui-input-group">
+                <div class="mui-input-row">
+                    <label class="Title">筛选条件</label>
+                </div>
+                <div class="mui-input-row">
+                    <label>最小日期</label>
+                    <button type="button" id="BtnMinDate"></button>
+                </div>
+                <div class="mui-input-row">
+                    <label>最大日期</label>
+                    <button type="button" id="BtnMaxDate"></button>
+                </div>
+                <div class="mui-button-row">
+                    <button id="BtnSearch" type="button" class="mui-btn mui-btn-primary mui-btn-block form-submit-btn">
+                        查询
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="../../Content/Lib/mui/js/mui.min.js"></script>
+    <script src="../../Content/Lib/mui/js/mui.picker.min.js"></script>
+    <script src="../../Content/Lib/mui/js/mui.poppicker.js"></script>
+    <script src="../../Content/Lib/m-Tools/m-Tools.js"></script>
+    <script src="../../Content/Script/Base/Base.js"></script>
+    <script src="../../Content/Script/Bill/ReportMenu.js"></script>
+</body>
+</html>

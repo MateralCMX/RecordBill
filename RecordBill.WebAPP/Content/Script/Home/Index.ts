@@ -23,36 +23,32 @@
          * 绑定事件
          */
         private BindeEvent() {
-            MDMa.AddEvent("BtnSearch", "tap", this.Event_BtnSearch_Tap);
-            MDMa.AddEvent(window, 'init', function (e) {
-                IndexPage.ReSearch();
-            });
+            MDMa.AddEvent(window, 'init', this.Event_Page_Init);
         }
         /**
-         * 重写查询
+         * 页面初始化事件
+         * @param e
+         */
+        private Event_Page_Init(e: Event) {
+            IndexPage.ReSearch();
+        }
+        /**
+         * 重新查询
          */
         private static ReSearch() {
             PageMode.PagingIndex = 1;
             let ListData = MDMa.$("ListData") as HTMLDivElement;
             ListData.innerHTML = "";
             mui('#ListDataPanel').pullRefresh().refresh(true);
-            mui("#offCanvasSide").popover("toggle");
             IndexPage.SearchBill();
-        }
-        /**
-         * 点击查询按钮
-         * @param e
-         */
-        private Event_BtnSearch_Tap(e: MouseEvent) {
-            IndexPage.ReSearch();
         }
         /**
          * 获得查询条件
          */
-        private static GetSearchInput(): QueryBillModel {
+        private static GetSearchInput(): Bill.QueryBillModel {
             let loginUserInfo = Common.GetLoginUserInfo(true);
             if (loginUserInfo) {
-                let queryM: QueryBillModel = new QueryBillModel();
+                let queryM: Bill.QueryBillModel = new Bill.QueryBillModel();
                 queryM.userID = loginUserInfo.UserID
                 queryM.minDate = null
                 queryM.maxDate = null;
@@ -69,25 +65,27 @@
                 IndexPage.pullRefresh = me;
             }
             let serachData = IndexPage.GetSearchInput();
-            let data = {
-                userID: serachData.userID,
-                minDate: serachData.minDate,
-                maxDate: serachData.maxDate,
-                pagingIndex: PageMode.PagingIndex,
-                pagingSize: PageMode.PagingSize,
+            if (serachData) {
+                let data = {
+                    userID: serachData.userID,
+                    minDate: serachData.minDate,
+                    maxDate: serachData.maxDate,
+                    pagingIndex: PageMode.PagingIndex,
+                    pagingSize: PageMode.PagingSize,
+                }
+                let url = Common.config.ServerURL + "api/Bill/GetViewInfoByWhere";
+                let SFun: Function = function (resM: any, xhr: XMLHttpRequest, status: number) {
+                    IndexPage.BindList(resM["Data"]["Data"]);
+                    let pageM = resM["Data"]["PageInfo"];
+                    PageMode.SetValue(pageM);
+                    IndexPage.pullRefresh["endPullupToRefresh"](PageMode.PagingIndex++ >= PageMode.PagingCount);
+                };
+                let FFun: Function = function (resM: any, xhr: XMLHttpRequest, status: number) {
+                };
+                let CFun: Function = function (resM: any, xhr: XMLHttpRequest, status: number) {
+                };
+                Common.SendGet(url, data, SFun, FFun, CFun);
             }
-            let url = Common.config.ServerURL + "api/Bill/GetViewInfoByWhere";
-            let SFun: Function = function (resM: any, xhr: XMLHttpRequest, status: number) {
-                IndexPage.BindList(resM["Data"]["Data"]);
-                let pageM = resM["Data"]["PageInfo"];
-                PageMode.SetValue(pageM);
-                IndexPage.pullRefresh["endPullupToRefresh"](PageMode.PagingIndex++ >= PageMode.PagingCount);
-            };
-            let FFun: Function = function (resM: any, xhr: XMLHttpRequest, status: number) {
-            };
-            let CFun: Function = function (resM: any, xhr: XMLHttpRequest, status: number) {
-            };
-            Common.SendGet(url, data, SFun, FFun, CFun);
         }
         /**
          * 绑定列表
@@ -121,23 +119,6 @@
                 }
             }
         }
-    }
-    /**
-     * 账单查询模型
-     */
-    class QueryBillModel {
-        /**
-         * 用户ID
-         */
-        public userID: string;
-        /**
-         * 最小日期
-         */
-        public minDate: Date;
-        /**
-         * 最大日期
-         */
-        public maxDate: Date;
     }
 }
 MDMa.AddEvent(window, "load", function () {

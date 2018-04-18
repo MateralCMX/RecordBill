@@ -5,7 +5,8 @@
       "View/Bill/Edit.html",
       "View/User/MyInfo.html",
       "View/Home/About.html",
-      "View/User/Login.html"
+      "View/User/Login.html",
+      "View/Bill/Report.html"
     ],
     "resources": [
       "Content/Lib/mui/css/mui.min.css",
@@ -83,5 +84,19 @@
     ],
     "refer": [],
     "priority": 0
+  },
+  "View/Bill/Report.html": {
+    "resources": [
+      "Content/Script/Bill/Report.js",
+      "Content/Script/Base/Base.js"
+    ],
+    "refer": [
+      "View/Bill/ReportMenu.html"
+    ]
+  },
+  "View/Bill/ReportMenu.html": {
+    "resources": [
+      "Content/Script/Bill/ReportMenu.js"
+    ]
   }
 }

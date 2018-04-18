@@ -1,5 +1,6 @@
 ﻿using MateralTools.MConvert;
 using MateralTools.MResult;
+using MateralTools.MVerify;
 using RecordBill.BLL;
 using RecordBill.Model;
 using System;
@@ -128,15 +129,26 @@ namespace RecordBill.API.Controllers.API
         /// 根据条件获得账单报告信息
         /// </summary>
         /// <param name="userID">所属人</param>
-        /// <param name="minDate">最小日期</param>
-        /// <param name="maxDate">最大日期</param>
+        /// <param name="minDate">最小日期(2017/09/10)</param>
+        /// <param name="maxDate">最大日期(2018/04/20)</param>
         /// <returns>账单报告信息</returns>
         [HttpGet]
         [Route("GetBillReportInfoByWhere")]
-        public MResultModel<BillReportModel> GetBillReportInfoByWhere(Guid userID, DateTime minDate, DateTime maxDate)
+        public MResultModel<BillReportModel> GetBillReportInfoByWhere(Guid userID, string minDate, string maxDate)
         {
-            BillReportModel resM = _bll.GetBillReportInfoByWhere(userID, minDate, maxDate);
-            return MResultModel<BillReportModel>.GetSuccessResultM(resM, "查询结果");
+            if (minDate.MIsDate("/") && maxDate.MIsDate("/"))
+            {
+                string[] mindateS = minDate.Split('/');
+                string[] maxdateS = maxDate.Split('/');
+                DateTime minDt = new DateTime(int.Parse(mindateS[0]), int.Parse(mindateS[1]), int.Parse(mindateS[2]));
+                DateTime maxDt = new DateTime(int.Parse(maxdateS[0]), int.Parse(maxdateS[1]), int.Parse(maxdateS[2]));
+                BillReportModel resM = _bll.GetBillReportInfoByWhere(userID, minDt, maxDt);
+                return MResultModel<BillReportModel>.GetSuccessResultM(resM, "查询结果");
+            }
+            else
+            {
+                return MResultModel<BillReportModel>.GetFailResultM(null, "不识别参数");
+            }
         }
     }
 }
