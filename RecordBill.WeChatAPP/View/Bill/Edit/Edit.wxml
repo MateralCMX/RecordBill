@@ -1,0 +1,44 @@
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">日期</view>
+    </view>
+    <view class="weui-cell__bd">
+      <picker mode="date" value="{{InputM.RecordTime}}" bindchange="bindDateChange">
+        <view class="weui-input">{{InputM.RecordTimeStr}}</view>
+      </picker>
+    </view>
+  </view>
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">类型</view>
+    </view>
+    <view class="weui-cell__bd">
+      <picker mode="selector" range="{{TypeList}}" range-key="Name" value="{{InputM.TypeIndex}}" bindchange="bindTypeChange">
+        <view class="weui-input">{{InputM.Type}}</view>
+      </picker>
+    </view>
+  </view>
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">金额</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" type="digit" value="{{InputM.Amount}}" bindinput="InputAmount" />
+    </view>
+  </view>
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">内容</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" placeholder="请填写内容" value="{{InputM.Contents}}" bindinput="InputContents" />
+    </view>
+  </view>
+</view>
+<view class="weui-btn-area">
+  <button class="weui-btn" type="primary" bindtap="Save" disabled="{{IsSaving}}">{{BtnSaveText}}</button>
+</view>
+<view class="weui-btn-area" hidden="{{IsAdd}}">
+  <button class="weui-btn" type="warn" bindtap="Delete" disabled="{{IsDeleting}}">{{BtnDeleteText}}</button>
+</view>

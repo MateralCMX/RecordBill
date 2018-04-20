@@ -1,0 +1,4 @@
+<!--View/User/Login.wxml-->
+<view class="LoginPanel">
+  {{LoginText}}
+</view>

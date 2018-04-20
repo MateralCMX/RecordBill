@@ -15,6 +15,26 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordBill.DAL", "RecordBil
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecordBill.BLL", "RecordBill.BLL\RecordBill.BLL.csproj", "{249CCBDF-6C91-4405-94CA-F94D0B6DE1EE}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "RecordBill.WeChatAPP", "RecordBill.WeChatAPP\", "{2DBDCAE0-8834-4E9A-9DB6-132496E08744}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_55127"
+		Debug.AspNetCompiler.PhysicalPath = "RecordBill.WeChatAPP\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_55127\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_55127"
+		Release.AspNetCompiler.PhysicalPath = "RecordBill.WeChatAPP\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_55127\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "55127"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +65,10 @@ Global
 		{249CCBDF-6C91-4405-94CA-F94D0B6DE1EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{249CCBDF-6C91-4405-94CA-F94D0B6DE1EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{249CCBDF-6C91-4405-94CA-F94D0B6DE1EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DBDCAE0-8834-4E9A-9DB6-132496E08744}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DBDCAE0-8834-4E9A-9DB6-132496E08744}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DBDCAE0-8834-4E9A-9DB6-132496E08744}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DBDCAE0-8834-4E9A-9DB6-132496E08744}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

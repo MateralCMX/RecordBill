@@ -133,5 +133,11 @@
       <LastGenOutput>RecordBillModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RecordBill.Common\RecordBill.Common.csproj">
+      <Project>{C25D1D90-7AB0-4E66-80C8-E5588CBD419A}</Project>
+      <Name>RecordBill.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

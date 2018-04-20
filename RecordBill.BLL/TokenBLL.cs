@@ -15,7 +15,7 @@ namespace RecordBill.BLL
         /// <summary>
         /// Token有效时间(小时)
         /// </summary>
-        public const int EFFECTIVE_TIME = 10;
+        public const int EFFECTIVE_TIME = 8760000;
         /// <summary>
         /// 添加一个对象
         /// </summary>

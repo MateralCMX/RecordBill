@@ -1,4 +1,5 @@
-﻿using MateralTools.MResult;
+﻿using MateralTools.MConvert;
+using MateralTools.MResult;
 using MateralTools.MVerify;
 using RecordBill.DAL;
 using RecordBill.Model;
@@ -24,6 +25,17 @@ namespace RecordBill.BLL
             return base.Add(model, idName);
         }
         /// <summary>
+        /// 更新数据
+        /// </summary>
+        /// <param name="model">对象</param>
+        /// <param name="idName">主键名称</param>
+        /// <returns></returns>
+        public override T_Bill Update(T_Bill model, string idName = "ID")
+        {
+            model.CreateTime = DateTimeOffset.Now;
+            return base.Update(model, idName);
+        }
+        /// <summary>
         /// 根据条件获得账单信息
         /// </summary>
         /// <param name="userID">所属人</param>
@@ -31,9 +43,17 @@ namespace RecordBill.BLL
         /// <param name="maxDate">最大日期</param>
         /// <param name="pageM">分页模型</param>
         /// <returns>账单信息</returns>
-        public List<V_Bill> GetBillViewInfoByWhere(Guid? userID, DateTime? minDate, DateTime? maxDate, MPagingModel pageM)
+        public List<BillModel> GetBillViewInfoByWhere(Guid? userID, DateTime? minDate, DateTime? maxDate, MPagingModel pageM)
         {
-            return _dal.GetBillViewInfoByWhere(userID, minDate, maxDate, pageM);
+            List<V_Bill> listM = _dal.GetBillViewInfoByWhere(userID, minDate, maxDate, pageM);
+            if (listM != null)
+            {
+                return BillModel.GetList(listM);
+            }
+            else
+            {
+                return null;
+            }
         }
         /// <summary>
         /// 根据条件获得账单报告信息
@@ -44,11 +64,19 @@ namespace RecordBill.BLL
         /// <returns>账单报告信息</returns>
         public BillReportModel GetBillReportInfoByWhere(Guid userID, DateTime minDate, DateTime maxDate)
         {
-            BillReportModel resM = new BillReportModel
+            List<V_Bill> listM = _dal.GetBillViewInfoByWhere(userID, minDate, maxDate).ToList();
+            if (listM != null)
             {
-                Data = _dal.GetBillViewInfoByWhere(userID, minDate, maxDate).ToList()
-            };
-            return resM;
+                BillReportModel resM = new BillReportModel
+                {
+                    Data = BillModel.GetList(listM)
+                };
+                return resM;
+            }
+            else
+            {
+                return null;
+            }
         }
         /// <summary>
         /// 验证模型

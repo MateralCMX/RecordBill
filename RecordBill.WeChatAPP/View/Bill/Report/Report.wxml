@@ -1,0 +1,38 @@
+<view class="weui-panel">
+  <view class="weui-panel__hd">账单统计[{{SearchM.minDateStr}}-{{SearchM.maxDateStr}}]</view>
+  <view class="weui-panel__bd">
+    <view class="weui-media-box weui-media-box_text">
+      <view class="weui-media-box__title weui-media-box__title_in-text">总共花费</view>
+      <view class="weui-media-box__desc">{{BillRepor.Count}}￥</view>
+    </view>
+    <view class="weui-media-box weui-media-box_text">
+      <view class="weui-media-box__title weui-media-box__title_in-text">最贵的一笔</view>
+      <view class="weui-media-box__desc">{{BillRepor.MaxBill.Contents}}</view>
+      <view class="weui-media-box__info">
+        <view class="weui-media-box__info__meta">{{BillRepor.MaxBill.Type}}</view>
+        <view class="weui-media-box__info__meta">{{BillRepor.MaxBill.RecordTime}}</view>
+        <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{BillRepor.MaxBill.Amount}}￥</view>
+      </view>
+    </view>
+    <view class="weui-media-box weui-media-box_text">
+      <view class="weui-media-box__title weui-media-box__title_in-text">最少的一笔</view>
+      <view class="weui-media-box__desc">{{BillRepor.MinBill.Contents}}</view>
+      <view class="weui-media-box__info">
+        <view class="weui-media-box__info__meta">{{BillRepor.MinBill.Type}}</view>
+        <view class="weui-media-box__info__meta">{{BillRepor.MinBill.RecordTime}}</view>
+        <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{BillRepor.MinBill.Amount}}￥</view>
+      </view>
+    </view>
+  </view>
+</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view wx:for="{{BillRepor.Data}}" data-id="{{item.ID}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" catchtap="GoToBillEdit">
+      <view class="weui-cell__bd">
+        <view>{{item.Contents}}</view>
+        <view class="TimePanel">{{item.RecordTime}}-{{item.Type}}</view>
+      </view>
+      <view class="weui-cell__ft weui-cell__ft_in-access">
+        {{item.Amount}}￥
+      </view>
+    </view>
+  </view>

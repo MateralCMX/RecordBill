@@ -26,6 +26,7 @@ namespace RecordBill.Model
         public string Password { get; set; }
         public string Name { get; set; }
         public bool IsDelete { get; set; }
+        public string OpenID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Bill> T_Bill { get; set; }

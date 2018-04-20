@@ -17,5 +17,6 @@ namespace RecordBill.Model
         public System.Guid ID { get; set; }
         public string Account { get; set; }
         public string Name { get; set; }
+        public string OpenID { get; set; }
     }
 }

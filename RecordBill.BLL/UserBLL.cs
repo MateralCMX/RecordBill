@@ -1,7 +1,10 @@
-﻿using MateralTools.Base.MSystemInfo;
+﻿using MateralTools.Base;
+using MateralTools.Base.MSystemInfo;
 using MateralTools.MEncryption;
 using MateralTools.MResult;
 using MateralTools.MVerify;
+using MateralTools.MWeChat;
+using MateralTools.MWeChat.WXSS;
 using RecordBill.DAL;
 using RecordBill.Model;
 using System;
@@ -152,6 +155,59 @@ namespace RecordBill.BLL
             else
             {
                 throw new RecordBillException("用户不存在");
+            }
+        }
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="account">账户</param>
+        /// <param name="password">密码</param>
+        /// <returns></returns>
+        public LoginUserModel Login(string code)
+        {
+            WeChatConfigModel _config = new WeChatConfigModel
+            {
+                APPID = "wx4b55d7249ec22918",
+                APPSECRET = "a41231df549e137ae85d287480da1240",
+            };
+            WXSSManager  wxssMa = new WXSSManager(_config);
+            string OpenID = wxssMa.GetOpenIDByCode(code);
+            T_User DBM = _dal.GetUserInfoByOpenID(OpenID);
+            if (DBM == null)
+            {
+                string account = CommonManager.GetRandomStrByDictionarie(32);
+                T_User temp = _dal.GetUserInfoByAccount(account);
+                while (temp != null)
+                {
+                    temp = _dal.GetUserInfoByAccount(account);
+                }
+                DBM = new T_User
+                {
+                    Account = account,
+                    IsDelete = false,
+                    ID = Guid.NewGuid(),
+                    Name = "微信用户",
+                    OpenID = OpenID,
+                    Password = DefultPassword
+                };
+                Add(DBM);
+                return Login(DBM.Account, DefultPassword);
+            }
+            else
+            {
+                T_Token tokenM = new T_Token
+                {
+                    FK_User_ID = DBM.ID
+                };
+                tokenM = new TokenBLL().AddLoginToken(tokenM);
+                List<string> IP = SystemInfoManager.GetLocalIPv4();
+                ApplicationLogBLL.WriteOptionsLog("用户登录：成功",
+                    $"登录用户：{DBM.Name}\r\n" +
+                    $"唯一标识：{DBM.ID}\r\n" +
+                    $"登录地址：{(IP.Count > 0 ? IP[0] : "未知")}\r\n" +
+                    $"登录时间：{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}\r\n"
+                    );
+                return new LoginUserModel { UserID = DBM.ID, Token = tokenM.Value };
             }
         }
         /// <summary>

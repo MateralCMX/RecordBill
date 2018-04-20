@@ -46,5 +46,14 @@ namespace RecordBill.DAL
         {
             return _DB.T_User.Where(m => m.Account == account).FirstOrDefault();
         }
+        /// <summary>
+        /// 根据openID获得用户信息
+        /// </summary>
+        /// <param name="openID">openID</param>
+        /// <returns>用户信息</returns>
+        public T_User GetUserInfoByOpenID(string openID)
+        {
+            return _DB.T_User.Where(m => m.OpenID == openID).FirstOrDefault();
+        }
     }
 }

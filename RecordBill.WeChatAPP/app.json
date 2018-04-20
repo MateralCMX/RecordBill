@@ -1,0 +1,51 @@
+{
+  "pages": [
+    "View/User/Login/Login",
+    "View/Home/Index/Index",
+    "View/Home/Setting/Setting",
+    "View/Bill/ReportSearch/ReportSearch",
+    "View/Bill/Report/Report",
+    "View/Bill/Edit/Edit"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "CY小本本",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "selectedColor": "#515151",
+    "color": "#d2d2d4",
+    "list": [
+      {
+        "iconPath": "Images/Home.png",
+        "selectedIconPath": "Images/HomeActive.png",
+        "pagePath": "View/Home/Index/Index",
+        "text": "主页"
+      },
+      {
+        "iconPath": "Images/AddBill.png",
+        "selectedIconPath": "Images/AddBillActive.png",
+        "pagePath": "View/Bill/Edit/Edit",
+        "text": "记账"
+      },
+      {
+        "iconPath": "Images/Report.png",
+        "selectedIconPath": "Images/ReportActive.png",
+        "pagePath": "View/Bill/ReportSearch/ReportSearch",
+        "text": "统计"
+      },
+      {
+        "iconPath": "Images/Setting.png",
+        "selectedIconPath": "Images/SettingActive.png",
+        "pagePath": "View/Home/Setting/Setting",
+        "text": "设置"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true
+}

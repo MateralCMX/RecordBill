@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LitJSON, Version=0.12.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LitJson.0.12.0\lib\net45\LitJSON.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.1.2.1\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
@@ -2004,22 +2007,16 @@
     <Compile Include="MateralTools\MVerify\Manager\ObjectExtended.cs" />
     <Compile Include="MateralTools\MVerify\Manager\StringExtended.cs" />
     <Compile Include="MateralTools\MVerify\Model\MVerifyException.cs" />
-    <Compile Include="MateralTools\MWeChat\Manager\WeChatManager.cs" />
-    <Compile Include="MateralTools\MWeChat\Manager\WeChatPay\HttpManager.cs" />
+    <Compile Include="MateralTools\MWeChat\Manager\WeChatHttpManager.cs" />
+    <Compile Include="MateralTools\MWeChat\Manager\WeChatPay\JsAPIPayManager.cs" />
     <Compile Include="MateralTools\MWeChat\Manager\WeChatPay\RQCodePayManager.cs" />
     <Compile Include="MateralTools\MWeChat\Manager\WeChatPay\WeChatPayManager.cs" />
-    <Compile Include="MateralTools\MWeChat\Manager\WeChatWorkManager.cs" />
+    <Compile Include="MateralTools\MWeChat\Manager\WXSS\WXSSManager.cs" />
     <Compile Include="MateralTools\MWeChat\Model\MWeChatException.cs" />
+    <Compile Include="MateralTools\MWeChat\Model\WeChatConfigModel.cs" />
+    <Compile Include="MateralTools\MWeChat\Model\WeChatDataModel.cs" />
     <Compile Include="MateralTools\MWeChat\Model\WeChatPay\RQCodePayModeEnum.cs" />
-    <Compile Include="MateralTools\MWeChat\Model\WeChatPay\WeChatPayConfigModel.cs" />
-    <Compile Include="MateralTools\MWeChat\Model\WeChatPay\WeChatPayDataModel.cs" />
-    <Compile Include="MateralTools\MWeChat\Model\WeChatPay\WeChatPayProductModel.cs" />
-    <Compile Include="MateralTools\MWeChat\Model\WeChatWork\WeChatWorkAccessTokenModel.cs" />
-    <Compile Include="MateralTools\MWeChat\Model\WeChatWork\WeChatWorkJsapiTicketModel.cs" />
-    <Compile Include="MateralTools\MWeChat\Model\WeChatWork\WeChatWorkJSSDKConfigModel.cs" />
-    <Compile Include="MateralTools\MWeChat\Model\WeChatWork\WeChatWorkUserInfoModel.cs" />
-    <Compile Include="MateralTools\MWeChat\Model\WeChat\WeChatMenuModel.cs" />
-    <Compile Include="MateralTools\MWeChat\Model\WeChat\WeChatTokenModel.cs" />
+    <Compile Include="MateralTools\MWeChat\Model\WeChatPay\WeChatPayOrderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2030,12 +2027,7 @@
     <None Include="MateralTools\MAlipay\SDK\AopSdk\Test\public-key.pem" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MateralTools\API\" />
-    <Folder Include="MateralTools\MWebLib\" />
-    <Folder Include="MateralTools\UI.Web\" />
-    <Folder Include="MateralTools\UI.WinForm\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>

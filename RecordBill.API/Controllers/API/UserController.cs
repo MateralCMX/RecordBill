@@ -181,6 +181,26 @@ namespace RecordBill.API.Controllers.API
             }
         }
         /// <summary>
+        /// 登录(无登录验证)
+        /// </summary>
+        /// <param name="code">登录模型</param>
+        /// <returns>返回结果</returns>
+        [HttpGet]
+        [Route("LoginByCode")]
+        [NotVerificationLogin]
+        public MResultModel<LoginUserModel> LoginByCode(string code)
+        {
+            try
+            {
+                LoginUserModel resM = _bll.Login(code);
+                return MResultModel<LoginUserModel>.GetSuccessResultM(resM, "登录结果");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        /// <summary>
         /// 根据条件获得视图信息
         /// </summary>
         /// <param name="name">姓名</param>

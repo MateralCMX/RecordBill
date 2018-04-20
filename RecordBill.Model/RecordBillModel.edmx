@@ -73,6 +73,7 @@
           <Property Name="Account" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="OpenID" Type="varchar" MaxLength="100" />
           <Property Name="IsDelete" Type="bit" Nullable="false" />
         </EntityType>
         <!--生成过程中发现错误:
@@ -157,6 +158,7 @@
           <Property Name="ID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Account" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="OpenID" Type="varchar" MaxLength="100" />
         </EntityType>
         <Association Name="FK_ApplicationLog_ApplicationLog">
           <End Role="T_ApplicationLog" Type="Self.T_ApplicationLog" Multiplicity="0..1" />
@@ -270,7 +272,8 @@
             <DefiningQuery>SELECT 
     [V_User].[ID] AS [ID], 
     [V_User].[Account] AS [Account], 
-    [V_User].[Name] AS [Name]
+    [V_User].[Name] AS [Name], 
+    [V_User].[OpenID] AS [OpenID]
     FROM [dbo].[V_User] AS [V_User]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_ApplicationLog_ApplicationLog" Association="Self.FK_ApplicationLog_ApplicationLog">
@@ -411,6 +414,7 @@
           <Property Name="IsDelete" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="T_Bill" Relationship="RecordBillDBModel.FK_T_Bill_T_User" FromRole="T_User" ToRole="T_Bill" />
           <NavigationProperty Name="T_Token" Relationship="RecordBillDBModel.FK_User_Token" FromRole="T_User" ToRole="T_Token" />
+          <Property Name="OpenID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="V_ApplicationLog_Exception">
           <Key>
@@ -484,6 +488,7 @@
           <Property Name="ID" Type="Guid" Nullable="false" />
           <Property Name="Account" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="OpenID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_ApplicationLog_ApplicationLog">
           <End Type="RecordBillDBModel.T_ApplicationLog" Role="T_ApplicationLog" Multiplicity="0..1" />
@@ -620,6 +625,7 @@
           <EntitySetMapping Name="T_User">
             <EntityTypeMapping TypeName="RecordBillDBModel.T_User">
               <MappingFragment StoreEntitySet="T_User">
+                <ScalarProperty Name="OpenID" ColumnName="OpenID" />
                 <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -679,6 +685,7 @@
           <EntitySetMapping Name="V_User">
             <EntityTypeMapping TypeName="RecordBillDBModel.V_User">
               <MappingFragment StoreEntitySet="V_User">
+                <ScalarProperty Name="OpenID" ColumnName="OpenID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Account" ColumnName="Account" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
