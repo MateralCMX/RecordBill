@@ -21,7 +21,7 @@ Page({
     this.setData({
       "SearchM.minDate": new Date(options.minDate),
       "SearchM.minDateStr": options.minDateStr,
-        "SearchM.maxDate": new Date(options.maxDate),
+      "SearchM.maxDate": new Date(options.maxDate),
       "SearchM.maxDateStr": options.maxDateStr
     });
     this.Search();

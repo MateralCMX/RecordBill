@@ -33,6 +33,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "RecordBill.WeChatAPP", "Rec
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "55127"
+		SlnRelativePath = "RecordBill.WeChatAPP\"
 	EndProjectSection
 EndProject
 Global

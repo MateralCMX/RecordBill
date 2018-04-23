@@ -4,7 +4,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    LoginText: "正在登录..."
+    LoginText: "初始化..."
   },
   /**
    * 登录系统
@@ -17,11 +17,13 @@ Page({
     var SFun = function (resM) {
       getApp().globalData.LoginUserInfo = resM.data.Data;
       _this.setData({
-        LoginText: "登录成功"
+        LoginText: "初始化完毕"
       });
-      wx.reLaunch({
-        url: "/View/Home/Index/Index"
-      });
+      setTimeout(function () {
+        wx.reLaunch({
+          url: "/View/Home/Index/Index"
+        });
+      },200);
     };
     wx.request({
       url: getApp().globalData.ServerUrl + "api/User/LoginByCode",
