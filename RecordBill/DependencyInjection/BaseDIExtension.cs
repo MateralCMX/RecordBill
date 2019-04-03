@@ -15,7 +15,6 @@ namespace DependencyInjection
         public static void AddBaseServices(this IServiceCollection services)
         {
             services.AddSingleton(ApplicationConfig.Configuration);
-            services.AddLogServices();
             services.AddTTAServices();
         }
     }

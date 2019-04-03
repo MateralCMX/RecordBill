@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
-    <ProjectReference Include="..\Log.PresentationModel\Log.PresentationModel.csproj" />
+    <ProjectReference Include="..\RecordBill.PresentationModel\RecordBill.PresentationModel.csproj" />
   </ItemGroup>
 
 </Project>

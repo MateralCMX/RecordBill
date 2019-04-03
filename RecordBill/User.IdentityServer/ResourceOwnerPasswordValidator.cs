@@ -1,9 +1,9 @@
 ﻿using IdentityServer4.Models;
 using IdentityServer4.Validation;
+using RecordBill.DataTransmitModel.User;
+using RecordBill.Service;
 using System;
 using System.Threading.Tasks;
-using User.DataTransmitModel.User;
-using User.Service;
 
 namespace User.IdentityServer
 {

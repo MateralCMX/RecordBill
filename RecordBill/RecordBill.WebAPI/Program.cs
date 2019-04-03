@@ -1,24 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using NLog.Web;
+using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace RecordBill.WebAPI
 {
+    /// <summary>
+    /// 主程序
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// 主入口
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             CreateWebHostBuilder(args).Build().Run();
         }
-
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+        /// <summary>
+        /// 创建器
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            return WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>()
+                .ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                    logging.SetMinimumLevel(LogLevel.Trace);
+                })
+                .UseNLog();
+        }
     }
 }

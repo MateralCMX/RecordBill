@@ -16,9 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
-    <ProjectReference Include="..\Log.EFRepository\Log.EFRepository.csproj" />
     <ProjectReference Include="..\RecordBill.EFRepository\RecordBill.EFRepository.csproj" />
-    <ProjectReference Include="..\User.EFRepository\User.EFRepository.csproj" />
   </ItemGroup>
 
 </Project>

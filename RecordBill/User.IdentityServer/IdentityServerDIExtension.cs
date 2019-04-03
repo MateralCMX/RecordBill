@@ -17,8 +17,8 @@ namespace User.IdentityServer
         public static void AddIdentityServerServices(this IServiceCollection services, IHostingEnvironment environment, string migrationsAssembly)
         {
             services.AddBaseServices();
-            services.AddUserServices();
-            services.AddAutoMapperService(Assembly.Load("User.ServiceImpl"));
+            services.AddRecordBillServices();
+            services.AddAutoMapperService(Assembly.Load("RecordBill.ServiceImpl"));
             IIdentityServerBuilder builder = services.AddIdentityServer()
                 .AddInMemoryApiResources(IdentityConfig.GetAPIs())
                 .AddInMemoryClients(IdentityConfig.GetClients())

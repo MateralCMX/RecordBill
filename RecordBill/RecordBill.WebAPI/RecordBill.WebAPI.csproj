@@ -5,9 +5,28 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>RecordBill.WebAPI.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>RecordBill.WebAPI.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
+    <PackageReference Include="Materal.ConvertHelper" Version="0.0.31" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BaseWebAPI\BaseWebAPI.csproj" />
+    <ProjectReference Include="..\DependencyInjection\DependencyInjection.csproj" />
+    <ProjectReference Include="..\Model\Model.csproj" />
+    <ProjectReference Include="..\RecordBill.DataTransmitModel\RecordBill.DataTransmitModel.csproj" />
+    <ProjectReference Include="..\RecordBill.PresentationModel\RecordBill.PresentationModel.csproj" />
+    <ProjectReference Include="..\RecordBill.ServiceImpl\RecordBill.ServiceImpl.csproj" />
+    <ProjectReference Include="..\RecordBill.Service\RecordBill.Service.csproj" />
   </ItemGroup>
 
 </Project>

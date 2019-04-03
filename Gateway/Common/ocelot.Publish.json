@@ -1,0 +1,49 @@
+{
+  "ReRoutes": [
+    { //UserWebAPI  用户WebAPI
+      "DownstreamPathTemplate": "/api/{everything}", //下游路径模板
+      "DownstreamScheme": "http", //下游
+      "DownstreamHostAndPorts": [ //下游主机和端口
+        {
+          "Host": "119.23.57.68",
+          "Port": 8902
+        }
+      ],
+      "UpstreamPathTemplate": "/UserAPI/{everything}", //上游路径模板
+      "UpstreamHttpMethod": [ "Get", "Post" ], //上游HttpMethod
+      "DangerousAcceptAnyServerCertificateValidator": true, //忽略SSL错误
+      "ReRouteIsCaseSensitive": true //大小写敏感
+    },
+    { //LogWebAPI  日志WebAPI
+      "DownstreamPathTemplate": "/api/{everything}", //下游路径模板
+      "DownstreamScheme": "http", //下游
+      "DownstreamHostAndPorts": [ //下游主机和端口
+        {
+          "Host": "119.23.57.68",
+          "Port": 8903
+        }
+      ],
+      "UpstreamPathTemplate": "/LogAPI/{everything}", //上游路径模板
+      "UpstreamHttpMethod": [ "Get", "Post" ], //上游HttpMethod
+      "DangerousAcceptAnyServerCertificateValidator": true, //忽略SSL错误
+      "ReRouteIsCaseSensitive": true //大小写敏感
+    },
+    { //RecordBillWebAPI  账目WebAPI
+      "DownstreamPathTemplate": "/api/{everything}", //下游路径模板
+      "DownstreamScheme": "http", //下游
+      "DownstreamHostAndPorts": [ //下游主机和端口
+        {
+          "Host": "119.23.57.68",
+          "Port": 8904
+        }
+      ],
+      "UpstreamPathTemplate": "/RecordBillAPI/{everything}", //上游路径模板
+      "UpstreamHttpMethod": [ "Get", "Post" ], //上游HttpMethod
+      "DangerousAcceptAnyServerCertificateValidator": true, //忽略SSL错误
+      "ReRouteIsCaseSensitive": true //大小写敏感
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://119.23.57.68:8900"
+  }
+}

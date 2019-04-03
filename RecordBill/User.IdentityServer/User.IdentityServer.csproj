@@ -14,15 +14,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\DependencyInjection\DependencyInjection.csproj" />
-    <ProjectReference Include="..\Log.Common\Log.Common.csproj" />
-    <ProjectReference Include="..\Log.DataTransmitModel\Log.DataTransmitModel.csproj" />
-    <ProjectReference Include="..\Log.PresentationModel\Log.PresentationModel.csproj" />
-    <ProjectReference Include="..\Log.ServiceImpl\Log.ServiceImpl.csproj" />
-    <ProjectReference Include="..\User.DataTransmitModel\User.DataTransmitModel.csproj" />
-    <ProjectReference Include="..\User.EFRepository\User.EFRepository.csproj" />
-    <ProjectReference Include="..\User.PresentationModel\User.PresentationModel.csproj" />
-    <ProjectReference Include="..\User.ServiceImpl\User.ServiceImpl.csproj" />
-    <ProjectReference Include="..\User.Service\User.Service.csproj" />
+    <ProjectReference Include="..\RecordBill.DataTransmitModel\RecordBill.DataTransmitModel.csproj" />
+    <ProjectReference Include="..\RecordBill.PresentationModel\RecordBill.PresentationModel.csproj" />
+    <ProjectReference Include="..\RecordBill.ServiceImpl\RecordBill.ServiceImpl.csproj" />
   </ItemGroup>
 
   <ItemGroup>

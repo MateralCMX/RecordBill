@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 using Common;
-using Log.PresentationModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using NLog;
 using NLog.Config;
 using NLog.Web;
+using RecordBill.PresentationModel;
 using System.Reflection;
 
 namespace User.IdentityServer
@@ -41,7 +41,7 @@ namespace User.IdentityServer
             #region 配置Nlog
             NLogBuilder.ConfigureNLog("NLog.config").GetCurrentClassLogger();
             LogManager.Configuration.Install(new InstallationContext());
-            LogManager.Configuration.Variables["NlogConnectionString"] = ApplicationConfig.LogDB.ConnectionString;
+            LogManager.Configuration.Variables["NlogConnectionString"] = ApplicationConfig.RecordBillDB.ConnectionString;
             LogManager.Configuration.Variables["AppName"] = "UserIdentityServer";
             #endregion
         }

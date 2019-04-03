@@ -4,4 +4,17 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
+    <PackageReference Include="Materal.ConvertHelper" Version="0.0.31" />
+    <PackageReference Include="Materal.LinqHelper" Version="0.0.31" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\RecordBill.Domain\RecordBill.Domain.csproj" />
+    <ProjectReference Include="..\RecordBill.EFRepository\RecordBill.EFRepository.csproj" />
+    <ProjectReference Include="..\RecordBill.Service\RecordBill.Service.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RecordBill.PresentationModel</name>
+    </assembly>
+    <members>
+        <member name="T:RecordBill.PresentationModel.ExceptionProcessFilter">
+            <summary>
+            异常拦截器
+            </summary>
+        </member>
+        <member name="F:RecordBill.PresentationModel.ExceptionProcessFilter._logger">
+            <summary>
+            日志对象
+            </summary>
+        </member>
+        <member name="M:RecordBill.PresentationModel.ExceptionProcessFilter.#ctor(Microsoft.Extensions.Logging.ILogger{RecordBill.PresentationModel.ExceptionProcessFilter})">
+            <summary>
+            构造方法
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="M:RecordBill.PresentationModel.ExceptionProcessFilter.OnException(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            发生异常时
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:RecordBill.PresentationModel.User.Request.AddUserRequestModel">
+            <summary>
+            添加用户请求模型
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.User.Request.AddUserRequestModel.Account">
+            <summary>
+            账户
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.User.Request.AddUserRequestModel.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.User.Request.AddUserRequestModel.WeChatOpenID">
+            <summary>
+            微信OpenID
+            </summary>
+        </member>
+        <member name="T:RecordBill.PresentationModel.User.Request.ChangePasswordRequestModel">
+            <summary>
+            更改密码请求模型
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.User.Request.ChangePasswordRequestModel.Token">
+            <summary>
+            Token
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.User.Request.ChangePasswordRequestModel.OldPassword">
+            <summary>
+            旧密码
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.User.Request.ChangePasswordRequestModel.NewPassword">
+            <summary>
+            新密码
+            </summary>
+        </member>
+        <member name="T:RecordBill.PresentationModel.User.Request.EditUserRequestModel">
+            <summary>
+            修改用户请求模型
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.User.Request.EditUserRequestModel.ID">
+            <summary>
+            唯一标识
+            </summary>
+        </member>
+        <member name="T:RecordBill.PresentationModel.User.Request.GetUserInfoByTokenRequestModel">
+            <summary>
+            根据Token获取用户信息请求模型
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.User.Request.GetUserInfoByTokenRequestModel.Token">
+            <summary>
+            Token
+            </summary>
+        </member>
+        <member name="T:RecordBill.PresentationModel.User.Request.QueryUserFilterRequestModel">
+            <summary>
+            查询用户请求模型
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.User.Request.QueryUserFilterRequestModel.Account">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.User.Request.QueryUserFilterRequestModel.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="T:RecordBill.PresentationModel.User.Request.UserLoginRequestModel">
+            <summary>
+            用户登录请求模型
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.User.Request.UserLoginRequestModel.Account">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.User.Request.UserLoginRequestModel.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="T:RecordBill.PresentationModel.User.Result.UserLoginResultModel">
+            <summary>
+            用户登录返回模型
+            </summary>
+        </member>
+        <member name="M:RecordBill.PresentationModel.User.Result.UserLoginResultModel.#ctor">
+            <summary>
+            构造方法
+            </summary>
+        </member>
+        <member name="M:RecordBill.PresentationModel.User.Result.UserLoginResultModel.#ctor(RecordBill.PresentationModel.User.Result.TokenResultModel)">
+            <summary>
+            构造方法
+            </summary>
+            <param name="model"></param>
+        </member>
+        <member name="P:RecordBill.PresentationModel.User.Result.UserLoginResultModel.AccessToken">
+            <summary>
+            Token
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.User.Result.UserLoginResultModel.ExpiresSecond">
+            <summary>
+            有效秒数
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.User.Result.UserLoginResultModel.TokenType">
+            <summary>
+            Token类型
+            </summary>
+        </member>
+        <member name="T:RecordBill.PresentationModel.User.Result.TokenResultModel">
+            <summary>
+            Token返回模型
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.User.Result.TokenResultModel.access_token">
+            <summary>
+            Token
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.User.Result.TokenResultModel.expires_in">
+            <summary>
+            有效秒数
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.User.Result.TokenResultModel.token_type">
+            <summary>
+            Token类型
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,6 +1,5 @@
 ﻿using BaseWebAPI.Model;
 using Common;
-using Log.PresentationModel;
 using Materal.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -14,6 +13,7 @@ using Newtonsoft.Json.Serialization;
 using NLog;
 using NLog.Config;
 using NLog.Web;
+using RecordBill.PresentationModel;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
@@ -108,7 +108,7 @@ namespace BaseWebAPI
             #region 配置Nlog
             NLogBuilder.ConfigureNLog("NLog.config").GetCurrentClassLogger();
             LogManager.Configuration.Install(new InstallationContext());
-            LogManager.Configuration.Variables["NlogConnectionString"] = ApplicationConfig.LogDB.ConnectionString;
+            LogManager.Configuration.Variables["NlogConnectionString"] = ApplicationConfig.RecordBillDB.ConnectionString;
             LogManager.Configuration.Variables["AppName"] = appName;
             #endregion
             #region 配置帮助文档
