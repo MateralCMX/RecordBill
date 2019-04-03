@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
+    <PackageReference Include="Materal.CacheHelper" Version="0.0.31" />
+    <PackageReference Include="Materal.ConvertHelper" Version="0.0.31" />
+    <PackageReference Include="Materal.LinqHelper" Version="0.0.31" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\User.Domain\User.Domain.csproj" />
+    <ProjectReference Include="..\User.EFRepository\User.EFRepository.csproj" />
+    <ProjectReference Include="..\User.Service\User.Service.csproj" />
+  </ItemGroup>
+
+</Project>

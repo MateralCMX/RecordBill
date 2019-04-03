@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>User.PresentationModel</name>
+    </assembly>
+    <members>
+        <member name="T:User.PresentationModel.User.Request.AddUserRequestModel">
+            <summary>
+            添加用户请求模型
+            </summary>
+        </member>
+        <member name="P:User.PresentationModel.User.Request.AddUserRequestModel.Account">
+            <summary>
+            账户
+            </summary>
+        </member>
+        <member name="P:User.PresentationModel.User.Request.AddUserRequestModel.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:User.PresentationModel.User.Request.AddUserRequestModel.WeChatOpenID">
+            <summary>
+            微信OpenID
+            </summary>
+        </member>
+        <member name="T:User.PresentationModel.User.Request.ChangePasswordRequestModel">
+            <summary>
+            更改密码请求模型
+            </summary>
+        </member>
+        <member name="P:User.PresentationModel.User.Request.ChangePasswordRequestModel.Token">
+            <summary>
+            Token
+            </summary>
+        </member>
+        <member name="P:User.PresentationModel.User.Request.ChangePasswordRequestModel.OldPassword">
+            <summary>
+            旧密码
+            </summary>
+        </member>
+        <member name="P:User.PresentationModel.User.Request.ChangePasswordRequestModel.NewPassword">
+            <summary>
+            新密码
+            </summary>
+        </member>
+        <member name="T:User.PresentationModel.User.Request.EditUserRequestModel">
+            <summary>
+            修改用户请求模型
+            </summary>
+        </member>
+        <member name="P:User.PresentationModel.User.Request.EditUserRequestModel.ID">
+            <summary>
+            唯一标识
+            </summary>
+        </member>
+        <member name="T:User.PresentationModel.User.Request.GetUserInfoByTokenRequestModel">
+            <summary>
+            根据Token获取用户信息请求模型
+            </summary>
+        </member>
+        <member name="P:User.PresentationModel.User.Request.GetUserInfoByTokenRequestModel.Token">
+            <summary>
+            Token
+            </summary>
+        </member>
+        <member name="T:User.PresentationModel.User.Request.QueryUserFilterRequestModel">
+            <summary>
+            查询用户请求模型
+            </summary>
+        </member>
+        <member name="P:User.PresentationModel.User.Request.QueryUserFilterRequestModel.Account">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:User.PresentationModel.User.Request.QueryUserFilterRequestModel.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="T:User.PresentationModel.User.Request.UserLoginRequestModel">
+            <summary>
+            用户登录请求模型
+            </summary>
+        </member>
+        <member name="P:User.PresentationModel.User.Request.UserLoginRequestModel.Account">
+            <summary>
+            账号
+            </summary>
+        </member>
+        <member name="P:User.PresentationModel.User.Request.UserLoginRequestModel.Password">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="T:User.PresentationModel.User.Result.UserLoginResultModel">
+            <summary>
+            用户登录返回模型
+            </summary>
+        </member>
+        <member name="M:User.PresentationModel.User.Result.UserLoginResultModel.#ctor">
+            <summary>
+            构造方法
+            </summary>
+        </member>
+        <member name="M:User.PresentationModel.User.Result.UserLoginResultModel.#ctor(User.PresentationModel.User.Result.TokenResultModel)">
+            <summary>
+            构造方法
+            </summary>
+            <param name="model"></param>
+        </member>
+        <member name="P:User.PresentationModel.User.Result.UserLoginResultModel.AccessToken">
+            <summary>
+            Token
+            </summary>
+        </member>
+        <member name="P:User.PresentationModel.User.Result.UserLoginResultModel.ExpiresSecond">
+            <summary>
+            有效秒数
+            </summary>
+        </member>
+        <member name="P:User.PresentationModel.User.Result.UserLoginResultModel.TokenType">
+            <summary>
+            Token类型
+            </summary>
+        </member>
+        <member name="T:User.PresentationModel.User.Result.TokenResultModel">
+            <summary>
+            Token返回模型
+            </summary>
+        </member>
+        <member name="P:User.PresentationModel.User.Result.TokenResultModel.access_token">
+            <summary>
+            Token
+            </summary>
+        </member>
+        <member name="P:User.PresentationModel.User.Result.TokenResultModel.expires_in">
+            <summary>
+            有效秒数
+            </summary>
+        </member>
+        <member name="P:User.PresentationModel.User.Result.TokenResultModel.token_type">
+            <summary>
+            Token类型
+            </summary>
+        </member>
+    </members>
+</doc>
