@@ -66,8 +66,10 @@ App({
    * 绑定数据
    */
   globalData: {
-    ServerUrl: "https://myqa.materalcmx.com/",
+    userInfo:null,
+    token:null,
+    serverUrl: "http://localhost:50480",
     PageParams: {},
     LoginUserInfo: null
-  }
+  },
 })

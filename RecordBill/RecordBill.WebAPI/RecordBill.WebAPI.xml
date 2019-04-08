@@ -15,6 +15,13 @@
             构造方法
             </summary>
         </member>
+        <member name="M:RecordBill.WebAPI.Controllers.UserController.LoginByWeChatCode(RecordBill.PresentationModel.User.Request.WeChatAppletLoginRequestModel)">
+            <summary>
+            根据小程序Code登录
+            </summary>
+            <param name="requestModel"></param>
+            <returns></returns>
+        </member>
         <member name="M:RecordBill.WebAPI.Controllers.UserController.Login(RecordBill.PresentationModel.User.Request.UserLoginRequestModel)">
             <summary>
             登录

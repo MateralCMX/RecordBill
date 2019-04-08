@@ -8,7 +8,6 @@ using NLog;
 using NLog.Config;
 using NLog.Web;
 using RecordBill.PresentationModel;
-using System.Reflection;
 
 namespace User.IdentityServer
 {
@@ -27,8 +26,7 @@ namespace User.IdentityServer
                 {
                     options.Filters.Add(typeof(ExceptionProcessFilter));
                 });
-            string migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
-            services.AddIdentityServerServices(_environment, migrationsAssembly);
+            services.AddIdentityServerServices();
         }
 
         public void Configure(IApplicationBuilder app)

@@ -74,6 +74,12 @@ namespace RecordBill.Service
         /// <returns></returns>
         Task<LoginUserDTO> LoginAsync(string account, string password);
         /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="openID"></param>
+        /// <returns></returns>
+        Task<LoginUserDTO> LoginAsync(string openID);
+        /// <summary>
         /// 获得加密后的密码
         /// </summary>
         /// <param name="password"></param>

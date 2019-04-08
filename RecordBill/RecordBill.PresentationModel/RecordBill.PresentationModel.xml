@@ -116,6 +116,21 @@
             密码
             </summary>
         </member>
+        <member name="T:RecordBill.PresentationModel.User.Request.WeChatAppletLoginRequestModel">
+            <summary>
+            微信小程序登录请求模型
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.User.Request.WeChatAppletLoginRequestModel.Code">
+            <summary>
+            代码
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.User.Request.WeChatAppletLoginRequestModel.NickName">
+            <summary>
+            昵称
+            </summary>
+        </member>
         <member name="T:RecordBill.PresentationModel.User.Result.UserLoginResultModel">
             <summary>
             用户登录返回模型

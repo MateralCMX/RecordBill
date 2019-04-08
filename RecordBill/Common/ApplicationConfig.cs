@@ -1,4 +1,5 @@
 ﻿using Common.Model;
+using Materal.WeChatHelper.Model;
 using Microsoft.Extensions.Configuration;
 using System;
 
@@ -45,6 +46,19 @@ namespace Common
             UserID = Configuration["SQLServerDB:RecordBillDB:UserID"],
             Password = Configuration["SQLServerDB:RecordBillDB:Password"],
         });
+        #endregion
+
+        #region WeChat
+        private static WeChatConfigModel _cyRecordBillWeChatConfig;
+        /// <summary>
+        /// 记账配置文件
+        /// </summary>
+        public static WeChatConfigModel CYRecordBillWeChatConfig => _cyRecordBillWeChatConfig ?? (_cyRecordBillWeChatConfig = new WeChatConfigModel
+        {
+            APPID = Configuration["WeChat:CYRecordBill:APPID"],
+            APPSECRET = Configuration["WeChat:CYRecordBill:APPSECRET"],
+        });
+
         #endregion
         #region 私有方法
         /// <summary>

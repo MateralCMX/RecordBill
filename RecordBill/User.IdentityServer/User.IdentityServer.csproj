@@ -14,7 +14,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\DependencyInjection\DependencyInjection.csproj" />
+    <ProjectReference Include="..\RecordBill.Common\RecordBill.Common.csproj" />
     <ProjectReference Include="..\RecordBill.DataTransmitModel\RecordBill.DataTransmitModel.csproj" />
+    <ProjectReference Include="..\RecordBill.EFRepository\RecordBill.EFRepository.csproj" />
     <ProjectReference Include="..\RecordBill.PresentationModel\RecordBill.PresentationModel.csproj" />
     <ProjectReference Include="..\RecordBill.ServiceImpl\RecordBill.ServiceImpl.csproj" />
   </ItemGroup>

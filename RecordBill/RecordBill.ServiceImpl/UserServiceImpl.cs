@@ -5,6 +5,7 @@ using Materal.ConvertHelper;
 using Materal.LinqHelper;
 using Microsoft.EntityFrameworkCore;
 using RecordBill.DataTransmitModel.User;
+using RecordBill.Domain;
 using RecordBill.Domain.Repositorys;
 using RecordBill.EFRepository;
 using RecordBill.Service;
@@ -13,7 +14,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using RecordBill.Domain;
 
 namespace RecordBill.ServiceImpl
 {
@@ -161,6 +161,12 @@ namespace RecordBill.ServiceImpl
             password = GetEncodePassword(password);
             User userFromDB = await _userRepository.FirstOrDefaultAsync(m => m.Account == account && m.Password == password);
             if (userFromDB == null) throw new InvalidOperationException("用户名或者密码错误");
+            return _mapper.Map<LoginUserDTO>(userFromDB);
+        }
+        public async Task<LoginUserDTO> LoginAsync(string openID)
+        {
+            User userFromDB = await _userRepository.FirstOrDefaultAsync(m => m.WeChatOpenID == openID);
+            if (userFromDB == null) throw new InvalidOperationException("未找到用户");
             return _mapper.Map<LoginUserDTO>(userFromDB);
         }
 

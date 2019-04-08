@@ -1,4 +1,23 @@
 <!--View/User/Login.wxml-->
-<view class="LoginPanel">
-  {{LoginText}}
+<view class="page">
+  <view class="userinfo">
+    <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo" class="weui-btn login-btn" type="primary">
+      登录
+    </button>
+    <button wx:else class="weui-btn login-btn" type="primary" bindtap='gotoIndex'>
+      进入小程序
+    </button>
+  </view>
+  <view class="weui-article">
+    <view class="weui-article__section">
+      <view class="weui-article__title">更新日志</view>
+      <view class="weui-article__section">
+        <view class="weui-article__p">
+          更新了登录界面。现在可以自定义账目类型。
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

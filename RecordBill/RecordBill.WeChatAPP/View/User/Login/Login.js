@@ -1,51 +1,76 @@
 // View/User/Login.js
+const app = getApp();
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    LoginText: "初始化..."
+    userInfo: {},
+    hasUserInfo: false,
+    canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
   /**
-   * 登录系统
+   * 获得用户信息
    */
-  Login: function (code) {
-    var _this = this;
-    var data = {
-      code: code,
-    };
-    var SFun = function (resM) {
-      getApp().globalData.LoginUserInfo = resM.data.Data;
-      _this.setData({
-        LoginText: "初始化完毕"
-      });
-      setTimeout(function () {
-        wx.reLaunch({
-          url: "/View/Home/Index/Index"
+  getUserInfo: function(e) {
+    var serverLoginSuccess = result => {
+      if (result.data.ResultType == 0) {
+        app.globalData.userInfo = e.detail.userInfo;
+        app.globalData.token = result.data.Data.AccessToken;
+        this.setData({
+          userInfo: e.detail.userInfo,
+          hasUserInfo: true
         });
-      },200);
+      }
     };
-    wx.request({
-      url: getApp().globalData.ServerUrl + "api/User/LoginByCode",
-      method: "GET",
-      data: data,
-      success: SFun,
-    });
-  },
-  /**
-   * 登录微信
-   */
-  LoginWX: function () {
     wx.login({
-      success: res => {
-        this.Login(res.code);
+      success: result => {
+        wx.request({
+          url: app.globalData.serverUrl + "/api/User/LoginByWeChatCode",
+          method: "Post",
+          data: {
+            "Code": result.code,
+            "NickName": e.detail.userInfo.nickName
+          },
+          success: serverLoginSuccess
+        });
       }
     });
   },
   /**
+   * 跳转到主页
+   */
+  gotoIndex:function(e){
+    wx.reLaunch({
+      url: '/View/Home/Index/Index'
+    })
+  },
+  /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    this.LoginWX();
+  onLoad: function(options) {
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true
+      });
+    } else if (this.data.canIUse) {
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        });
+      };
+    } else {
+      wx.getUserInfo({
+        success: res => {
+          app.globalData.userInfo = res.userInfo;
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true
+          });
+        }
+      });
+    }
   },
 })

@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="Materal.ConvertHelper" Version="0.0.31" />
+    <PackageReference Include="Materal.WeChatHelper" Version="0.0.31" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
@@ -23,6 +24,7 @@
     <ProjectReference Include="..\BaseWebAPI\BaseWebAPI.csproj" />
     <ProjectReference Include="..\DependencyInjection\DependencyInjection.csproj" />
     <ProjectReference Include="..\Model\Model.csproj" />
+    <ProjectReference Include="..\RecordBill.Common\RecordBill.Common.csproj" />
     <ProjectReference Include="..\RecordBill.DataTransmitModel\RecordBill.DataTransmitModel.csproj" />
     <ProjectReference Include="..\RecordBill.PresentationModel\RecordBill.PresentationModel.csproj" />
     <ProjectReference Include="..\RecordBill.ServiceImpl\RecordBill.ServiceImpl.csproj" />
