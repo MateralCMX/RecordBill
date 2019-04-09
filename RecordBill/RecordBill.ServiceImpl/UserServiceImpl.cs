@@ -102,7 +102,7 @@ namespace RecordBill.ServiceImpl
             return _mapper.Map<UserDTO>(userFromDB);
         }
 
-        public async Task<string> ResetPassword(Guid id)
+        public async Task<string> ResetPasswordAsync(Guid id)
         {
             User userFromDB = await _userRepository.FirstOrDefaultAsync(id);
             if (userFromDB == null) throw new InvalidOperationException("用户不存在");

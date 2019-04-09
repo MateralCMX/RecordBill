@@ -47,7 +47,7 @@ namespace RecordBill.Service
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<string> ResetPassword(Guid id);
+        Task<string> ResetPasswordAsync(Guid id);
         /// <summary>
         /// 获得用户信息
         /// </summary>

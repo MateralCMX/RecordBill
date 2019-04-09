@@ -1,9 +1,8 @@
-﻿using Domain;
-using System;
+﻿using System;
 
-namespace RecordBill.Domain
+namespace RecordBill.Service.Model.Bill
 {
-    public sealed class Bill : BaseEntity<Guid>
+    public class AddBillModel
     {
         /// <summary>
         /// 用户唯一标识
@@ -25,9 +24,5 @@ namespace RecordBill.Domain
         /// 类型
         /// </summary>
         public string Category { get; set; }
-        /// <summary>
-        /// 用户
-        /// </summary>
-        public User User { get; set; }
     }
 }

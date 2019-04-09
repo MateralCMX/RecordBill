@@ -38,7 +38,7 @@ namespace RecordBill.EFRepository.Migrations
 
                     b.Property<DateTime>("CreateTime");
 
-                    b.Property<DateTime>("RecordTime")
+                    b.Property<DateTime>("RecordDate")
                         .HasColumnType("Date");
 
                     b.Property<DateTime>("UpdateTime");

@@ -1,14 +1,16 @@
-﻿using Domain;
-using System;
+﻿using System;
 
-namespace RecordBill.Domain
+namespace RecordBill.DataTransmitModel.Bill
 {
-    public sealed class Bill : BaseEntity<Guid>
+    /// <summary>
+    /// 账单数据传输模型
+    /// </summary>
+    public class BillDTO
     {
         /// <summary>
-        /// 用户唯一标识
+        /// 唯一标识
         /// </summary>
-        public Guid UserID { get; set; }
+        public Guid ID { get; set; }
         /// <summary>
         /// 内容
         /// </summary>
@@ -25,9 +27,5 @@ namespace RecordBill.Domain
         /// 类型
         /// </summary>
         public string Category { get; set; }
-        /// <summary>
-        /// 用户
-        /// </summary>
-        public User User { get; set; }
     }
 }

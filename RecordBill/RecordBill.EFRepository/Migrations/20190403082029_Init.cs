@@ -55,7 +55,7 @@ namespace RecordBill.EFRepository.Migrations
                     UserID = table.Column<Guid>(nullable: false),
                     Contents = table.Column<string>(maxLength: 200, nullable: false),
                     Amount = table.Column<decimal>(type: "money", nullable: false),
-                    RecordTime = table.Column<DateTime>(type: "Date", nullable: false),
+                    RecordDate = table.Column<DateTime>(type: "Date", nullable: false),
                     Category = table.Column<string>(maxLength: 20, nullable: false)
                 },
                 constraints: table =>

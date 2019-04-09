@@ -1,14 +1,16 @@
-﻿using Domain;
-using System;
+﻿using System;
 
-namespace RecordBill.Domain
+namespace RecordBill.PresentationModel.Bill.Request
 {
-    public sealed class Bill : BaseEntity<Guid>
+    /// <summary>
+    /// 添加账单请求模型
+    /// </summary>
+    public class AddBillRequestModel
     {
         /// <summary>
-        /// 用户唯一标识
+        /// 用户Token
         /// </summary>
-        public Guid UserID { get; set; }
+        public string Token { get; set; }
         /// <summary>
         /// 内容
         /// </summary>
@@ -25,9 +27,5 @@ namespace RecordBill.Domain
         /// 类型
         /// </summary>
         public string Category { get; set; }
-        /// <summary>
-        /// 用户
-        /// </summary>
-        public User User { get; set; }
     }
 }

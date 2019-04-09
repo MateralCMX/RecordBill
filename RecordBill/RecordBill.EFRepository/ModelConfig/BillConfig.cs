@@ -22,7 +22,7 @@ namespace RecordBill.EFRepository.ModelConfig
             builder.Property(e => e.Contents)
                 .IsRequired()
                 .HasMaxLength(200);
-            builder.Property(e => e.RecordTime)
+            builder.Property(e => e.RecordDate)
                 .IsRequired()
                 .HasColumnType("Date");
             builder.Property(e => e.UserID)

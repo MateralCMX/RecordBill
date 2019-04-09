@@ -4,6 +4,76 @@
         <name>RecordBill.DataTransmitModel</name>
     </assembly>
     <members>
+        <member name="T:RecordBill.DataTransmitModel.BillCategory.BillCategoryDTO">
+            <summary>
+            账单类型数据传输模型
+            </summary>
+        </member>
+        <member name="P:RecordBill.DataTransmitModel.BillCategory.BillCategoryDTO.ID">
+            <summary>
+            唯一标识
+            </summary>
+        </member>
+        <member name="P:RecordBill.DataTransmitModel.BillCategory.BillCategoryDTO.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="T:RecordBill.DataTransmitModel.Bill.BillDTO">
+            <summary>
+            账单数据传输模型
+            </summary>
+        </member>
+        <member name="P:RecordBill.DataTransmitModel.Bill.BillDTO.ID">
+            <summary>
+            唯一标识
+            </summary>
+        </member>
+        <member name="P:RecordBill.DataTransmitModel.Bill.BillDTO.Contents">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="P:RecordBill.DataTransmitModel.Bill.BillDTO.Amount">
+            <summary>
+            数量
+            </summary>
+        </member>
+        <member name="P:RecordBill.DataTransmitModel.Bill.BillDTO.RecordDate">
+            <summary>
+            记账时间
+            </summary>
+        </member>
+        <member name="P:RecordBill.DataTransmitModel.Bill.BillDTO.Category">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="T:RecordBill.DataTransmitModel.Bill.BillReportDTO">
+            <summary>
+            账单报表数据传输模型
+            </summary>
+        </member>
+        <member name="P:RecordBill.DataTransmitModel.Bill.BillReportDTO.MinBill">
+            <summary>
+            最少的一笔
+            </summary>
+        </member>
+        <member name="P:RecordBill.DataTransmitModel.Bill.BillReportDTO.MaxBill">
+            <summary>
+            最贵的一笔
+            </summary>
+        </member>
+        <member name="P:RecordBill.DataTransmitModel.Bill.BillReportDTO.Sum">
+            <summary>
+            总共花费
+            </summary>
+        </member>
+        <member name="P:RecordBill.DataTransmitModel.Bill.BillReportDTO.Bills">
+            <summary>
+            账单信息
+            </summary>
+        </member>
         <member name="T:RecordBill.DataTransmitModel.User.LoginUserDTO">
             <summary>
             用户数据传输模型

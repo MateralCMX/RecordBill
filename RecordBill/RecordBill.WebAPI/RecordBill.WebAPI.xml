@@ -4,15 +4,98 @@
         <name>RecordBill.WebAPI</name>
     </assembly>
     <members>
+        <member name="T:RecordBill.WebAPI.Controllers.BillCategoryController">
+            <inheritdoc />
+            <summary>
+            账单类型控制器
+            </summary>
+        </member>
+        <member name="M:RecordBill.WebAPI.Controllers.BillCategoryController.#ctor(RecordBill.Service.IBillCategoryService,AutoMapper.IMapper,RecordBill.Service.IUserService)">
+            <summary>
+            构造方法
+            </summary>
+        </member>
+        <member name="M:RecordBill.WebAPI.Controllers.BillCategoryController.AddBillCategory(RecordBill.PresentationModel.BillCategory.Request.AddBillCategoryRequestModel)">
+            <summary>
+            添加账单类型
+            </summary>
+            <param name="requestModel"></param>
+        </member>
+        <member name="M:RecordBill.WebAPI.Controllers.BillCategoryController.EditBillCategory(RecordBill.PresentationModel.BillCategory.Request.EditBillCategoryRequestModel)">
+            <summary>
+            修改账单类型
+            </summary>
+            <param name="requestModel"></param>
+        </member>
+        <member name="M:RecordBill.WebAPI.Controllers.BillCategoryController.DeleteBillCategory(System.Guid)">
+            <summary>
+            删除账单类型
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:RecordBill.WebAPI.Controllers.BillCategoryController.GetBillCategories(RecordBill.PresentationModel.BillCategory.Request.QueryBillCategoryFilterRequestModel)">
+            <summary>
+            获得账单类型列表
+            </summary>
+            <param name="requestModel"></param>
+        </member>
+        <member name="M:RecordBill.WebAPI.Controllers.BillCategoryController.GetBillCategoryInfo(System.Guid)">
+            <summary>
+            获得账单类型信息
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="T:RecordBill.WebAPI.Controllers.BillController">
+            <inheritdoc />
+            <summary>
+            账单控制器
+            </summary>
+        </member>
+        <member name="M:RecordBill.WebAPI.Controllers.BillController.#ctor(RecordBill.Service.IBillService,AutoMapper.IMapper,RecordBill.Service.IUserService)">
+            <summary>
+            构造方法
+            </summary>
+        </member>
+        <member name="M:RecordBill.WebAPI.Controllers.BillController.AddBill(RecordBill.PresentationModel.Bill.Request.AddBillRequestModel)">
+            <summary>
+            添加账单
+            </summary>
+            <param name="requestModel"></param>
+        </member>
+        <member name="M:RecordBill.WebAPI.Controllers.BillController.EditBill(RecordBill.PresentationModel.Bill.Request.EditBillRequestModel)">
+            <summary>
+            修改账单
+            </summary>
+            <param name="requestModel"></param>
+        </member>
+        <member name="M:RecordBill.WebAPI.Controllers.BillController.DeleteBill(System.Guid)">
+            <summary>
+            删除账单
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:RecordBill.WebAPI.Controllers.BillController.GetBillCategories(RecordBill.PresentationModel.Bill.Request.QueryBillFilterRequestModel)">
+            <summary>
+            获得账单列表
+            </summary>
+            <param name="requestModel"></param>
+        </member>
+        <member name="M:RecordBill.WebAPI.Controllers.BillController.GetBillInfo(System.Guid)">
+            <summary>
+            获得账单信息
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:RecordBill.WebAPI.Controllers.BillController.GetBillReport(RecordBill.PresentationModel.Bill.Request.QueryBillReportFilterRequestModel)">
+            <summary>
+            获得账单报表
+            </summary>
+            <param name="requestModel"></param>
+        </member>
         <member name="T:RecordBill.WebAPI.Controllers.UserController">
             <inheritdoc />
             <summary>
             用户控制器
-            </summary>
-        </member>
-        <member name="M:RecordBill.WebAPI.Controllers.UserController.#ctor(RecordBill.Service.IUserService,AutoMapper.IMapper)">
-            <summary>
-            构造方法
             </summary>
         </member>
         <member name="M:RecordBill.WebAPI.Controllers.UserController.LoginByWeChatCode(RecordBill.PresentationModel.User.Request.WeChatAppletLoginRequestModel)">
@@ -20,68 +103,6 @@
             根据小程序Code登录
             </summary>
             <param name="requestModel"></param>
-            <returns></returns>
-        </member>
-        <member name="M:RecordBill.WebAPI.Controllers.UserController.Login(RecordBill.PresentationModel.User.Request.UserLoginRequestModel)">
-            <summary>
-            登录
-            </summary>
-            <param name="requestModel">请求模型</param>
-            <returns></returns>
-        </member>
-        <member name="M:RecordBill.WebAPI.Controllers.UserController.GetUserInfoByToken(RecordBill.PresentationModel.User.Request.GetUserInfoByTokenRequestModel)">
-            <summary>
-            根据Token获取用户信息
-            </summary>
-            <param name="requestModel">请求模型</param>
-            <returns></returns>
-        </member>
-        <member name="M:RecordBill.WebAPI.Controllers.UserController.AddUser(RecordBill.PresentationModel.User.Request.AddUserRequestModel)">
-            <summary>
-            添加用户
-            </summary>
-            <param name="requestModel">请求模型</param>
-            <returns></returns>
-        </member>
-        <member name="M:RecordBill.WebAPI.Controllers.UserController.EditUser(RecordBill.PresentationModel.User.Request.EditUserRequestModel)">
-            <summary>
-            修改用户
-            </summary>
-            <param name="requestModel">请求模型</param>
-            <returns></returns>
-        </member>
-        <member name="M:RecordBill.WebAPI.Controllers.UserController.DeleteUser(System.Guid)">
-            <summary>
-            删除用户
-            </summary>
-            <param name="id">唯一标识</param>
-            <returns></returns>
-        </member>
-        <member name="M:RecordBill.WebAPI.Controllers.UserController.GetUserInfo(System.Guid)">
-            <summary>
-            根据UserId获得用户信息及所属角色信息
-            </summary>
-            <param name="id">唯一标识</param>
-            <returns></returns>
-        </member>
-        <member name="M:RecordBill.WebAPI.Controllers.UserController.ResetPassword(System.Guid)">
-            <summary>
-            重置密码
-            </summary>
-            <param name="id">唯一标识</param>
-            <returns></returns>
-        </member>
-        <member name="M:RecordBill.WebAPI.Controllers.UserController.ChangePassword(RecordBill.PresentationModel.User.Request.ChangePasswordRequestModel)">
-            <summary>
-            更改密码
-            </summary>
-            <param name="requestModel">请求模型</param>
-            <returns></returns>
-        </member>
-        <member name="M:RecordBill.WebAPI.Controllers.UserController.GetUserList(RecordBill.PresentationModel.User.Request.QueryUserFilterRequestModel)">
-            <summary>
-            获得用户列表
-            </summary>
             <returns></returns>
         </member>
         <member name="T:RecordBill.WebAPI.Program">

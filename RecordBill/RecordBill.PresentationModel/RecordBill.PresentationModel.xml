@@ -4,6 +4,151 @@
         <name>RecordBill.PresentationModel</name>
     </assembly>
     <members>
+        <member name="T:RecordBill.PresentationModel.AutoMapperProfile.BillCategoryProfile">
+            <summary>
+            账单类型AutoMapper配置
+            </summary>
+        </member>
+        <member name="M:RecordBill.PresentationModel.AutoMapperProfile.BillCategoryProfile.#ctor">
+            <summary>
+            构造方法
+            </summary>
+        </member>
+        <member name="T:RecordBill.PresentationModel.AutoMapperProfile.BillProfile">
+            <summary>
+            账单AutoMapper配置
+            </summary>
+        </member>
+        <member name="M:RecordBill.PresentationModel.AutoMapperProfile.BillProfile.#ctor">
+            <summary>
+            构造方法
+            </summary>
+        </member>
+        <member name="T:RecordBill.PresentationModel.AutoMapperProfile.UserProfile">
+            <summary>
+            用户AutoMapper配置
+            </summary>
+        </member>
+        <member name="M:RecordBill.PresentationModel.AutoMapperProfile.UserProfile.#ctor">
+            <summary>
+            构造方法
+            </summary>
+        </member>
+        <member name="T:RecordBill.PresentationModel.BillCategory.Request.AddBillCategoryRequestModel">
+            <summary>
+            添加账单类型请求模型
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.BillCategory.Request.AddBillCategoryRequestModel.Token">
+            <summary>
+            用户Token
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.BillCategory.Request.AddBillCategoryRequestModel.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="T:RecordBill.PresentationModel.BillCategory.Request.EditBillCategoryRequestModel">
+            <summary>
+            修改账单类型请求模型
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.BillCategory.Request.EditBillCategoryRequestModel.ID">
+            <summary>
+            唯一标识
+            </summary>
+        </member>
+        <member name="T:RecordBill.PresentationModel.BillCategory.Request.QueryBillCategoryFilterRequestModel">
+            <summary>
+            查询账单类型过滤器请求模型
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.BillCategory.Request.QueryBillCategoryFilterRequestModel.Token">
+            <summary>
+            用户Token
+            </summary>
+        </member>
+        <member name="T:RecordBill.PresentationModel.Bill.Request.AddBillRequestModel">
+            <summary>
+            添加账单请求模型
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.Bill.Request.AddBillRequestModel.Token">
+            <summary>
+            用户Token
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.Bill.Request.AddBillRequestModel.Contents">
+            <summary>
+            内容
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.Bill.Request.AddBillRequestModel.Amount">
+            <summary>
+            数量
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.Bill.Request.AddBillRequestModel.RecordDate">
+            <summary>
+            记账时间
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.Bill.Request.AddBillRequestModel.Category">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="T:RecordBill.PresentationModel.Bill.Request.EditBillRequestModel">
+            <summary>
+            修改账单请求模型
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.Bill.Request.EditBillRequestModel.ID">
+            <summary>
+            唯一标识
+            </summary>
+        </member>
+        <member name="T:RecordBill.PresentationModel.Bill.Request.QueryBillFilterRequestModel">
+            <summary>
+            查询账单过滤器请求模型
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.Bill.Request.QueryBillFilterRequestModel.Token">
+            <summary>
+            用户Token
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.Bill.Request.QueryBillFilterRequestModel.StartDate">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.Bill.Request.QueryBillFilterRequestModel.EndDate">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="T:RecordBill.PresentationModel.Bill.Request.QueryBillReportFilterRequestModel">
+            <summary>
+            查询账单报表过滤器请求模型
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.Bill.Request.QueryBillReportFilterRequestModel.Token">
+            <summary>
+            用户Token
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.Bill.Request.QueryBillReportFilterRequestModel.StartDate">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:RecordBill.PresentationModel.Bill.Request.QueryBillReportFilterRequestModel.EndDate">
+            <summary>
+            结束时间
+            </summary>
+        </member>
         <member name="T:RecordBill.PresentationModel.ExceptionProcessFilter">
             <summary>
             异常拦截器
