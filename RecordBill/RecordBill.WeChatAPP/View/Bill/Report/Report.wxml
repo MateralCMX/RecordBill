@@ -1,37 +1,37 @@
 <view class="weui-panel">
-  <view class="weui-panel__hd">账单统计[{{SearchM.minDateStr}}-{{SearchM.maxDateStr}}]</view>
+  <view class="weui-panel__hd">账单统计[{{startDateStr}}-{{endDateStr}}]</view>
   <view class="weui-panel__bd">
     <view class="weui-media-box weui-media-box_text">
       <view class="weui-media-box__title weui-media-box__title_in-text">总共花费</view>
-      <view class="weui-media-box__desc">{{BillRepor.Count}}￥</view>
+      <view class="weui-media-box__desc">{{billReport.Sum}}￥</view>
     </view>
     <view class="weui-media-box weui-media-box_text">
       <view class="weui-media-box__title weui-media-box__title_in-text">最贵的一笔</view>
-      <view class="weui-media-box__desc">{{BillRepor.MaxBill.Contents}}</view>
+      <view class="weui-media-box__desc">{{billReport.MaxBill.Contents}}</view>
       <view class="weui-media-box__info">
-        <view class="weui-media-box__info__meta">{{BillRepor.MaxBill.Type}}</view>
-        <view class="weui-media-box__info__meta">{{BillRepor.MaxBill.RecordTimeStr}}</view>
-        <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{BillRepor.MaxBill.Amount}}￥</view>
+        <view class="weui-media-box__info__meta">{{billReport.MaxBill.Category}}</view>
+        <view class="weui-media-box__info__meta">{{billReport.MaxBill.RecordTimeStr}}</view>
+        <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{billReport.MaxBill.Amount}}￥</view>
       </view>
     </view>
     <view class="weui-media-box weui-media-box_text">
       <view class="weui-media-box__title weui-media-box__title_in-text">最少的一笔</view>
-      <view class="weui-media-box__desc">{{BillRepor.MinBill.Contents}}</view>
+      <view class="weui-media-box__desc">{{billReport.MinBill.Contents}}</view>
       <view class="weui-media-box__info">
-        <view class="weui-media-box__info__meta">{{BillRepor.MinBill.Type}}</view>
-        <view class="weui-media-box__info__meta">{{BillRepor.MinBill.RecordTimeStr}}</view>
-        <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{BillRepor.MinBill.Amount}}￥</view>
+        <view class="weui-media-box__info__meta">{{billReport.MinBill.Category}}</view>
+        <view class="weui-media-box__info__meta">{{billReport.MinBill.RecordTimeStr}}</view>
+        <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{billReport.MinBill.Amount}}￥</view>
       </view>
     </view>
   </view>
 </view>
   <view class="weui-cells weui-cells_after-title">
-    <view wx:for="{{BillRepor.Data}}" data-id="{{item.ID}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" catchtap="GoToBillEdit">
+    <view wx:for="{{billReport.Bills}}" class="weui-cell weui-cell_access">
       <view class="weui-cell__bd">
         <view>{{item.Contents}}</view>
-        <view class="TimePanel">{{item.RecordTimeStr}}-{{item.Type}}</view>
+        <view class="TimePanel">{{item.RecordDateStr}}-{{item.Category}}</view>
       </view>
-      <view class="weui-cell__ft weui-cell__ft_in-access">
+      <view class="weui-cell__ft">
         {{item.Amount}}￥
       </view>
     </view>

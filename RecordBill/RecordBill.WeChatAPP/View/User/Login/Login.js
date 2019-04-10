@@ -12,35 +12,29 @@ Page({
   /**
    * 获得用户信息
    */
-  getUserInfo: function(e) {
+  getUserInfo: function (e) {
     var serverLoginSuccess = result => {
-      if (result.data.ResultType == 0) {
-        app.globalData.userInfo = e.detail.userInfo;
-        app.globalData.token = result.data.Data.AccessToken;
-        this.setData({
-          userInfo: e.detail.userInfo,
-          hasUserInfo: true
-        });
-      }
+      app.globalData.userInfo = e.detail.userInfo;
+      app.globalData.token = result.Data.AccessToken;
+      this.setData({
+        userInfo: e.detail.userInfo,
+        hasUserInfo: true
+      });
     };
     wx.login({
       success: result => {
-        wx.request({
-          url: app.globalData.serverUrl + "/api/User/LoginByWeChatCode",
-          method: "Post",
-          data: {
-            "Code": result.code,
-            "NickName": e.detail.userInfo.nickName
-          },
-          success: serverLoginSuccess
-        });
+        var data = {
+          "Code": result.code,
+          "NickName": e.detail.userInfo.nickName
+        };
+        app.sendPost(app.routing.user.login, data, serverLoginSuccess);
       }
     });
   },
   /**
    * 跳转到主页
    */
-  gotoIndex:function(e){
+  gotoIndex: function (e) {
     wx.reLaunch({
       url: '/View/Home/Index/Index'
     })
@@ -48,7 +42,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,

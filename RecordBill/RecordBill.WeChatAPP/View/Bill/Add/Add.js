@@ -1,4 +1,4 @@
-// View/Bill/Edit/Edit.js
+// View/Bill/Add/Add.js
 const app = getApp();
 Page({
   /**
@@ -11,13 +11,13 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-    this.getBillCategoryList(options.id);
+  onLoad: function (options) {
+    this.getBillCategoryList();
   },
   /**
    * 获得列表
    */
-  getBillCategoryList: function(id) {
+  getBillCategoryList: function () {
     var data = {
       "Token": app.globalData.token
     };
@@ -25,25 +25,13 @@ Page({
       this.setData({
         billCategories: result.Data
       });
-      this.getBillInfo(id);
     };
     app.sendPost(app.routing.billCategory.getBillCategories, data, success);
-  },
-  getBillInfo: function (id) {
-    var data = {
-      "id": id
-    };
-    var success = result => {
-      this.setData({
-        bill: result.Data
-      });
-    };
-    app.sendGet(app.routing.bill.getBillInfo, data, success);
   },
   /**
    * 绑定类型更改
    */
-  bindBillCategoryChange: function(e) {
+  bindBillCategoryChange: function (e) {
     var index = parseInt(e.detail.value);
     var billCategory = this.data.billCategories[index];
     this.setData({
@@ -53,7 +41,7 @@ Page({
   /**
    * 绑定时间更改
    */
-  bindDateChange: function(e) {
+  bindDateChange: function (e) {
     var values = e.detail.value.split("-");
     var dt = app.setLocalTime(new Date(values[0], parseInt(values[1]) - 1, values[2]));
     var dtStr = app.dateTimeFormat(dt, "yyyy/MM/dd");
@@ -65,19 +53,19 @@ Page({
   /**
    * 金额输入
    */
-  inputAmount: function(e) {
+  inputAmount: function (e) {
     this.data.bill.Amount = e.detail.value;
   },
   /**
    * 内容输入
    */
-  inputContents: function(e) {
+  inputContents: function (e) {
     this.data.bill.Contents = e.detail.value;
   },
   /**
    * 保存
    */
-  save: function() {
+  save: function () {
     if (!this.data.bill.RecordDate) {
       wx.showModal({
         content: '请选择账单日期',
@@ -93,7 +81,6 @@ Page({
       return;
     }
     if (this.data.bill.Amount == null || this.data.bill.Amount == undefined || this.data.bill.Amount < 0) {
-      console.log(this.data.bill.Amount);
       wx.showModal({
         content: '请填写正确的账单金额',
         showCancel: false
@@ -107,9 +94,8 @@ Page({
       });
       return;
     }
-    var url = app.routing.bill.editBill;
+    var url = app.routing.bill.addBill;
     var data = {
-      "ID": this.data.bill.ID,
       "Token": app.globalData.token,
       "Contents": this.data.bill.Contents,
       "Amount": this.data.bill.Amount,
@@ -123,13 +109,21 @@ Page({
         duration: 1000,
         success: res => {
           setTimeout(() => {
-            wx.navigateBack({
-              delta:1
+            wx.switchTab({
+              url: "/View/Home/Index/Index"
             });
           }, 1000);
         }
       });
     };
     app.sendPost(url, data, success);
+  },
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    this.setData({
+      bill: {}
+    });
   }
 })

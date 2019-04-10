@@ -3,9 +3,12 @@
     "View/User/Login/Login",
     "View/Home/Index/Index",
     "View/Home/Setting/Setting",
+    "View/BillCategory/List/List",
+    "View/BillCategory/Edit/Edit",
+    "View/Bill/Add/Add",
+    "View/Bill/Edit/Edit",
     "View/Bill/ReportSearch/ReportSearch",
-    "View/Bill/Report/Report",
-    "View/Bill/Edit/Edit"
+    "View/Bill/Report/Report"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -26,7 +29,7 @@
       {
         "iconPath": "Images/AddBill.png",
         "selectedIconPath": "Images/AddBillActive.png",
-        "pagePath": "View/Bill/Edit/Edit",
+        "pagePath": "View/Bill/Add/Add",
         "text": "记账"
       },
       {

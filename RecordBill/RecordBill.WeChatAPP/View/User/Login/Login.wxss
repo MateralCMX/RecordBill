@@ -1,21 +1,14 @@
 /* View/User/Login.wxss */
-@import "/Lib/WeUI/weui.wxss";
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.login-btn{
-  width: 90%;
+.userinfo{
+  text-align: center;
 }
 .userinfo-avatar {
   width: 128rpx;
   height: 128rpx;
   margin: 20rpx;
   border-radius: 50%;
-  display: block;
 }
-
 .userinfo-nickname {
   color: #aaa;
+  display: block;
 }

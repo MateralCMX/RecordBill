@@ -11,6 +11,7 @@ using RecordBill.Service;
 using RecordBill.Service.Model.Bill;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -32,6 +33,7 @@ namespace RecordBill.ServiceImpl
 
         public async Task AddBillAsync(AddBillModel model)
         {
+            if (model.Amount < 0) throw new InvalidOperationException("金额不能小于0");
             var bill = model.CopyProperties<Bill>();
             _unitOfWork.RegisterAdd(bill);
             await _unitOfWork.CommitAsync();
@@ -41,7 +43,7 @@ namespace RecordBill.ServiceImpl
         {
             Bill bill = await _billRepository.FirstOrDefaultAsync(model.ID);
             if (bill == null) throw new InvalidOperationException("该类型不存在");
-            bill = model.CopyProperties<Bill>();
+            model.CopyProperties(bill);
             _unitOfWork.RegisterEdit(bill);
             await _unitOfWork.CommitAsync();
         }
@@ -65,7 +67,7 @@ namespace RecordBill.ServiceImpl
             {
                 expression = expression.And(m => EF.Functions.DateDiffDay(m.RecordDate, model.EndDate.Value) >= 0);
             }
-            (List<Bill> billsFromDb, PageModel pageModel) = await _billRepository.PagingAsync(expression, model);
+            (List<Bill> billsFromDb, PageModel pageModel) = await _billRepository.PagingAsync(expression, m => m.RecordDate, SortOrder.Descending, model);
             var result = _mapper.Map<List<BillDTO>>(billsFromDb);
             return (result, pageModel);
         }
@@ -80,9 +82,9 @@ namespace RecordBill.ServiceImpl
         public async Task<BillReportDTO> GetBillReportAsync(QueryBillReportFilterModel model)
         {
             List<Bill> billsFromDb = await _billRepository.WhereAsync(m =>
-                m.UserID.Equals(model.UserID) 
-                && EF.Functions.DateDiffDay(m.RecordDate, model.StartDate) <= 0 
-                && EF.Functions.DateDiffDay(m.RecordDate, model.EndDate) >= 0).ToList();
+                m.UserID.Equals(model.UserID)
+                && EF.Functions.DateDiffDay(m.RecordDate, model.StartDate) <= 0
+                && EF.Functions.DateDiffDay(m.RecordDate, model.EndDate) >= 0).OrderByDescending(m => m.RecordDate).ToList();
             return new BillReportDTO
             {
                 Bills = _mapper.Map<List<BillDTO>>(billsFromDb)

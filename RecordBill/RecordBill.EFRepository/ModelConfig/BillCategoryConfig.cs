@@ -18,6 +18,8 @@ namespace RecordBill.EFRepository.ModelConfig
             builder.Property(e => e.Name)
                 .IsRequired()
                 .HasMaxLength(20);
+            builder.Property(e => e.Index)
+                .IsRequired();
         }
     }
 }

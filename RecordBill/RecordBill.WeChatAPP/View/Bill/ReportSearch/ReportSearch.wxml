@@ -4,8 +4,8 @@
       <view class="weui-label">起始日期</view>
     </view>
     <view class="weui-cell__bd">
-      <picker mode="date" value="{{SearchM.minDate}}" bindchange="bindMinDateChange">
-        <view class="weui-input">{{SearchM.minDateStr}}</view>
+      <picker mode="date" value="{{queryModel.StartDate}}" bindchange="bindStartDateChange">
+        <view class="weui-input">{{queryModel.StartDateStr}}</view>
       </picker>
     </view>
   </view>
@@ -14,12 +14,12 @@
       <view class="weui-label">结束日期</view>
     </view>
     <view class="weui-cell__bd">
-      <picker mode="date" value="{{SearchM.maxDate}}" bindchange="bindMaxDateChange">
-        <view class="weui-input">{{SearchM.maxDateStr}}</view>
+      <picker mode="date" value="{{queryModel.EndDate}}" bindchange="bindEndDateChange">
+        <view class="weui-input">{{queryModel.EndDateStr}}</view>
       </picker>
     </view>
   </view>
 </view>
 <view class="weui-btn-area">
-  <button class="weui-btn" type="primary" bindtap="Search">查询</button>
+  <button class="weui-btn" type="primary" bindtap="gotoReport">查询</button>
 </view>

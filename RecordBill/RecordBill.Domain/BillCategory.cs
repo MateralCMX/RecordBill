@@ -14,6 +14,10 @@ namespace RecordBill.Domain
         /// </summary>
         public string Name { get; set; }
         /// <summary>
+        /// 位序
+        /// </summary>
+        public int Index { get; set; }
+        /// <summary>
         /// 用户
         /// </summary>
         public User User { get; set; }

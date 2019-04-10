@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Materal.Common;
 using Microsoft.AspNetCore.Mvc;
+using Model;
 using RecordBill.DataTransmitModel.BillCategory;
 using RecordBill.PresentationModel.BillCategory.Request;
 using RecordBill.Service;
@@ -125,6 +126,24 @@ namespace RecordBill.WebAPI.Controllers
             catch (InvalidOperationException ex)
             {
                 return ResultModel<BillCategoryDTO>.Fail(null, ex.Message);
+            }
+        }
+        /// <summary>
+        /// 调换账单类型位序
+        /// </summary>
+        /// <param name="requestModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<ResultModel> ExchangeBillCategoryIndex(ExchangeIndexRequestModel<Guid> requestModel)
+        {
+            try
+            {
+                await _billCategoryService.ExchangeBillCategoryIndex(requestModel.ID1, requestModel.ID2);
+                return ResultModel.Success("调换成功");
+            }
+            catch (InvalidOperationException ex)
+            {
+                return ResultModel.Fail(ex.Message);
             }
         }
     }

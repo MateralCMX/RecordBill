@@ -18,7 +18,7 @@ namespace RecordBill.WebAPI
         /// <summary>
         /// 应用程序名称
         /// </summary>
-        public const string AppName = "UserWebAPI";
+        public const string AppName = "RecordBillWebAPI";
         /// <summary>
         /// 构造方法
         /// </summary>

@@ -14,7 +14,7 @@ namespace RecordBill.Domain
         /// </summary>
         public string Contents { get; set; }
         /// <summary>
-        /// 数量
+        /// 金额
         /// </summary>
         public double Amount { get; set; }
         /// <summary>

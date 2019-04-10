@@ -10,7 +10,7 @@ namespace RecordBill.PresentationModel.User.Request
         /// <summary>
         /// 账号
         /// </summary>
-        [Required(ErrorMessage = "账号不可以为空"), MaxLength(50, ErrorMessage = "账号长度不能超过50")]
+        [Required(ErrorMessage = "账号不可以为空"), StringLength(50, ErrorMessage = "账号长度不能超过50")]
         public string Account { get; set; }
         /// <summary>
         /// 密码

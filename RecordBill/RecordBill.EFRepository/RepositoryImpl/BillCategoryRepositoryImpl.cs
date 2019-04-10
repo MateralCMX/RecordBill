@@ -1,6 +1,7 @@
-﻿using System;
-using RecordBill.Domain;
+﻿using RecordBill.Domain;
 using RecordBill.Domain.Repositorys;
+using System;
+using System.Linq;
 
 namespace RecordBill.EFRepository.RepositoryImpl
 {
@@ -8,6 +9,15 @@ namespace RecordBill.EFRepository.RepositoryImpl
     {
         public BillCategoryRepositoryImpl(RecordBillDbContext dbContext) : base(dbContext)
         {
+        }
+
+        public int GetMaxIndex()
+        {
+            if (DBSet.Any())
+            {
+                return DBSet.Max(m => m.Index);
+            }
+            return -1;
         }
     }
 }

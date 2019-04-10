@@ -30,17 +30,7 @@ namespace User.IdentityServer
                 switch (loginCategory)
                 {
                     case LoginCategory.OpenID:
-                        userFromDb = await _userService.LoginAsync(context.UserName);
-                        if (userFromDb == null)
-                        {
-                            await _userService.AddUserAsync(new AddUserModel
-                            {
-                                Account = context.UserName,
-                                Name = context.Password,
-                                WeChatOpenID = context.UserName
-                            });
-                            userFromDb = await _userService.LoginAsync(context.UserName);
-                        }
+                        userFromDb = await _userService.LoginByWeChatOpenIDAsync(context.UserName, context.Password);
                         break;
                     default:
                         userFromDb = await _userService.LoginAsync(context.UserName, context.Password);

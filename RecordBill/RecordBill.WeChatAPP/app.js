@@ -3,14 +3,13 @@ App({
   /**
    * 初始化
    */
-  onLaunch: function () {
-  },
+  onLaunch: function() {},
   /**
    * 时间字符串格式化
    * @param dateTime 时间对象
    * @param formatStr 格式化字符串
    */
-  DateTimeFormat: function (dateTime, formatStr) {
+  dateTimeFormat: function(dateTime, formatStr) {
     var formatData = {
       "M+": dateTime.getMonth() + 1, //月份 
       "d+": dateTime.getDate(), //日 
@@ -31,22 +30,9 @@ App({
     return formatStr;
   },
   /**
-   * 获取对应时区时间
-   */
-  GetLocalTime: function (dt, i) {
-    if (!i) {
-      i = 8;
-    }
-    var len = dt.getTime();
-    var offset = dt.getTimezoneOffset() * 60000;
-    var utcTime = len + offset;
-    dt = new Date(utcTime + 3600000 * i);
-    return dt;
-  },
-  /**
    * 设置本地时间
    */
-  SetLocalTime(dt, i) {
+  setLocalTime(dt, i) {
     if (!i) {
       i = dt.getTimezoneOffset() / 60;
     }
@@ -54,22 +40,75 @@ App({
     return dt;
   },
   /**
-   * 添加登录用户参数
-   */
-  AddLoginUserParams: function (data) {
-    var LoginUserInfo = this.globalData.LoginUserInfo;
-    data["LoginUserID"] = LoginUserInfo["UserID"];
-    data["Token"] = LoginUserInfo["Token"];
-    return data;
-  },
-  /**
    * 绑定数据
    */
   globalData: {
-    userInfo:null,
-    token:null,
-    serverUrl: "http://localhost:50480",
-    PageParams: {},
-    LoginUserInfo: null
+    userInfo: null,
+    token: null,
+    serverUrl: "http://localhost:50480"
   },
+  routing:{
+    user:{
+      login: "/api/User/LoginByWeChatCode"
+    },
+    billCategory: {
+      getBillCategories: "/api/BillCategory/GetBillCategories",
+      exchangeBillCategoryIndex: "/api/BillCategory/ExchangeBillCategoryIndex",
+      getBillCategoryInfo: "/api/BillCategory/GetBillCategoryInfo",
+      deleteBillCategory: "/api/BillCategory/DeleteBillCategory",
+      editBillCategory: "/api/BillCategory/EditBillCategory",
+      addBillCategory: "/api/BillCategory/AddBillCategory"
+    },
+    bill: {
+      getBills: "/api/Bill/GetBills",
+      getBillReport: "/api/Bill/GetBillReport",
+      getBillInfo: "/api/Bill/GetBillInfo",
+      deleteBill: "/api/Bill/DeleteBill",
+      editBill: "/api/Bill/EditBill",
+      addBill: "/api/Bill/AddBill"
+    }
+  },
+  /**
+   * 发送Post请求
+   */
+  sendPost(url, data, success) {
+    this.send(url, "Post", data, success);
+  },
+  /**
+   * 发送Get请求
+   */
+  sendGet(url, data, success) {
+    this.send(url, "Get", data, success);
+  },
+  /**
+   * 发送请求
+   */
+  send(url, method, data, success) {
+    var header = {};
+    if (this.globalData.token) {
+      header.Authorization = "Bearer " + this.globalData.token;
+    }
+    wx.request({
+      url: this.globalData.serverUrl + url,
+      method: method,
+      header: header,
+      data: data,
+      success: result => {
+        if (result.data.ResultType == 0) {
+          if (success) {
+            success(result.data);
+          }
+        }
+        else if (result.statusCode == 401) {
+          wx.reLaunch({
+            url:"/View/User/Login/Login"
+          });
+        }
+        else {
+          console.log("请求失败");
+          console.log(result);
+        }
+      }
+    });
+  }
 })

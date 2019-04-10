@@ -24,6 +24,10 @@ namespace RecordBill.DataTransmitModel.Bill
         /// </summary>
         public DateTime RecordDate { get; set; }
         /// <summary>
+        /// 记账时间字符串
+        /// </summary>
+        public string RecordDateStr => RecordDate.ToShortDateString();
+        /// <summary>
         /// 类型
         /// </summary>
         public string Category { get; set; }

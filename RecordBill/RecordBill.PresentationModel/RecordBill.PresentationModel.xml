@@ -86,7 +86,7 @@
         </member>
         <member name="P:RecordBill.PresentationModel.Bill.Request.AddBillRequestModel.Amount">
             <summary>
-            数量
+            金额
             </summary>
         </member>
         <member name="P:RecordBill.PresentationModel.Bill.Request.AddBillRequestModel.RecordDate">

@@ -77,8 +77,9 @@ namespace RecordBill.Service
         /// 登录
         /// </summary>
         /// <param name="openID"></param>
+        /// <param name="nickName"></param>
         /// <returns></returns>
-        Task<LoginUserDTO> LoginAsync(string openID);
+        Task<LoginUserDTO> LoginByWeChatOpenIDAsync(string openID, string nickName);
         /// <summary>
         /// 获得加密后的密码
         /// </summary>

@@ -1,15 +1,15 @@
 <scroll-view scroll-y="true" scroll-top="{{ScrollTop}}" bindscrolltolower="onReachBottom" style="height:100vh">
   <view class="weui-cells weui-cells_after-title">
-    <view wx:for="{{ListData}}" data-id="{{item.ID}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" catchtap="GoToBillEdit">
+    <navigator wx:for="{{bills}}" url="/View/Bill/Edit/Edit?id={{item.ID}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
       <view class="weui-cell__bd">
         <view>{{item.Contents}}</view>
-        <view class="TimePanel">{{item.RecordTimeStr}}-{{item.Type}}</view>
+        <view class="TimePanel">{{item.RecordDateStr}}-{{item.Category}}</view>
       </view>
       <view class="weui-cell__ft weui-cell__ft_in-access">
         {{item.Amount}}￥
       </view>
-    </view>
+    </navigator>
   </view>
-  <view class="LoadPanel" hidden="{{!IsLoad}}">加载更多</view>
-  <view class="LoadPanel" hidden="{{IsLoad}}">我也是有底线的</view>
+  <view class="LoadPanel" hidden="{{!isLoad}}">加载更多</view>
+  <view class="LoadPanel" hidden="{{isLoad}}">我也是有底线的</view>
 </scroll-view>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace RecordBill.PresentationModel.BillCategory.Request
 {
@@ -10,6 +11,7 @@ namespace RecordBill.PresentationModel.BillCategory.Request
         /// <summary>
         /// 唯一标识
         /// </summary>
+        [Required(ErrorMessage = "唯一标识不可以为空")]
         public Guid ID { get; set; }
     }
 }

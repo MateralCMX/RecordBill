@@ -163,10 +163,26 @@ namespace RecordBill.ServiceImpl
             if (userFromDB == null) throw new InvalidOperationException("用户名或者密码错误");
             return _mapper.Map<LoginUserDTO>(userFromDB);
         }
-        public async Task<LoginUserDTO> LoginAsync(string openID)
+        public async Task<LoginUserDTO> LoginByWeChatOpenIDAsync(string openID, string nickName)
         {
             User userFromDB = await _userRepository.FirstOrDefaultAsync(m => m.WeChatOpenID == openID);
-            if (userFromDB == null) throw new InvalidOperationException("未找到用户");
+            if (userFromDB == null)
+            {
+                await AddUserAsync(new AddUserModel
+                {
+                    Account = openID,
+                    Name = nickName,
+                    WeChatOpenID = openID
+                });
+                userFromDB = await _userRepository.FirstOrDefaultAsync(m => m.WeChatOpenID == openID);
+            }
+            else if(userFromDB.Name != nickName)
+            {
+                userFromDB.Name = nickName;
+                userFromDB.UpdateTime = DateTime.Now;
+                _unitOfWork.RegisterEdit(userFromDB);
+                await _unitOfWork.CommitAsync();
+            }
             return _mapper.Map<LoginUserDTO>(userFromDB);
         }
 

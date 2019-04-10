@@ -32,6 +32,7 @@ namespace RecordBill.ServiceImpl
             BillCategory billCategory = await _billCategoryRepository.FirstOrDefaultAsync(m => m.UserID.Equals(model.UserID) && m.Name.Equals(model.Name));
             if (billCategory != null) throw new InvalidOperationException("该类型名称已存在");
             billCategory = model.CopyProperties<BillCategory>();
+            billCategory.Index = _billCategoryRepository.GetMaxIndex() + 1;
             _unitOfWork.RegisterAdd(billCategory);
             await _unitOfWork.CommitAsync();
         }
@@ -43,7 +44,8 @@ namespace RecordBill.ServiceImpl
             if (billCategory != null) throw new InvalidOperationException("该类型名称已存在");
             billCategory = await _billCategoryRepository.FirstOrDefaultAsync(model.ID);
             if (billCategory == null) throw new InvalidOperationException("该类型不存在");
-            billCategory = model.CopyProperties<BillCategory>();
+            model.CopyProperties(billCategory);
+            billCategory.UpdateTime = DateTime.Now;
             _unitOfWork.RegisterEdit(billCategory);
             await _unitOfWork.CommitAsync();
         }
@@ -58,7 +60,9 @@ namespace RecordBill.ServiceImpl
 
         public async Task<List<BillCategoryDTO>> GetBillCategoriesAsync(Guid userID)
         {
-            List<BillCategory> billCategories = await _billCategoryRepository.WhereAsync(m => m.UserID.Equals(userID)).ToList();
+            List<BillCategory> billCategories = await _billCategoryRepository.WhereAsync(m => m.UserID.Equals(userID)).OrderBy(m=>m.Index).ToList();
+            if (billCategories.Count == 0) await AddDefaultBillCategory(billCategories, userID);
+            billCategories = billCategories.OrderBy(m => m.Index).ToList();
             return _mapper.Map<List<BillCategoryDTO>>(billCategories);
         }
 
@@ -68,5 +72,49 @@ namespace RecordBill.ServiceImpl
             if (billCategory == null) throw new InvalidOperationException("该类型不存在");
             return _mapper.Map<BillCategoryDTO>(billCategory);
         }
+
+        public async Task ExchangeBillCategoryIndex(Guid id1, Guid id2)
+        {
+            List<BillCategory> billCategories = await _billCategoryRepository.WhereAsync(m => m.ID == id1 || m.ID == id2).ToList();
+            if (billCategories.Count != 2) throw new InvalidOperationException("账单类型不存在");
+            int index = billCategories[0].Index;
+            billCategories[0].Index = billCategories[1].Index;
+            billCategories[1].Index = index;
+            _unitOfWork.RegisterEdit(billCategories[0]);
+            _unitOfWork.RegisterEdit(billCategories[1]);
+            await _unitOfWork.CommitAsync();
+        }
+
+        #region 私有方法
+        /// <summary>
+        /// 添加默认账单类型
+        /// </summary>
+        /// <param name="billCategories"></param>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        private async Task AddDefaultBillCategory(ICollection<BillCategory> billCategories, Guid userID)
+        {
+            var defaultNames = new[]
+            {
+                "日常消费",
+                "娱乐",
+                "其他"
+            };
+            for (int i = 0; i < defaultNames.Length; i++)
+            {
+                var billCategory = new BillCategory
+                {
+                    ID = Guid.NewGuid(),
+                    Name = defaultNames[i],
+                    UserID = userID,
+                    Index = i
+                };
+                _unitOfWork.RegisterAdd(billCategory);
+                billCategories.Add(billCategory);
+            }
+            await _unitOfWork.CommitAsync();
+        }
+
+        #endregion
     }
 }

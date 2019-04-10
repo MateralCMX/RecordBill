@@ -36,5 +36,12 @@ namespace RecordBill.Service
         /// </summary>
         /// <param name="id"></param>
         Task<BillCategoryDTO> GetBillCategoryInfoAsync(Guid id);
+        /// <summary>
+        /// 更换账单类型位序
+        /// </summary>
+        /// <param name="id1"></param>
+        /// <param name="id2"></param>
+        /// <returns></returns>
+        Task ExchangeBillCategoryIndex(Guid id1, Guid id2);
     }
 }

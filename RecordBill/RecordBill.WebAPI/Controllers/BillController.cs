@@ -96,7 +96,7 @@ namespace RecordBill.WebAPI.Controllers
         /// </summary>
         /// <param name="requestModel"></param>
         [HttpPost]
-        public async Task<PageResultModel<BillDTO>> GetBillCategories(QueryBillFilterRequestModel requestModel)
+        public async Task<PageResultModel<BillDTO>> GetBills(QueryBillFilterRequestModel requestModel)
         {
             try
             {

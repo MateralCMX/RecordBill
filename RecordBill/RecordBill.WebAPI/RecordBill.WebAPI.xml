@@ -45,6 +45,13 @@
             </summary>
             <param name="id"></param>
         </member>
+        <member name="M:RecordBill.WebAPI.Controllers.BillCategoryController.ExchangeBillCategoryIndex(Model.ExchangeIndexRequestModel{System.Guid})">
+            <summary>
+            调换账单类型位序
+            </summary>
+            <param name="requestModel"></param>
+            <returns></returns>
+        </member>
         <member name="T:RecordBill.WebAPI.Controllers.BillController">
             <inheritdoc />
             <summary>
@@ -74,7 +81,7 @@
             </summary>
             <param name="id"></param>
         </member>
-        <member name="M:RecordBill.WebAPI.Controllers.BillController.GetBillCategories(RecordBill.PresentationModel.Bill.Request.QueryBillFilterRequestModel)">
+        <member name="M:RecordBill.WebAPI.Controllers.BillController.GetBills(RecordBill.PresentationModel.Bill.Request.QueryBillFilterRequestModel)">
             <summary>
             获得账单列表
             </summary>

@@ -1,0 +1,15 @@
+<!--View/BillCategory/Edit/Edit.wxml-->
+<view class='page'>
+  <view class="weui-cells weui-cells_after-title" style='margin-top:20rpx;'>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__bd">
+        <input class="weui-input" placeholder="账单类型名称" value="{{billCategory.Name}}" bindinput="inputName" />
+      </view>
+    </view>
+  </view>
+  <view class="weui-btn-area">
+    <button bindtap="save" class="weui-btn" type="primary">
+      {{isAdd ? "添加" : "修改"}}
+    </button>
+  </view>
+</view>

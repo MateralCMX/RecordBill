@@ -21,6 +21,7 @@ namespace DependencyInjection
             services.AddDbContextPool<RecordBillDbContext>(options => options.UseSqlServer(ApplicationConfig.RecordBillDB.ConnectionString, m =>
             {
                 m.EnableRetryOnFailure();
+                m.UseRowNumberForPaging();
             }));
             services.AddTransient(typeof(IRecordBillUnitOfWork), typeof(RecordBillUnitOfWorkImpl));
             services.RegisterAssemblyPublicNonGenericClasses(Assembly.Load("RecordBill.EFRepository"))
