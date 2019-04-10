@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using System;
+using Common;
 using IdentityModel.Client;
 using Materal.Common;
 using Materal.ConvertHelper;
@@ -37,12 +38,20 @@ namespace RecordBill.WebAPI.Controllers
         [HttpPost, AllowAnonymous]
         public async Task<ResultModel<UserLoginResultModel>> LoginByWeChatCode(WeChatAppletLoginRequestModel requestModel)
         {
-            var weChatAppletManager = new WeChatAppletManager(ApplicationConfig.CYRecordBillWeChatConfig);
-            string openID = weChatAppletManager.GetOpenIDByCode(requestModel.Code);
-            TokenResponse tokenResponse = await IdentityClientHelper.GetTokenResponseAsync(openID, requestModel.NickName, LoginCategory.OpenID);
-            if (tokenResponse.IsError) return ResultModel<UserLoginResultModel>.Fail(tokenResponse.ErrorDescription);
-            var result = new UserLoginResultModel(tokenResponse.Raw.JsonToObject<TokenResultModel>());
-            return ResultModel<UserLoginResultModel>.Success(result, "登录成功");
+            //var weChatAppletManager = new WeChatAppletManager(ApplicationConfig.CYRecordBillWeChatConfig);
+            //string openID = weChatAppletManager.GetOpenIDByCode(requestModel.Code);
+            string openID = "ojXZV44BLGHJE_ZrftNk3KPsTkWM";
+            try
+            {
+                TokenResponse tokenResponse = await IdentityClientHelper.GetTokenResponseAsync(openID, requestModel.NickName, LoginCategory.OpenID);
+                if (tokenResponse.IsError) return ResultModel<UserLoginResultModel>.Fail(tokenResponse.ErrorDescription);
+                var result = new UserLoginResultModel(tokenResponse.Raw.JsonToObject<TokenResultModel>());
+                return ResultModel<UserLoginResultModel>.Success(result, "登录成功");
+            }
+            catch (InvalidOperationException ex)
+            {
+                return ResultModel<UserLoginResultModel>.Fail(ex.Message);
+            }
         }
         ///// <summary>
         ///// 登录

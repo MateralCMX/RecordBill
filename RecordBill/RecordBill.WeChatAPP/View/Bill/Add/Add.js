@@ -23,7 +23,8 @@ Page({
     };
     var success = result => {
       this.setData({
-        billCategories: result.Data
+        billCategories: result.Data,
+        "bill.Category": result.Data[0].Name
       });
     };
     app.sendPost(app.routing.billCategory.getBillCategories, data, success);
@@ -122,8 +123,26 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.setData({
-      bill: {}
-    });
+    var dt = new Date();
+    var dtStr = app.dateTimeFormat(dt, "yyyy/MM/dd");
+    if (this.data.billCategories && this.data.billCategories.length > 0) {
+      this.setData({
+        bill: {
+          RecordDate: dt,
+          RecordDateStr: dtStr,
+          Amount: 0,
+          Category: this.data.billCategories[0].Name
+        }
+      });
+    }
+    else {
+      this.setData({
+        bill: {
+          RecordDate: dt,
+          RecordDateStr: dtStr,
+          Amount: 0
+        }
+      });
+    }
   }
 })

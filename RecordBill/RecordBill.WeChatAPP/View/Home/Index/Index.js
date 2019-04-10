@@ -8,24 +8,23 @@ Page({
     bills: [],
     pageIndex: 1,
     isLoad: true,
+    isLoading:false
   },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.data.pageIndex = 1;
+    this.data.pageIndex = 0;
     this.data.bills = [];
-    this.getBills(this.data.pageIndex);
+    this.getBills();
   },
-  getBills: function (pageIndex) {
-    if (!pageIndex) {
-      pageIndex = ++this.data.pageIndex;
-    }
+  getBills: function () {
+    this.data.isLoading = true;
     var data = {
       "Token": app.globalData.token,
       "StartDate": null,
       "EndDate": null,
-      "PageIndex": pageIndex,
+      "PageIndex": ++this.data.pageIndex,
       "PageSize": 10
     };
     var success = result => {
@@ -34,7 +33,16 @@ Page({
         bills: bills,
         isLoad: result.PageModel.PageCount > this.data.pageIndex
       });
+      this.data.isLoading = false;
     };
     app.sendPost(app.routing.bill.getBills, data, success);
-  }
+  },
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    if (this.data.isLoad && !this.data.isLoading) {
+      this.getBills(false);
+    }
+  },
 });

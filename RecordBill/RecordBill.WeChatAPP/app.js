@@ -45,7 +45,7 @@ App({
   globalData: {
     userInfo: null,
     token: null,
-    serverUrl: "http://localhost:50480"
+    serverUrl: "https://myqa.materalcmx.com"
   },
   routing:{
     user:{
