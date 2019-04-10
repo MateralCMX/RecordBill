@@ -38,9 +38,8 @@ namespace RecordBill.WebAPI.Controllers
         [HttpPost, AllowAnonymous]
         public async Task<ResultModel<UserLoginResultModel>> LoginByWeChatCode(WeChatAppletLoginRequestModel requestModel)
         {
-            //var weChatAppletManager = new WeChatAppletManager(ApplicationConfig.CYRecordBillWeChatConfig);
-            //string openID = weChatAppletManager.GetOpenIDByCode(requestModel.Code);
-            string openID = "ojXZV44BLGHJE_ZrftNk3KPsTkWM";
+            var weChatAppletManager = new WeChatAppletManager(ApplicationConfig.CYRecordBillWeChatConfig);
+            string openID = weChatAppletManager.GetOpenIDByCode(requestModel.Code);
             try
             {
                 TokenResponse tokenResponse = await IdentityClientHelper.GetTokenResponseAsync(openID, requestModel.NickName, LoginCategory.OpenID);
