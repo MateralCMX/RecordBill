@@ -105,7 +105,7 @@
             用户控制器
             </summary>
         </member>
-        <member name="M:RecordBill.WebAPI.Controllers.UserController.LoginByWeChatCode(RecordBill.PresentationModel.User.Request.WeChatAppletLoginRequestModel)">
+        <member name="M:RecordBill.WebAPI.Controllers.UserController.LoginByWeChatCode(RecordBill.PresentationModel.User.Request.WeChatMiniProgramLoginRequestModel)">
             <summary>
             根据小程序Code登录
             </summary>

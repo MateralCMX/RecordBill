@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Materal.Common" Version="0.0.31" />
+    <PackageReference Include="Materal.Common" Version="0.0.37" />
   </ItemGroup>
 
   <ItemGroup>

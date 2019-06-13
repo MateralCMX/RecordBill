@@ -5,9 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="8.0.0" />
-    <PackageReference Include="Materal.ConvertHelper" Version="0.0.31" />
-    <PackageReference Include="Materal.LinqHelper" Version="0.0.31" />
+    <PackageReference Include="AutoMapper" Version="8.1.1" />
+    <PackageReference Include="Materal.ConvertHelper" Version="0.0.37" />
+    <PackageReference Include="Materal.LinqHelper" Version="0.0.37" />
   </ItemGroup>
 
   <ItemGroup>

@@ -5,9 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JWT" Version="5.0.1" />
-    <PackageReference Include="Materal.EnumHelper" Version="0.0.31" />
-    <PackageReference Include="Materal.WeChatHelper" Version="0.0.31" />
+    <PackageReference Include="JWT" Version="5.1.1" />
+    <PackageReference Include="Materal.EnumHelper" Version="0.0.37" />
+    <PackageReference Include="Materal.WeChatHelper" Version="0.0.37" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
   </ItemGroup>
 

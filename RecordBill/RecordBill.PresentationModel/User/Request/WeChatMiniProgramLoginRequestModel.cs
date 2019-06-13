@@ -5,7 +5,7 @@ namespace RecordBill.PresentationModel.User.Request
     /// <summary>
     /// 微信小程序登录请求模型
     /// </summary>
-    public class WeChatAppletLoginRequestModel
+    public class WeChatMiniProgramLoginRequestModel
     {
         /// <summary>
         /// 代码

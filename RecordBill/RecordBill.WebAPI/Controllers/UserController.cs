@@ -1,5 +1,4 @@
-﻿using System;
-using Common;
+﻿using Common;
 using IdentityModel.Client;
 using Materal.Common;
 using Materal.ConvertHelper;
@@ -9,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using RecordBill.Common;
 using RecordBill.PresentationModel.User.Request;
 using RecordBill.PresentationModel.User.Result;
+using System;
 using System.Threading.Tasks;
 
 namespace RecordBill.WebAPI.Controllers
@@ -36,9 +36,9 @@ namespace RecordBill.WebAPI.Controllers
         /// <param name="requestModel"></param>
         /// <returns></returns>
         [HttpPost, AllowAnonymous]
-        public async Task<ResultModel<UserLoginResultModel>> LoginByWeChatCode(WeChatAppletLoginRequestModel requestModel)
+        public async Task<ResultModel<UserLoginResultModel>> LoginByWeChatCode(WeChatMiniProgramLoginRequestModel requestModel)
         {
-            var weChatAppletManager = new WeChatAppletManager(ApplicationConfig.CYRecordBillWeChatConfig);
+            var weChatAppletManager = new WeChatMiniProgramManager(ApplicationConfig.CYRecordBillWeChatConfig);
             string openID = weChatAppletManager.GetOpenIDByCode(requestModel.Code);
             try
             {

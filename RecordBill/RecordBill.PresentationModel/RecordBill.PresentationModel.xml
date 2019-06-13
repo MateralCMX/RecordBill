@@ -261,17 +261,17 @@
             密码
             </summary>
         </member>
-        <member name="T:RecordBill.PresentationModel.User.Request.WeChatAppletLoginRequestModel">
+        <member name="T:RecordBill.PresentationModel.User.Request.WeChatMiniProgramLoginRequestModel">
             <summary>
             微信小程序登录请求模型
             </summary>
         </member>
-        <member name="P:RecordBill.PresentationModel.User.Request.WeChatAppletLoginRequestModel.Code">
+        <member name="P:RecordBill.PresentationModel.User.Request.WeChatMiniProgramLoginRequestModel.Code">
             <summary>
             代码
             </summary>
         </member>
-        <member name="P:RecordBill.PresentationModel.User.Request.WeChatAppletLoginRequestModel.NickName">
+        <member name="P:RecordBill.PresentationModel.User.Request.WeChatMiniProgramLoginRequestModel.NickName">
             <summary>
             昵称
             </summary>
